@@ -1,0 +1,37 @@
+<!doctype html><html lang="es"><meta charset="utf-8">
+<title>Repositorio de cursalialinux</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+ body{font-family:system-ui,sans-serif;max-width:44rem;margin:3rem auto;padding:0 1.2rem;
+      line-height:1.7;color:#0A1730;background:#F2F6FA}
+ h1{color:#1D4FD8} h2{margin-top:2.2rem;border-top:1px solid #D2DFEE;padding-top:1.4rem}
+ pre{background:#0B1524;color:#D6E4F0;padding:1rem;border-radius:7px;overflow-x:auto;font-size:.86rem}
+ code{background:#E7EFF8;padding:.1em .35em;border-radius:3px}
+ .nota{background:#fff;border:1px solid #D2DFEE;border-radius:7px;padding:1rem 1.2rem}
+</style>
+<h1>Repositorio de cursalialinux</h1>
+<p>Aquí se publican las mejoras de <b>cursalialinux</b>. Una vez añadido,
+tu sistema recibe las novedades con <code>apt upgrade</code>, sin reinstalar nada.</p>
+
+<h2>Añadirlo a tu sistema</h2>
+<p>Copia y pega esto en una terminal. Solo hace falta una vez:</p>
+<pre>sudo mkdir -p /usr/share/keyrings
+wget -qO- https://panozin23.github.io/cursalialinux/cursalialinux-archive-keyring.gpg \
+  | sudo tee /usr/share/keyrings/cursalialinux.gpg > /dev/null
+
+echo "deb [signed-by=/usr/share/keyrings/cursalialinux.gpg] https://panozin23.github.io/cursalialinux trixie main" \
+  | sudo tee /etc/apt/sources.list.d/cursalialinux.list
+
+sudo apt update
+sudo apt install cursalialinux-escritorio</pre>
+
+<h2>Recibir mejoras</h2>
+<pre>sudo apt update && sudo apt upgrade</pre>
+
+<div class="nota">
+<p><b>¿Qué contiene?</b> El Centro cursalialinux, el Windows Studio, la marca,
+la limpieza automática y la documentación en español.</p>
+<p>Todo es software libre, construido sobre Debian, KDE, GNU y decenas de
+proyectos más.</p>
+</div>
+</html>

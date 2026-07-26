@@ -1,0 +1,24 @@
+Origin: cursalialinux
+Label: cursalialinux
+Suite: trixie
+Codename: trixie
+Architectures: all amd64
+Components: main
+Description: Paquetes propios de cursalialinux
+Date: Sun, 26 Jul 2026 19:18:00 +0000
+MD5Sum:
+ a14e09e12b2c91b2d8e7cba207cedf30              201 Release
+ 7afd6c48152fce8e5fa9093d4f982e95             1231 main/binary-all/Packages
+ f30c7f79ff40a0921dad8436f2788994              784 main/binary-all/Packages.gz
+SHA1:
+ 13568a7e7dc1695b63d98aa6606e46622a995999              201 Release
+ fa39132b012b844c2da71f1a1c91d2098f9446ca             1231 main/binary-all/Packages
+ c33f4c658af415994e12fc1fe0382e4a38ce3c2d              784 main/binary-all/Packages.gz
+SHA256:
+ e53b52ecbe1e158e9bb0372950eb36107777e96545b5b88435c8ac54b601d426              201 Release
+ 4f5ce1d61bd53bd36e00d62f75d686f6d78f8665aae5a8e1931125ad2283b0c1             1231 main/binary-all/Packages
+ 4752465c6389eacefbe378c3347c9573998c367b6e31c2981994fcae8eaa1507              784 main/binary-all/Packages.gz
+SHA512:
+ a4722af372182388d6272e9a73a7eab545fbbb1ba136638342e34e44af08ffa7d799ffd2b9e1b1174f13986e168f16dec226c7a679af72f4392a4d6aa45d2659              201 Release
+ 35162c42e0a7e22e85e82a9a23379031abc02bf7eb837bcd17b124e3b24b592eab3289e5237a66478ed85fec92e2006c2c4b9c3f71d792ef9d1ea03e59880f00             1231 main/binary-all/Packages
+ 76a49859941015082380acd1d7ec47263a42174a4fdb3aade693a14c876a13df0f2419b0cdd3076d6323a695190875aeb5f71d2dfc52e72529254a2974692960              784 main/binary-all/Packages.gz
