@@ -8,36 +8,36 @@ Codename: trixie
 Architectures: all amd64
 Components: main
 Description: Paquetes propios de cursalialinux
-Date: Sun, 26 Jul 2026 19:18:00 +0000
+Date: Sun, 26 Jul 2026 19:32:05 +0000
 MD5Sum:
- a14e09e12b2c91b2d8e7cba207cedf30              201 Release
+ 4631e929b9f3eb2b805def08a9a868e6              201 Release
  7afd6c48152fce8e5fa9093d4f982e95             1231 main/binary-all/Packages
- f30c7f79ff40a0921dad8436f2788994              784 main/binary-all/Packages.gz
+ bc7c91374d5142e7186c8776a07d1a0c              784 main/binary-all/Packages.gz
 SHA1:
- 13568a7e7dc1695b63d98aa6606e46622a995999              201 Release
+ 3b129fe826e136e50a7e71faf229442359487714              201 Release
  fa39132b012b844c2da71f1a1c91d2098f9446ca             1231 main/binary-all/Packages
- c33f4c658af415994e12fc1fe0382e4a38ce3c2d              784 main/binary-all/Packages.gz
+ f492cee85051ab106c66d60cb73803c537112d96              784 main/binary-all/Packages.gz
 SHA256:
- e53b52ecbe1e158e9bb0372950eb36107777e96545b5b88435c8ac54b601d426              201 Release
+ 76cb7662e5b9c48f1ba07e6908b48ca9cbe7ec6f5154165cd11c7ccba80ed206              201 Release
  4f5ce1d61bd53bd36e00d62f75d686f6d78f8665aae5a8e1931125ad2283b0c1             1231 main/binary-all/Packages
- 4752465c6389eacefbe378c3347c9573998c367b6e31c2981994fcae8eaa1507              784 main/binary-all/Packages.gz
+ 96a0f1c4d826fda60c8fcb82d904070c6883c85ede21eb803230ba8d63862f51              784 main/binary-all/Packages.gz
 SHA512:
- a4722af372182388d6272e9a73a7eab545fbbb1ba136638342e34e44af08ffa7d799ffd2b9e1b1174f13986e168f16dec226c7a679af72f4392a4d6aa45d2659              201 Release
+ 560115cfeaf8432d47cba5555d542b98a997388a0a4bc1058e47094cb279cf9096ea074dba18c0c87b560620ad3a404bb180d0f800683a0d03e508eb4927eb00              201 Release
  35162c42e0a7e22e85e82a9a23379031abc02bf7eb837bcd17b124e3b24b592eab3289e5237a66478ed85fec92e2006c2c4b9c3f71d792ef9d1ea03e59880f00             1231 main/binary-all/Packages
- 76a49859941015082380acd1d7ec47263a42174a4fdb3aade693a14c876a13df0f2419b0cdd3076d6323a695190875aeb5f71d2dfc52e72529254a2974692960              784 main/binary-all/Packages.gz
+ 772ad845acd07cd42a1f5adb096f594ae64d56c2110a11aa21219a157f8e9d323ffe3cf7169a4468e96162087d711123676c28ec4515facc78b729b7dae3bb3e              784 main/binary-all/Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEESCqj7dsMbFCZD8J7/jfaydC8tKIFAmpmXWgACgkQ/jfaydC8
-tKLb3A//R2ZwcnlCles38wGfPY2qbuQpJsGdjLwsIUJAB1Fpk3hQ7ZwMiPkPm4LZ
-eSJf+IYwagsSY5VKGhmHGd42bokjW4kGbK2LgY+JEFYYN9hIzWzsN1Ikjh2MYijS
-6uQqCcxFw/C8Eb8nsCx7Z8nQ1M3lRNx4Lno4nIdimNILQcuMKhknZTwjoXHgo7ay
-rjveJmwMJv9bCOspLCHqc756rSXauEUS+Z8zaP7ZIJ7JIhWUEno8uZOoi0BKATkQ
-2sWg5iIKwIWWTz33sXq8D3Fm2s65Y6IRJcF7AEJhG2hbm+0obekBiVnaWWaPjvrj
-cwfzVKyzy8cy5eABb7Q4d3INZUdlE75Alahr7T0T5so3rDSaKqZ98lU6zLdwbtB3
-4RDEWGbiOw8Uj4/AoAhHFGM29oJ1LhlpySDyt4Vj+QyujSZyAVn1ZnXq9UsJGHtu
-iKRGF/4QnMY0AirrK8Dv5EqUylJpU/cX9GepF7noN+14TeVQp+JrqLBBwa6dbpOz
-FKHm81yYB8xKgRqjEFzyTfP77/1tcrGID68D1x9JyMPy6p09epkQRmCbU7tOy8t/
-FM8DZa1asXGXM9MoQQGBJg+Gk+JB8EB9gL8adXCRChiX01EL0Xa9Mtf8BUP8mhq5
-bQ4YfuvFtLjdPH4DlmG/pAzxjglK0lz5iJPu0Dy6R4y2iBuOkno=
-=GF+y
+iQIzBAEBCgAdFiEESCqj7dsMbFCZD8J7/jfaydC8tKIFAmpmYLUACgkQ/jfaydC8
+tKLrhw//UYqTlAcy3JzSkpWjpomKR8n6+hL9qNmiYfskY2jwIX2GfJf+XIkHQkNY
+sPZJDCEotVvYggMFto8GjGdH+20TVA3WwuzmUBLAq+HxrlDSMBHrNTgdlrdD0XmP
+VPdSVvBzBNhFOmmoXMmPG/jmJhQQPOqU4lZhvks8/SzWnGw3UL1pf7cn9ubIA9PS
+fJ7K5wjGqsHfMGuVz0/5tlrEskU2TZLVaTNEMP9u+6/iBPU93VDDCfB1j4ph+81/
+seXaJQbVDGskOW8vmV0uwT0WrV1CPDhh51qK8JdJMTiXHezggg7TqWv5nQ6LePb3
+CwBrQjU9YbjE18heKytQw6dQTtqtvjVzrKgaHvzY6P6IlZriXB/4SFTtrGOFsov+
+Wt5I/WFtDCLamvpcKUQVtXnnpdOiGLv8PQQWuzj1Wc4mkasV9PA4rsrXG6KyYYhL
+oGcovDKocG8sPquR5mCe9csHSg/3f0Mm5ENi1cm3ep8xsIdcl+/e7j4nf1fvpMXq
+CW+I3hfHUCB+pr/d/GRBg5/cT7bInzPqdst6ZhWZwyF0knmZgdirVXKJpWHgrzK4
+RmRHNVb3kQJhopWinDyBV/RdvSL8qgkN3Om46t6lenxfAs5VB63LZ6za0Q5M85fh
+QT5iM1pyxQjHyTw/8slB+rPTdmaOzbnP6kmpMWW10Ky2ZpGwhZE=
+=pZO/
 -----END PGP SIGNATURE-----
