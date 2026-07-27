@@ -52,3 +52,30 @@ Description: Escritorio y herramientas propias de cursalialinux
  Se instala en cursalialinux y se actualiza con apt, sin reinstalar el
  sistema. Construido sobre Debian, KDE, GNU y decenas de proyectos libres.
 
+Package: cursalialinux-escritorio
+Version: 1.1.2
+Architecture: all
+Maintainer: cursalialinux <dpto.salud10@gmail.com>
+Installed-Size: 248
+Depends: yad, xdg-utils, papirus-icon-theme
+Recommends: virt-manager, virt-viewer, qemu-system-x86, libvirt-daemon-system, swtpm, ovmf, genisoimage
+Filename: pool/main/cursalialinux-escritorio_1.1.2_all.deb
+Size: 64576
+MD5sum: bdcf1c5d88682b479699e5e173ee2634
+SHA1: affb3c2a60e561d787c212384df650c20ab55de6
+SHA256: de4880dfb1544a675ff973601d928b72eda223ef73449c10c5c3e8927f7839da
+Section: metapackages
+Priority: optional
+Homepage: https://github.com/USUARIO/cursalialinux
+Description: Escritorio y herramientas propias de cursalialinux
+ Reúne lo que distingue a cursalialinux de un Debian normal:
+ .
+  * Centro cursalialinux, con los Estudios y el catálogo de programas
+  * Windows Studio, para ejecutar programas de Windows en una ventana
+  * Marca Azul Hielo: logos, colores y hoja de estilo
+  * Limpieza automática cada noche, para que el sistema no se degrade
+  * Documentación en español sobre virtualización, licencias y seguridad
+ .
+ Se instala en cursalialinux y se actualiza con apt, sin reinstalar el
+ sistema. Construido sobre Debian, KDE, GNU y decenas de proyectos libres.
+
