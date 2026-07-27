@@ -8,36 +8,36 @@ Codename: trixie
 Architectures: all amd64
 Components: main
 Description: Paquetes propios de cursalialinux
-Date: Mon, 27 Jul 2026 20:22:56 +0000
+Date: Mon, 27 Jul 2026 20:34:09 +0000
 MD5Sum:
- 55ab11a612c7a0475876da227af7ad2d              201 Release
- 394b26d5beea48a3c873fec24db18a62             7403 main/binary-all/Packages
- 297ebd1b07480874530988aa9defbe06             1392 main/binary-all/Packages.gz
+ 8ba084cb6f76b298742bfca7ba5f182c              201 Release
+ 577562b3722a486dcd1f026365ee054c             9899 main/binary-all/Packages
+ 7e681c83a93efe8b97bf8d47e1fdf7a8             1621 main/binary-all/Packages.gz
 SHA1:
- 9e68668a458b08700add60addab8e5e09e4bcaf6              201 Release
- d8335a19422b137d16b4fac66c6982f8c5e9ef47             7403 main/binary-all/Packages
- bd973efc53c5c4b2ddafc1033ea5ae10a8a33415             1392 main/binary-all/Packages.gz
+ 1c95e546e2be1c56f81cad56dbe0102dbee9a270              201 Release
+ 7e09f09596d184845bf07b975e5f75f26dd50a9a             9899 main/binary-all/Packages
+ 4170ab227059899af4d818f456479434f35eec0d             1621 main/binary-all/Packages.gz
 SHA256:
- e3e96671f5690deb22a9f8560cd9c86dc562f3d0e274a5feec22b3cc1519328c              201 Release
- fe6a80ef48c8b4c9f58b30a6f39da24607ff0cf72cf24c0fc5b0f42809652da1             7403 main/binary-all/Packages
- af03b22ba050753d0f488407307d3d6ec202414b84f9374847f4ea47abb9ee54             1392 main/binary-all/Packages.gz
+ 8e2493eb63c00437056937ca6bcba16744f3d3d8085819556f74cba1d19fc578              201 Release
+ 3a18a37dc7c4892247a25ba63798bf56abda0e9e6cc2a33158178dcd28b171f7             9899 main/binary-all/Packages
+ c579ecc604f7ec7ffa66267844098899cf145faed48e74d013991fe7b456808a             1621 main/binary-all/Packages.gz
 SHA512:
- d55499325193fa36b4c2da5df7fdcc703f20c7e3ddd183dedd43ae0430c42ec909ac1455d6d29e5176cb9d524d6f726a5c0f1ccb6684ae0de914dd2a16111bda              201 Release
- 34b9b74b5048de3ba9b4f5de9b7b32ef47da36fc36b52dfce3332c39c8b55bbadceb32157294cdf04022935ba80e0bcceb9d5c3b3608e79c3de26dca44445466             7403 main/binary-all/Packages
- 5145b88c53348df3f7020a272d510c34feb674a961bbadf890af9d01d7196e2672dce902c6e3b1883050d72f510d5cff6169546f059d0aa3e398b84d40e0fe46             1392 main/binary-all/Packages.gz
+ c13f1d742c0338b097de650cf4e7cf4dd2c56f88d57abba874b0126bdf7b6a18594deba0f3b7fbe8e8651910c6df96bb0fa0e032800c9f93bbc68042e2c58e6a              201 Release
+ 53f412cec8791b5c29a843fd3e6bc5926054c5fcd5c2ef288a98054eb7ba937acbd158a13f43ce855866748e874603b94338c6048c565d5f670151a3aff33e31             9899 main/binary-all/Packages
+ 940a656d1477633ac3ce025447245d5c4c237f5844759f1ba9e87decbb3ef44a182487bd379bf1297301936ce00e36a3e9d90202fadb42463a9c91635253f01b             1621 main/binary-all/Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEESCqj7dsMbFCZD8J7/jfaydC8tKIFAmpnviAACgkQ/jfaydC8
-tKKeGA//Z5dl4KBrqm6i9nMsRVhkBH01K/eKED82dHYU6V80mU+caQLznu+hOXMF
-RO6/5DBMbzS2Q6C+/msAPzmimUFOWUHlLqxXTDh9ZVNS/T3Sc0WYomuAuM8LpG+s
-O4z4QQkbzjTzxbwIgJbDzbsFZWw+TEKinruBvkuHHB1BqesfVqYMsP3tBi08Renc
-EQEw+Itj8M/tCxNNwEHdq5KszX/O//1HD0jvUGWeosHbJjoZoG8lCQSOjSjfJNRS
-5bzsdMyIo+2Oz/r87lvvKg013oKg6CraEl2wW8ZEY8lDSyX5rzt7U61VLqL5z3XL
-w5r98Cnf6NpDHViIzdEWTTzBuNqm+32gRt6Czm0VBSkUF61pffCSSR3V9OksJo+U
-2kFMDAQ5wyZ/PPmPQiqH3MlK07V7Ss3Bv5URbE71hjyOsSFc/i2HfYhSPTYdeI4z
-DuJwbwbtCpE7p8R3H/O2XePEevw7Q3WiZmWMZ10ehqrE5KREPMUltclt7qzxdH5D
-bGiVdmUkC47AKwfuYU/eAYt3Z3Vr8tQlqndr8F+D4rHeaT59o/xHG8hOsfn3tJKL
-xnGXRq5bL9/cDwPNdc1eCFVPzHIQmUl2iqNxwtwmWc2rdMiI5KnmtcOJPsjlIg7D
-pungRCj40sl0wubZApTc0vWWnfIkbgnNJmntLVeCQ7eeBerBKBQ=
-=1nT2
+iQIzBAEBCgAdFiEESCqj7dsMbFCZD8J7/jfaydC8tKIFAmpnwMEACgkQ/jfaydC8
+tKKJog//VIxyFgMChnyQ+uaxxSk0rqYk0WkZ8Ju2w22Cqm7fJYOYcqzNCR1X2c0+
+lw3yhhFVAHAm8uIjV6oEEKU10sBtn2YUlUCr09ZcPSnxcPBDN1qtzZcDLMY0F4OB
+ApJhCnN7DUk/8pVoQMh7dDlefraIUZlC0phchGUIsM5vCOpH2qZEbb0BHGlw2DxX
+pAopUXavrRHi1hWbs6XDeUEw28jujtguaCly5kBJ+BLGwx1UUuMzvFxoccRDDVnT
+SlKX8CEOP1yXb7/Ttere+pNJ9kcH9M/rCBNjQMfTDu+goDEtVVOkYI/4NOfqyhID
+g+WcMB4mWuhTEC4RDAVmFD3Y7GeP9/RHDvoPCkDvLlF/cgsIGHg/eBg0lal7w/4U
+KWlmS4+A8xgZK6PzW3BDRzZOP7sh0w+P815cScE/awYMo0ALjtKCrWNE8aTIEEde
+J8saeIseD0rwgYw7FhYjnocRvOwf78+D9WLShZ8/4I1bOxItpbGSDQjO/QA/APO0
+3XE0rZVJGMhW/F5ZRs74Ky+I938KiOeKO/kXbM1AzRr0eOVbI3J3mop75PS6q+uz
+kGGakYvf+T2X5V16MO1WqHW2y7ZdtHt/VIdullzp0elYTOC+VMyDZPqgMvTM7SHP
+9XeuUnfDBoiI7BvB3jlbGLqMr/O4+L+l+NsjWjxWr8Gh/kEZQxk=
+=jHli
 -----END PGP SIGNATURE-----

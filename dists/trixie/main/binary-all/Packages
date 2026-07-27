@@ -160,3 +160,57 @@ Description: Escritorio y herramientas propias de cursalialinux
  Se instala en cursalialinux y se actualiza con apt, sin reinstalar el
  sistema. Construido sobre Debian, KDE, GNU y decenas de proyectos libres.
 
+Package: cursalialinux-escritorio
+Version: 1.1.6
+Architecture: all
+Maintainer: cursalialinux <dpto.salud10@gmail.com>
+Installed-Size: 248
+Depends: yad, xdg-utils, papirus-icon-theme
+Recommends: virt-manager, virt-viewer, qemu-system-x86, qemu-system-gui, libvirt-daemon-system, swtpm, ovmf, genisoimage
+Filename: pool/main/cursalialinux-escritorio_1.1.6_all.deb
+Size: 65080
+MD5sum: 4df28ee75b3c29bc3ed95b3e84f2b605
+SHA1: a88cc007f4a1da7bbcdbb5269f91ef2307dda634
+SHA256: ef5b270c0b96d5908957474d254bbbc824b94e2c554aadc22a147c83fc390ac7
+Section: metapackages
+Priority: optional
+Homepage: https://github.com/USUARIO/cursalialinux
+Description: Escritorio y herramientas propias de cursalialinux
+ Reúne lo que distingue a cursalialinux de un Debian normal:
+ .
+  * Centro cursalialinux, con los Estudios y el catálogo de programas
+  * Windows Studio, para ejecutar programas de Windows en una ventana
+  * Marca Azul Hielo: logos, colores y hoja de estilo
+  * Limpieza automática cada noche, para que el sistema no se degrade
+  * Documentación en español sobre virtualización, licencias y seguridad
+ .
+ Se instala en cursalialinux y se actualiza con apt, sin reinstalar el
+ sistema. Construido sobre Debian, KDE, GNU y decenas de proyectos libres.
+
+Package: cursalialinux-escritorio
+Version: 1.1.7
+Architecture: all
+Maintainer: cursalialinux <dpto.salud10@gmail.com>
+Installed-Size: 248
+Depends: yad, xdg-utils, papirus-icon-theme
+Recommends: virt-manager, virt-viewer, qemu-system-x86, qemu-system-gui, libvirt-daemon-system, swtpm, ovmf, genisoimage
+Filename: pool/main/cursalialinux-escritorio_1.1.7_all.deb
+Size: 65340
+MD5sum: 4cb516b26c40dbf003c947d7c37a9e6d
+SHA1: 7a5f5a3afd5e265ec9f2dfa3b72052628dcb2553
+SHA256: 2a49642eac2ef9f439421a6fe84dd17fa5209244ab2129e1fd1f82a288526f5d
+Section: metapackages
+Priority: optional
+Homepage: https://github.com/USUARIO/cursalialinux
+Description: Escritorio y herramientas propias de cursalialinux
+ Reúne lo que distingue a cursalialinux de un Debian normal:
+ .
+  * Centro cursalialinux, con los Estudios y el catálogo de programas
+  * Windows Studio, para ejecutar programas de Windows en una ventana
+  * Marca Azul Hielo: logos, colores y hoja de estilo
+  * Limpieza automática cada noche, para que el sistema no se degrade
+  * Documentación en español sobre virtualización, licencias y seguridad
+ .
+ Se instala en cursalialinux y se actualiza con apt, sin reinstalar el
+ sistema. Construido sobre Debian, KDE, GNU y decenas de proyectos libres.
+
