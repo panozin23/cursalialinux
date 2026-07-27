@@ -8,36 +8,36 @@ Codename: trixie
 Architectures: all amd64
 Components: main
 Description: Paquetes propios de cursalialinux
-Date: Mon, 27 Jul 2026 17:59:21 +0000
+Date: Mon, 27 Jul 2026 18:41:24 +0000
 MD5Sum:
- 8a8f31e0b781da0a0fb6c2eb6fc813b6              201 Release
- 72bb2ec335d8a669f870b221fcc6df95             3693 main/binary-all/Packages
- e70fc7a455b89e7b40101582ff83b938             1044 main/binary-all/Packages.gz
+ d24ce99318713eabd5dd269e542fe494              201 Release
+ d32355913368e913aebec016a9069a4d             4924 main/binary-all/Packages
+ 6640823eb67480e39f2749a98803d779             1162 main/binary-all/Packages.gz
 SHA1:
- ad958bf5d01fe449722d929329fabf320ef4bf25              201 Release
- 301342ca054ff84474a0caa51391b00cf8428544             3693 main/binary-all/Packages
- 19570d96f8d43481ff41ecec34d066f2be8de4cd             1044 main/binary-all/Packages.gz
+ e57828341650e251fc0e40587f27036dc0b764d8              201 Release
+ 64536de1ca6100d543cddfddc7d06b9aecedb563             4924 main/binary-all/Packages
+ 9b12f9c1899b83fd32f7e6a55b148e48d716cc8f             1162 main/binary-all/Packages.gz
 SHA256:
- e7999093043631dbaf6b185b93a2450c7ca2787902435938179cecbb7c297375              201 Release
- 92b38f3276406ea8359be2ca243091be453c85f727da963202fac31bfbddf54a             3693 main/binary-all/Packages
- 3fc4c07b9a835a887c264867b1c7da1bf0d1abe235a8dc9b0b25179d0a1c208d             1044 main/binary-all/Packages.gz
+ fbd4b1b54d9a6cd87037a4857b4121f5e4aba40ef5f57b209e74c226d16b686b              201 Release
+ d3d2a2790cc7908387c5d2f8761fa0547e9a77b5d10a89e669484570ee75a710             4924 main/binary-all/Packages
+ 5f5b696aedac0cc0b0aa01e8aa921f6563099240e8231f5f492b14c7cf0a179f             1162 main/binary-all/Packages.gz
 SHA512:
- 7a43b67919ca735a15c9d8404a1c2a44c3a9157d5ae40337fcba550a363975dc2a0bc02f73806dd8553674b7efc0ab900c6392ea359ba06cd71ffc9f55601efe              201 Release
- 45e217eb351b81ebda7bb2be4cf952f9a6daa0a3d2abbd215aa841909b21ee924e1be55bcdaa3449d500ebb0a70df6f60fbbec49843ca3fe99ce9cc438379f3c             3693 main/binary-all/Packages
- 9d2bfee527f7e36c4be91cc93ce469a2e140798ffda752a79ef912094f437934ca9fa04480b7b11ce29fc0b37bd6a62419c7e96c04a9cd236d749369475317aa             1044 main/binary-all/Packages.gz
+ 02db4fdf4183b45f8b071955f31d5bd8c4e14fc0dce8392c609bab76035875e0a43e7a2d3050f2eeb90c5a8f2a4d74ce93778a93d803ecd60b27b937e45c1a8a              201 Release
+ 2d367917c3e970834a0c3d9cf76be87b99911573c9dfad30b2320b721ee227a059df0e2d0b754ccbb1a55b6f1a6811ec5dc0562d4c4b639fa875c2e13c171aa6             4924 main/binary-all/Packages
+ 32bcb1f839b88b639a5723d41195da1388be050f642f1c53989d35cb0ed505eb0852f06729b14f76b09dbfd392ae954f737fe46394209ce36ef28026274836c9             1162 main/binary-all/Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEESCqj7dsMbFCZD8J7/jfaydC8tKIFAmpnnHkACgkQ/jfaydC8
-tKL/Mg//d7kI8ueBWJEPNtksCQKmDhXosOIdMAansccQWbKOqQi/pzOhTHaboDwX
-ELwalYpI2u9olwmDOSSjvkKxToA38JrR7T18Byk0LxOT6aVH+Q0c+2U4sNub8HGG
-I52nDBykK7PRdomGvfsv4eqTVA8UrJKRgGN9eDrDr8rXuodFXY56Lwtq8uW6+fWf
-RyNiqTResxLCc3HoHjElAv9Gns+Zbn4yrCdVs6oyRspaVeQZMksSJp2ZKaF4F10Q
-mOOtc5pnxV/xcLQeMyf6U8G2urW7nLLqbloQ1/P9g90py4OE7xtfx3OlsGjVTQ1d
-QGxcsCsg9sBCRkju1JxU5eALDk5ola2V+SXRdY71nUfxdTJTrzFdNBo3UPk/9T2V
-Vphz9Df8BD3Iabf+S2DakeuwXr9aNBwKo4i/vvw/Ke916MQaboOvATIaKHVRJiGC
-J/vtkX4jYq47JDy03CA5/pFnitR7Gpp59f84cue3rFa5/pn4wkvhm8vmpnWhhkLc
-MF6EYOyyUJI8JBOny/1QHsOTeA3373ihwp4gk/6iEYjy1rnkvwrxaFZ5umm90TvO
-YbL97kfZ8ZFl8AJebBxhYVtMoJpombsWtLQ2qUwKAcZv9dm4VCch0NZzsjcWcTNU
-Q4U4nqht318mD+3KG44xpSiLTJkpqFMeyjkbzcEKzZ3tdQbZ04c=
-=N6Ri
+iQIzBAEBCgAdFiEESCqj7dsMbFCZD8J7/jfaydC8tKIFAmpnplQACgkQ/jfaydC8
+tKJlIA//RT6tEoI0XvKu+HVOqTFl7N9mPBcuCD2yIc2rRwS/IV0bQfFwavunFQ8S
+nF6HzLmF7NLFSKxwSRW8lcXLqT78NlIWGjhhQ0fgHdcToqLO1HnZfGoOF/9tgPDl
+BvWRTkJYOuL/a7prakt1MX7yqA72gLCIS1/HDB4nIWkVOFUOCS8egyLQAnFjmfTU
+MXfrv4QM0DAi9PEdzzRS7ksu5cHsoY+ZfFfopJUBN5fxnIjlxc2t1eL2+HURWkx6
+g2HGviZPQ6aaQeqi6wGeiME7HklBDjq62Sui3gAQ1z/YD01iz4E83NA/3hqP2Iv/
+IAhLLDwrXa2FKbWe6uXFz9uBkZmrxjerZE/TKMDTqgJKzyKe4QraJdSVfAtL2Lu9
+gbCtUAEpTbKQDhIPRDapuZ6oaVS3dTNACvYSzs2JdIh3MHSwZhRrKPKfLTE6NvY1
+PUmbRFVQDCDsKOKJYQWKSBITr6G0Hhaqjhi+d90pOIak7aC8/MVa3QLPd9e3Etdo
+XNW40pJD1PjSONMP4gPKzctWZN9H6FKZZWKgwuHzLwWjluJmkfH0J0jA7SODJP0/
+kvNBOCFBuYTvGD3y75j8tl6KvrXwSLJ9Ev6uulF5giDZJ/rUYaAhz6EbgYpQLF2w
+8Hmd21X8xAQ8yfTbKQqRlA0iQhHnEC/Ivjf+j/h698mjK6thnnQ=
+=GlXq
 -----END PGP SIGNATURE-----
