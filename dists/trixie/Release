@@ -5,20 +5,20 @@ Codename: trixie
 Architectures: all amd64
 Components: main
 Description: Paquetes propios de cursalialinux
-Date: Mon, 27 Jul 2026 01:59:19 +0000
+Date: Mon, 27 Jul 2026 02:01:34 +0000
 MD5Sum:
- eb2c188c5c4adbb27b2aa0d417913a0f              201 Release
+ 0cf976e30e3c1363e62584720a54c531              201 Release
  9ebf85f6427327b7927e6ba6c95e6101             2462 main/binary-all/Packages
- 746c805a104dae11afbe9e11f4c96171              922 main/binary-all/Packages.gz
+ 390ada6e0f2e3707b9eab076a1d386d9              922 main/binary-all/Packages.gz
 SHA1:
- b05e134d0f66ab1b7b888b4baf3234362ba58acb              201 Release
+ 995dfbafa69a8462ee49fcfb840747e6b841b02f              201 Release
  3df623f6a6ad4e1b7b5069ad3d760bfc8f8f5d0c             2462 main/binary-all/Packages
- a1f618c090991e3da63c5929528ce6dc775e568d              922 main/binary-all/Packages.gz
+ 1c93b9d5d3b61568c397d678507fb738bcfcaea7              922 main/binary-all/Packages.gz
 SHA256:
- ffa7876a51a498d9bfdddef0c12bb0e726100437daf673f3c0effebc902a5a53              201 Release
+ 5e9e95ed801116c299967077e3e6bac380f7ea8347be9485aabcd7da2be404b1              201 Release
  9b8735ebcb51bf81c395b4ea80af276700b1e52db2539f9bfc462742962a2fb4             2462 main/binary-all/Packages
- eb5a3cdd6da27a63be3d7f4b7c5b33e12d6277cfa991f977aae32846bfedcc10              922 main/binary-all/Packages.gz
+ 03aa3241a7dd1e082e57b66af67592c6ce3f39e096291f2a18ffbaae36c27128              922 main/binary-all/Packages.gz
 SHA512:
- 6be83baab70ee3efb1ff7591c706900c0d547705119a56a99a2645f0c82a44a9416dafc7237c2ea3e72befc2fee45a29960a5443741fd31bbf43cb2f94e8bb41              201 Release
+ 9379790cc51980dd7b5bcecaf77a4b07493e659afaea09f02702450136a59bd695c511a45cba4481e6a6f3eb47d718eb3e760f684cd041f2d451d98920c6836f              201 Release
  0244761137d7d7ff1d121b25d0d8d2eed7ef8750d4be9c827e5480c3b87e549a5480dba5d386c2f26b9ef2098029a63842b713ea39202347874949fbaba5eadc             2462 main/binary-all/Packages
- e8ccd7ca1a9d750e0f9514737589fca476b57cf7ef6cb35fd5a148ccedacbca8291dde984202c41bf4fa616ea3ec67ee5c3134861744c88699d7a7bfd0d009f0              922 main/binary-all/Packages.gz
+ 73c5855847f797029f04039fee05fa0dc3efd2cd53e94b9a8b179d6b8ee30307786874eb20cf926d6a8fecbc6dee5a8d800dcea7de4ca588c62eb33ab062576f              922 main/binary-all/Packages.gz
