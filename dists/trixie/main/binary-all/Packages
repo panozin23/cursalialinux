@@ -222,10 +222,10 @@ Installed-Size: 256
 Depends: yad, xdg-utils, papirus-icon-theme
 Recommends: virt-manager, virt-viewer, qemu-system-x86, qemu-system-gui, libvirt-daemon-system, swtpm, ovmf, genisoimage
 Filename: pool/main/cursalialinux-escritorio_1.1.8_all.deb
-Size: 66488
-MD5sum: c386785df26b8b350133e44f7e5f9ca5
-SHA1: ff98364146a7fd8db008d2018a2442654c467e10
-SHA256: d3b3716f460a2625dd1cf8e769cd82c2e3cdd7a1dd45fce9becca88bac266c35
+Size: 66484
+MD5sum: fb8c22c5f6a9274933dfaa97f197d9f8
+SHA1: 749c78aef7fafb5162b63ab458d62ca0747667f9
+SHA256: fa2b06b55f914999ae1e8d3f25c980ced11c28ada7981906b74f6419f56e8846
 Section: metapackages
 Priority: optional
 Homepage: https://github.com/USUARIO/cursalialinux
