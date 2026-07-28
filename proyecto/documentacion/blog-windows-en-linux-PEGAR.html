@@ -1,0 +1,2331 @@
+<!--
+  ════════════════════════════════════════════════════════════════
+  WINDOWS DENTRO DE LINUX — versión para pegar en el blog
+  ════════════════════════════════════════════════════════════════
+  Copia TODO este archivo y pégalo en el editor HTML de tu entrada.
+  Sin head, sin title, sin metadatos. CSS encapsulado en .gwl.
+  ════════════════════════════════════════════════════════════════
+-->
+
+<style>
+/* ════════════════════════════════════════════════════════════════
+   WINDOWS 11 DENTRO DE LINUX — hoja de estilo del artículo
+   ════════════════════════════════════════════════════════════════
+   Pega TODO esto en el apartado "CSS adicional" de tu blog.
+
+   Todo está encapsulado dentro de .gwl — ni una sola regla toca
+   el resto del sitio (menús, barra lateral, otros artículos).
+
+   Paleta Azul Hielo · tres voces tipográficas:
+     mono  = habla la máquina (comandos, etiquetas, pantallas)
+     serif = habla la guía    (títulos)
+     sans  = texto llano      (lectura)
+   ════════════════════════════════════════════════════════════════ */
+
+
+/* ── Variables y base ───────────────────────────────────────── */
+
+.gwl {
+  /* Fondos y tinta */
+  --ground:      #F2F6FA;
+  --surface:     #FFFFFF;
+  --surface-2:   #E7EFF8;
+  --ink:         #0A1730;
+  --ink-2:       #3D5170;
+  --ink-3:       #6E82A1;
+  --rule:        #D2DFEE;
+  --rule-strong: #B4C8DE;
+
+  /* Acentos */
+  --accent:      #1D4FD8;
+  --accent-soft: #DEE9FF;
+  --cyan:        #0B7C93;
+
+  /* Semánticos */
+  --warn:        #B4460F;
+  --warn-soft:   #FCECE2;
+  --warn-rule:   #E8BFA6;
+  --ok:          #0E6E45;
+  --ok-soft:     #DFF3E9;
+
+  /* Pantallas simuladas (iguales en ambos temas) */
+  --term-bg:     #0B1524;
+  --term-ink:    #D6E4F0;
+  --term-dim:    #7C93AC;
+  --term-green:  #55D98D;
+  --term-amber:  #F0B95C;
+  --term-blue:   #6FB4FF;
+  --term-red:    #FF8A73;
+
+  /* Tipografía */
+  --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --sans:  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono:  ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --measure: 68ch;
+  --wide:    94ch;
+
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+}
+
+/* Tema oscuro automático, según la preferencia del lector */
+@media (prefers-color-scheme: dark) {
+  .gwl {
+    --ground:      #060E1D;
+    --surface:     #0C1830;
+    --surface-2:   #12233F;
+    --ink:         #E9F5FD;
+    --ink-2:       #A7BCD6;
+    --ink-3:       #7A91B1;
+    --rule:        #1C3155;
+    --rule-strong: #2A4670;
+    --accent:      #6BA1FF;
+    --accent-soft: #13294E;
+    --cyan:        #22D3EE;
+    --warn:        #FF9E68;
+    --warn-soft:   #2E1B0F;
+    --warn-rule:   #5C3520;
+    --ok:          #56D998;
+    --ok-soft:     #0E2A1E;
+  }
+}
+
+
+/* ── Reinicio local ─────────────────────────────────────────── */
+
+.gwl, .gwl *, .gwl *::before, .gwl *::after { box-sizing: border-box; }
+
+.gwl h1, .gwl h2, .gwl h3, .gwl h4,
+.gwl p, .gwl ul, .gwl ol, .gwl dl, .gwl dd,
+.gwl figure, .gwl table, .gwl pre, .gwl nav {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ── Rejilla del artículo ───────────────────────────────────── */
+
+.gwl .doc {
+  display: grid;
+  grid-template-columns:
+    minmax(1.1rem, 1fr)
+    min(var(--measure), 100%)
+    minmax(1.1rem, 1fr);
+  padding-block: 0 5rem;
+}
+.gwl .doc > * { grid-column: 2; }
+
+/* Los bloques anchos (pantallas, diagramas) se salen del texto */
+.gwl .doc > .wide {
+  grid-column: 1 / -1;
+  width: min(var(--wide), calc(100% - 2.2rem));
+  margin-inline: auto;
+}
+
+
+/* ── Tipografía ─────────────────────────────────────────────── */
+
+.gwl h1, .gwl h2, .gwl h3, .gwl h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  text-wrap: balance;
+  line-height: 1.18;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+}
+
+.gwl h2 {
+  font-size: clamp(1.55rem, 3.4vw, 2.1rem);
+  margin-block: 3.4rem 0.9rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--rule);
+}
+
+.gwl h3 {
+  font-size: 1.24rem;
+  margin-block: 2.2rem 0.6rem;
+}
+
+.gwl h4 {
+  font-family: var(--sans);
+  font-size: 0.98rem;
+  font-weight: 700;
+  margin-block: 1.5rem 0.4rem;
+}
+
+.gwl p, .gwl ul, .gwl ol { margin-block: 0 1.05rem; }
+.gwl ul, .gwl ol { padding-left: 1.35rem; }
+.gwl ul { list-style: disc; }
+.gwl ol { list-style: decimal; }
+.gwl li { margin-block: 0.3rem; }
+.gwl li::marker { color: var(--ink-3); }
+
+.gwl strong { font-weight: 650; color: var(--ink); }
+.gwl em { font-style: italic; }
+
+.gwl a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent) 38%, transparent);
+  text-underline-offset: 0.18em;
+}
+.gwl a:hover { text-decoration-color: currentColor; }
+.gwl a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Etiqueta pequeña en monoespaciada — la voz de la máquina */
+.gwl .eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  display: block;
+  margin-bottom: 0.55rem;
+}
+
+.gwl code {
+  font-family: var(--mono);
+  font-size: 0.87em;
+  background: var(--surface-2);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0.08em 0.34em;
+  word-break: break-word;
+  color: var(--ink);
+}
+
+
+/* ── Portada ────────────────────────────────────────────────── */
+
+.gwl .hero { padding-block: 3.4rem 1rem; }
+
+.gwl .hero__kicker {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+.gwl .hero h1 {
+  font-size: clamp(2.15rem, 6vw, 3.3rem);
+  margin-block: 0.7rem 1rem;
+}
+
+.gwl .hero__sub {
+  font-size: 1.14rem;
+  color: var(--ink-2);
+  max-width: 58ch;
+}
+
+.gwl .hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+  margin-top: 1.8rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--ink-3);
+}
+
+
+/* ── Bloques destacados ─────────────────────────────────────── */
+
+.gwl .lede {
+  font-size: 1.06rem;
+  color: var(--ink-2);
+  border-left: 3px solid var(--accent);
+  padding-left: 1.1rem;
+  margin-block: 1.6rem 1.8rem;
+}
+
+.gwl .note {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+  padding: 1.1rem 1.25rem;
+  margin-block: 1.5rem;
+}
+.gwl .note > :last-child { margin-bottom: 0; }
+
+.gwl .note--warn {
+  background: var(--warn-soft);
+  border-color: var(--warn-rule);
+}
+.gwl .note--warn .eyebrow { color: var(--warn); }
+
+.gwl .note--ok {
+  background: var(--ok-soft);
+  border-color: color-mix(in srgb, var(--ok) 32%, transparent);
+}
+.gwl .note--ok .eyebrow { color: var(--ok); }
+
+
+/* ── Bloques de comandos ────────────────────────────────────── */
+
+.gwl .cmd {
+  background: var(--term-bg);
+  border-radius: 7px;
+  margin-block: 1.2rem;
+  overflow: hidden;
+  border: 1px solid #1B2C46;
+}
+
+.gwl .cmd__label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--term-dim);
+  padding: 0.55rem 1rem 0.4rem;
+  border-bottom: 1px solid #1B2C46;
+}
+
+.gwl .cmd pre {
+  font-family: var(--mono);
+  font-size: 0.83rem;
+  line-height: 1.62;
+  color: var(--term-ink);
+  padding: 0.9rem 1rem 1rem;
+  overflow-x: auto;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+/* Colores dentro de la terminal:
+   .p = prompt   .c = comentario   .s = dato destacado
+   .g = verde    .b = azul         .r = rojo            */
+.gwl .cmd pre .p { color: var(--term-green); font-weight: 600; }
+.gwl .cmd pre .c { color: var(--term-dim); font-style: italic; }
+.gwl .cmd pre .s { color: var(--term-amber); }
+.gwl .cmd pre .b { color: var(--term-blue); }
+.gwl .cmd pre .r { color: var(--term-red); }
+.gwl .cmd pre .g { color: var(--term-green); }
+
+
+/* ── Pantallas simuladas ────────────────────────────────────── */
+
+.gwl .screen {
+  margin-block: 1.8rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--rule-strong);
+  box-shadow: 0 1px 3px rgb(10 23 48 / 0.09);
+}
+
+/* Barra que identifica DE QUÉ MÁQUINA es la pantalla */
+.gwl .screen__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.5rem 0.85rem;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.gwl .screen__who {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 700;
+}
+.gwl .screen__who::before {
+  content: "";
+  width: 8px; height: 8px;
+  border-radius: 2px;
+  background: var(--accent);          /* azul  = anfitrión (Linux) */
+}
+.gwl .screen__who--guest::before {
+  background: var(--warn);            /* naranja = huésped (la VM) */
+}
+
+.gwl .screen__cap {
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--ink-3);
+}
+
+.gwl .screen__body { overflow-x: auto; }
+
+/* Pantalla: firmware UEFI (TianoCore) */
+.gwl .uefi {
+  background: #000;
+  padding: 1.6rem 1rem;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+.gwl .uefi__panel {
+  background: #B8B8B8;
+  color: #00006E;
+  max-width: 46rem;
+  margin-inline: auto;
+  padding: 1rem 1.4rem 2.4rem;
+  min-width: 32rem;
+}
+.gwl .uefi__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.6rem;
+}
+.gwl .uefi__row { display: flex; gap: 0.6rem; }
+.gwl .uefi__menu { min-width: 22rem; }
+.gwl .uefi__sel { background: #00006E; color: #B8B8B8; padding: 0 0.3rem; }
+.gwl .uefi__hint { color: #8B0000; max-width: 16rem; }
+.gwl .uefi__foot {
+  color: #B8B8B8;
+  display: flex;
+  gap: 3rem;
+  margin-top: 1.3rem;
+  font-size: 0.72rem;
+}
+
+/* Pantalla: instalador de Windows con la lista vacía */
+.gwl .win {
+  background: #1B1B1B;
+  padding: 1.4rem;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: #F0F0F0;
+  min-width: 30rem;
+}
+.gwl .win__title { font-size: 1.05rem; margin-bottom: 1rem; }
+.gwl .win__list {
+  background: #262626;
+  border: 1px solid #3C3C3C;
+  min-height: 6.5rem;
+  display: grid;
+  place-items: center;
+  color: #8A8A8A;
+  font-style: italic;
+  margin-bottom: 0.9rem;
+  padding: 1rem;
+  text-align: center;
+}
+.gwl .win__btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.gwl .win__btn {
+  border: 1px solid #5A5A5A;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.78rem;
+  background: #333;
+}
+.gwl .win__btn--hot {
+  border-color: #F0B95C;
+  color: #F7D9A3;
+  box-shadow: 0 0 0 2px rgb(240 185 92 / 0.22);
+}
+
+/* Pantalla: arranque negro con el aviso de los 5 segundos */
+.gwl .boot {
+  background: #000;
+  color: #C8C8C8;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  padding: 2.2rem 1.2rem;
+  min-width: 26rem;
+}
+.gwl .boot__key { color: #FFF; background: #333; padding: 0 0.25rem; }
+
+/* Panel de control propio (yad) */
+.gwl .panel {
+  background: var(--surface);
+  padding: 1.1rem;
+  min-width: 24rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.gwl .panel__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-bottom: 0.8rem;
+  margin-bottom: 0.3rem;
+  border-bottom: 1px solid var(--rule);
+}
+.gwl .panel__title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.gwl .panel__state {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-3);
+}
+.gwl .panel__btn {
+  border: 1px solid var(--rule-strong);
+  border-radius: 5px;
+  background: var(--surface-2);
+  padding: 0.6rem 0.85rem;
+  font-size: 0.88rem;
+  color: var(--ink-2);
+}
+.gwl .panel__btn span {
+  color: var(--ink-3);
+  font-size: 0.82rem;
+}
+.gwl .panel__btn--on {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Barra de herramientas de virt-manager */
+.gwl .vmbar {
+  background: var(--surface);
+  padding: 1.1rem 1.1rem 2.2rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  min-width: 22rem;
+}
+.gwl .vmbtn {
+  width: 2.6rem; height: 2.3rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 5px;
+  background: var(--surface-2);
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
+  color: var(--ink-2);
+  position: relative;
+}
+.gwl .vmbtn--danger {
+  border-color: var(--warn);
+  background: var(--warn-soft);
+  color: var(--warn);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--warn) 18%, transparent);
+}
+.gwl .vmbtn__tag {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--warn);
+  font-weight: 700;
+}
+
+
+/* ── Diagrama de capas anidadas ─────────────────────────────── */
+
+.gwl .layers {
+  margin-block: 1.8rem;
+  padding: 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+.gwl .layer {
+  border: 1px solid var(--rule-strong);
+  border-radius: 6px;
+  padding: 0.7rem 0.9rem;
+  background: var(--surface-2);
+}
+.gwl .layer > .layer { margin-top: 0.7rem; }
+.gwl .layer__name {
+  font-family: var(--mono);
+  font-size: 0.73rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.gwl .layer__what {
+  font-size: 0.85rem;
+  color: var(--ink-3);
+  margin-top: 0.15rem;
+}
+.gwl .layer--guest {
+  border-color: var(--warn-rule);
+  background: var(--warn-soft);
+}
+.gwl .layer--guest .layer__name { color: var(--warn); }
+
+
+/* ── Tablas ─────────────────────────────────────────────────── */
+
+.gwl .tablewrap {
+  overflow-x: auto;
+  margin-block: 1.4rem;
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+  background: var(--surface);
+}
+.gwl table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9rem;
+  min-width: 30rem;
+}
+.gwl th, .gwl td {
+  text-align: left;
+  padding: 0.62rem 0.9rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+.gwl th {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 700;
+  background: var(--surface-2);
+}
+.gwl tbody tr:last-child td { border-bottom: 0; }
+.gwl td code { font-size: 0.82em; }
+.gwl .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+
+/* ── Índice ─────────────────────────────────────────────────── */
+
+.gwl .toc {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 1.2rem 1.35rem;
+  margin-block: 2.2rem;
+}
+.gwl .toc ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  columns: 2;
+  column-gap: 2rem;
+}
+.gwl .toc li {
+  margin-block: 0.3rem;
+  break-inside: avoid;
+  font-size: 0.92rem;
+}
+.gwl .toc a { text-decoration: none; }
+.gwl .toc a:hover { text-decoration: underline; }
+
+@media (max-width: 34rem) {
+  .gwl .toc ol { columns: 1; }
+}
+
+
+/* ── Fichas de trampas ──────────────────────────────────────── */
+
+.gwl .trap {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--warn);
+  border-radius: 0 7px 7px 0;
+  padding: 1.1rem 1.25rem;
+  margin-block: 1.1rem;
+}
+.gwl .trap__stage {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--warn);
+  font-weight: 700;
+}
+.gwl .trap h3 {
+  margin-block: 0.35rem 0.7rem;
+  font-size: 1.08rem;
+}
+.gwl .trap dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.45rem 0.9rem;
+  font-size: 0.92rem;
+}
+.gwl .trap dt {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding-top: 0.28em;
+  font-weight: 700;
+}
+.gwl .trap dd { margin: 0; }
+
+@media (max-width: 32rem) {
+  .gwl .trap dl { grid-template-columns: 1fr; gap: 0.2rem; }
+  .gwl .trap dd { margin-bottom: 0.6rem; }
+}
+
+
+/* ── Cierre y sueltos ───────────────────────────────────────── */
+
+.gwl .outro {
+  margin-top: 3.5rem;
+  padding-top: 1.6rem;
+  border-top: 2px solid var(--rule-strong);
+  font-size: 0.92rem;
+  color: var(--ink-2);
+}
+
+.gwl .keycombo {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-block: 1.4rem;
+}
+.gwl .keycombo span {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--ink-3);
+}
+
+.gwl .credito {
+  margin-top: 1.4rem;
+  color: var(--ink-3);
+  font-size: 0.86rem;
+}
+
+
+/* ── Accesibilidad ──────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .gwl * { animation: none !important; transition: none !important; }
+}
+</style>
+
+
+<div class="gwl">
+<article class="doc">
+
+<header class="hero">
+  <span class="hero__kicker">Virtualización · Debian 13</span>
+  <h1>Windows 11 dentro de Linux: la guía que a mí me hubiera gustado encontrar</h1>
+  <p class="hero__sub">
+    Tu trabajo exige programas de Windows. Tu equipo ya es Linux y no piensas volver
+    atrás. No tienes que elegir: aquí está el camino completo, con las ocho trampas
+    que nadie documenta y que a mí me costaron una tarde entera.
+  </p>
+  <div class="hero__meta">
+    <span>Debian 13 «Trixie»</span>
+    <span>KVM · QEMU · virt-manager</span>
+    <span>Nivel: principiante total</span>
+    <span>~90 min · 2 h con descargas</span>
+  </div>
+</header>
+
+<p class="lede">
+  Busqué esto en español y encontré casi nada. Guías sueltas en inglés que dan por
+  sabido lo que un principiante no sabe, y foros donde alguien pregunta «me sale la
+  pantalla vacía» y nadie responde. Esta guía existe porque pasé por todas esas
+  pantallas vacías.
+</p>
+
+<nav class="toc" aria-label="Índice del artículo">
+  <span class="eyebrow">En esta guía</span>
+  <ol>
+    <li><a href="#gwl-porque">Por qué querrías hacer esto</a></li>
+    <li><a href="#gwl-como">Cómo funciona, en cristiano</a></li>
+    <li><a href="#gwl-requisitos">¿Tu equipo puede?</a></li>
+    <li><a href="#gwl-herramientas">Instalar las herramientas</a></li>
+    <li><a href="#gwl-descargas">Descargar Windows y los drivers</a></li>
+    <li><a href="#gwl-ubicar">Dónde poner los archivos</a></li>
+    <li><a href="#gwl-crear">Crear la máquina virtual</a></li>
+    <li><a href="#gwl-instalar">Instalar Windows</a></li>
+    <li><a href="#gwl-despues">Los toques finales</a></li>
+    <li><a href="#gwl-dentro">Qué instalar dentro</a></li>
+    <li><a href="#gwl-versiones">¿Y Windows 7, 8.1 o 10?</a></li>
+    <li><a href="#gwl-sinred">Trabajar sin internet</a></li>
+    <li><a href="#gwl-seguridad">Proteger un Windows sin soporte</a></li>
+    <li><a href="#gwl-trampas">Las ocho trampas</a></li>
+    <li><a href="#gwl-chuleta">Chuleta de comandos</a></li>
+    <li><a href="#gwl-licencias">Licencias y responsabilidad</a></li>
+  </ol>
+</nav>
+
+
+<h2 id="gwl-porque">Por qué querrías hacer esto</h2>
+
+<p>
+  Hay un momento incómodo en la vida de casi todo el que se pasa a Linux. El sistema
+  te encanta, va rápido, no te molesta, no te espía. Y entonces llega el lunes y
+  necesitas abrir <em>ese</em> programa. El de la contabilidad. El del colegio de
+  arquitectos. El que exige tu institución y solo existe para Windows.
+</p>
+
+<p>
+  La reacción habitual es rendirse y volver, o mantener dos sistemas y reiniciar
+  cada vez. Ambas son malas. La primera te quita lo que ganaste; la segunda convierte
+  cada consulta de dos minutos en un ritual de cinco.
+</p>
+
+<p>
+  La tercera opción es <strong>meter Windows dentro de Linux</strong>: una ventana más
+  en tu escritorio, que abres cuando la necesitas y cierras cuando terminas. Sin
+  reiniciar, sin particiones nuevas, sin tocar lo que ya funciona.
+</p>
+
+<div class="note">
+  <span class="eyebrow">Qué NO es esto</span>
+  <p>
+    No es Wine ni Bottles. Esos <em>traducen</em> programas de Windows para que
+    corran en Linux, y funcionan muy bien con muchas cosas. Pero cuando el programa
+    depende de .NET Framework y de Microsoft Excel o Access de verdad —el caso típico
+    de los sistemas institucionales— Wine se vuelve frágil e impredecible.
+  </p>
+  <p>
+    Aquí instalamos <strong>Windows real</strong>, completo, en una computadora
+    simulada. Es la opción aburrida, y por eso es la correcta para una herramienta
+    de trabajo de la que dependes.
+  </p>
+</div>
+
+<div class="note note--warn">
+  <span class="eyebrow">Antes de seguir · licencias</span>
+  <p>
+    Esta guía explica cómo usar <strong>software libre</strong> —KVM, QEMU,
+    virt-manager— para construir una computadora virtual vacía. <strong>No
+    distribuye Windows, ni Office, ni claves de activación.</strong>
+  </p>
+  <p>
+    Windows es de Microsoft y <strong>requiere licencia</strong>. Microsoft permite
+    descargar las imágenes libremente desde su sitio, y eso confunde a mucha gente:
+    <em>descargar es gratis, usar no lo es</em>. Conseguir la licencia es
+    responsabilidad de cada quien.
+  </p>
+  <p>
+    Todo esto se publica <strong>con fines educativos</strong>. Al final del
+    artículo hay una sección con las opciones legales y gratuitas que sí existen —
+    son más de las que la gente cree.
+  </p>
+</div>
+
+
+<h2 id="gwl-como">Cómo funciona, en cristiano</h2>
+
+<p>
+  Imagina que tu computadora finge ser otra computadora. Esa computadora fingida
+  tiene su propio procesador, su memoria, su disco duro y su pantalla — todos
+  imaginarios, pero Windows no lo sabe. Se instala y funciona creyendo que está en
+  una máquina normal.
+</p>
+
+<p>
+  Lo bueno es que no hay <em>emulación</em> lenta de por medio. Los procesadores
+  modernos traen la virtualización metida en el silicio, así que Windows corre a
+  velocidad casi real.
+</p>
+
+<div class="layers wide">
+  <span class="eyebrow">Las capas, de abajo hacia arriba</span>
+  <div class="layer">
+    <div class="layer__name">Tu hardware</div>
+    <div class="layer__what">El procesador, con su función de virtualización activada en la BIOS</div>
+
+    <div class="layer">
+      <div class="layer__name">Linux + KVM</div>
+      <div class="layer__what">KVM ya viene dentro del núcleo de Linux. Es el motor: reparte el procesador real entre tu sistema y la máquina virtual</div>
+
+      <div class="layer">
+        <div class="layer__name">QEMU</div>
+        <div class="layer__what">Fabrica el hardware imaginario: disco, tarjeta de red, pantalla, chip TPM</div>
+
+        <div class="layer layer--guest">
+          <div class="layer__name">Windows 11</div>
+          <div class="layer__what">Se instala normal y no sospecha nada. Aquí viven tus programas de trabajo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3>Las cuatro piezas por su nombre</h3>
+
+<div class="tablewrap">
+  <table>
+    <thead>
+      <tr><th>Pieza</th><th>Qué hace</th><th>Analogía</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>KVM</code></td>
+        <td>El motor de virtualización, ya incluido en Linux</td>
+        <td>El motor del auto</td>
+      </tr>
+      <tr>
+        <td><code>QEMU</code></td>
+        <td>Construye el hardware falso que verá Windows</td>
+        <td>La carrocería y el tablero</td>
+      </tr>
+      <tr>
+        <td><code>virt-manager</code></td>
+        <td>La ventana con botones para manejarlo todo</td>
+        <td>El volante y los pedales</td>
+      </tr>
+      <tr>
+        <td><code>swtpm</code></td>
+        <td>Un chip de seguridad TPM 2.0 hecho por software</td>
+        <td>Una llave que Windows 11 exige ver</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note">
+  <span class="eyebrow">El detalle del TPM</span>
+  <p>
+    Windows 11 se niega a instalarse si no encuentra un chip TPM 2.0. Mucha gente con
+    equipos de hace unos años se queda fuera por eso. Aquí da igual: <code>swtpm</code>
+    le presenta uno fabricado por software, y Windows lo acepta como bueno. Incluso
+    si tu equipo físico no tiene ninguno.
+  </p>
+</div>
+
+
+<h2 id="gwl-requisitos">¿Tu equipo puede?</h2>
+
+<p>Cuatro condiciones. Si las cumples, esto va a funcionar.</p>
+
+<div class="tablewrap">
+  <table>
+    <thead>
+      <tr><th>Requisito</th><th>Mínimo</th><th>Cómodo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Virtualización en el procesador</td><td class="num">Obligatorio</td><td class="num">—</td></tr>
+      <tr><td>Memoria RAM</td><td class="num">8 GB</td><td class="num">16 GB</td></tr>
+      <tr><td>Disco libre</td><td class="num">70 GB</td><td class="num">120 GB</td></tr>
+      <tr><td>Núcleos del procesador</td><td class="num">4</td><td class="num">8 o más</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Comprobar la virtualización</h3>
+
+<p>
+  Este comando busca en tu procesador la marca que indica que puede virtualizar:
+  <code>svm</code> si es AMD, <code>vmx</code> si es Intel.
+</p>
+
+<div class="cmd">
+  <div class="cmd__label">Terminal · anfitrión</div>
+  <pre><span class="p">$</span> grep -oE 'vmx|svm' /proc/cpuinfo | head -1
+<span class="g">svm</span>
+
+<span class="c"># Si no devuelve nada, la función está apagada en la BIOS.</span>
+<span class="c"># Reinicia, entra en la BIOS y busca "SVM Mode" (AMD)</span>
+<span class="c"># o "Intel Virtualization Technology" (Intel). Actívala.</span></pre>
+</div>
+
+<p>Y este comprueba la memoria y el espacio de un vistazo:</p>
+
+<div class="cmd">
+  <div class="cmd__label">Terminal · anfitrión</div>
+  <pre><span class="p">$</span> free -h | head -2
+               total       usado       libre
+Mem:            <span class="s">14Gi</span>       6,3Gi       5,5Gi
+
+<span class="p">$</span> df -h /
+S.ficheros     Tamaño Usados  Disp Uso%
+/dev/nvme0n1p7   150G    27G  <span class="s">116G</span>  19%</pre>
+</div>
+
+<div class="note note--ok">
+  <span class="eyebrow">Traducción</span>
+  <p>
+    <strong>14 GB de RAM</strong> permite dar 6 GB a Windows y quedarte con 8 para
+    Linux. <strong>116 GB libres</strong> es de sobra: el disco virtual crece según
+    se usa, y un Windows recién instalado ocupa unos 15 GB reales aunque lo declares
+    de 80.
+  </p>
+</div>
+
+
+<h2 id="gwl-herramientas">Paso 1 · Instalar las herramientas</h2>
+
+<p>
+  Doce paquetes. Parecen muchos, pero varios son piezas pequeñas que se necesitan
+  entre sí.
+</p>
+
+<div class="cmd">
+  <div class="cmd__label">Terminal · anfitrión</div>
+  <pre><span class="p">$</span> sudo apt update
+
+<span class="p">$</span> sudo apt install qemu-system-x86 qemu-utils \
+    libvirt-daemon-system libvirt-clients virt-manager \
+    swtpm swtpm-tools ovmf bridge-utils dnsmasq-base \
+    virtiofsd spice-vdagent</pre>
+</div>
+
+<div class="tablewrap">
+  <table>
+    <thead><tr><th>Paquete</th><th>Para qué</th></tr></thead>
+    <tbody>
+      <tr><td><code>qemu-system-x86</code></td><td>El que fabrica la máquina virtual</td></tr>
+      <tr><td><code>libvirt-daemon-system</code></td><td>El servicio que las administra en segundo plano</td></tr>
+      <tr><td><code>virt-manager</code></td><td>La ventana gráfica que vas a usar</td></tr>
+      <tr><td><code>swtpm</code>, <code>swtpm-tools</code></td><td>El chip TPM 2.0 emulado</td></tr>
+      <tr><td><code>ovmf</code></td><td>El firmware UEFI con Arranque Seguro</td></tr>
+      <tr><td><code>dnsmasq-base</code>, <code>bridge-utils</code></td><td>La red virtual, para que Windows tenga internet</td></tr>
+      <tr><td><code>spice-vdagent</code>, <code>virtiofsd</code></td><td>Integración: portapapeles y carpetas compartidas</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Dos pasos que casi todos olvidan</h3>
+
+<p>
+  Sin esto, virt-manager te dará errores de permisos que parecen fallos graves y
+  no lo son.
+</p>
+
+<div class="cmd">
+  <div class="cmd__label">Terminal · anfitrión</div>
+  <pre><span class="c"># 1. Meterte en los grupos que dan acceso al hardware virtual</span>
+<span class="p">$</span> sudo usermod -aG libvirt,kvm $USER
+
+<span class="c"># 2. Encender el servicio y la red virtual</span>
+<span class="p">$</span> sudo systemctl enable --now libvirtd
+<span class="p">$</span> sudo virsh net-start default
+<span class="p">$</span> sudo virsh net-autostart default</pre>
+</div>
+
+<div class="note note--warn">
+  <span class="eyebrow">Cierra sesión y vuelve a entrar</span>
+  <p>
+    Los grupos nuevos <strong>no se aplican hasta que cierras sesión</strong>. Si te
+    lo saltas, todo parecerá roto sin motivo. Cerrar sesión y volver a entrar es
+    suficiente; no hace falta reiniciar.
+  </p>
+</div>
+
+
+<h2 id="gwl-descargas">Paso 2 · Descargar Windows y los drivers</h2>
+
+<p>Dos archivos. El segundo es el que nadie te menciona y sin él no pasas de la mitad.</p>
+
+<h3>La imagen de Windows 11</h3>
+
+<p>
+  Desde <strong>microsoft.com/software-download/windows11</strong>, apartado
+  «Descargar imagen de disco (ISO)». Eliges idioma, arquitectura de 64 bits, y a
+  esperar: son unos 7,7 GB.
+</p>
+
+<p>
+  El enlace que genera Microsoft <strong>caduca a las 24 horas</strong> y está atado
+  a tu sesión del navegador, así que no se puede bajar con <code>wget</code> a menos
+  que copies el enlace final.
+</p>
+
+<h3>Los drivers VirtIO</h3>
+
+<p>
+  Windows no reconoce de fábrica el hardware que le fabrica QEMU. Necesita unos
+  controladores llamados <strong>VirtIO</strong>, que se distribuyen en un CD aparte.
+</p>
+
+<div class="note note--warn">
+  <span class="eyebrow">Trampa · carpeta equivocada</span>
+  <p>
+    La página de descarga tiene varias carpetas y solo una sirve. Si entras en
+    <code>upstream-virtio</code> encontrarás decenas de archivos sueltos —código
+    fuente, piezas separadas, versiones sin firmar por Microsoft— y ninguno es lo
+    que buscas.
+  </p>
+  <p><strong>Entra en <code>stable-virtio</code> y baja un solo archivo: <code>virtio-win.iso</code></strong></p>
+</div>
+
+<div class="cmd">
+  <div class="cmd__label">Terminal · anfitrión</div>
+  <pre><span class="p">$</span> wget https://fedorapeople.org/groups/virt/virtio-win/\
+direct-downloads/stable-virtio/virtio-win.iso
+
+<span class="c"># 753 MB. Un archivo. Lleva todos los drivers dentro,</span>
+<span class="c"># ya firmados por Microsoft. No hay que descomprimirlo.</span></pre>
+</div>
+
+
+<h2 id="gwl-ubicar">Paso 3 · Dónde poner los archivos</h2>
+
+<p>
+  Este paso parece trivial y es donde se pierde la primera tarde. La máquina virtual
+  <strong>no corre con tu usuario</strong>: corre con un usuario propio del sistema
+  llamado <code>libvirt-qemu</code>. Y ese usuario no puede entrar en tu carpeta
+  personal.
+</p>
+
+<div class="cmd">
+  <div class="cmd__label">Terminal · anfitrión</div>
+  <pre><span class="p">$</span> namei -l ~/Descargas/virtio-win.iso
+drwxrwxr-x root  root  /
+drwxr-xr-x root  root  home
+<span class="r">drwx------</span> euflo euflo euflo      <span class="c">← aquí se corta</span>
+drwxr-xr-x euflo euflo Descargas
+-rw-rw-r-- euflo euflo virtio-win.iso</pre>
+</div>
+
+<p>
+  Esos <code>drwx------</code> significan «solo el dueño entra». Si dejas los ISOs
+  ahí, al arrancar la máquina saldrá un <em>Permission denied</em> señalando al
+  archivo — y parecerá un fallo de configuración cuando solo es un permiso de carpeta.
+</p>
+
+<p><strong>La solución:</strong> moverlos a la carpeta que libvirt usa para todo.</p>
+
+<div class="cmd">
+  <div class="cmd__label">Terminal · anfitrión</div>
+  <pre><span class="p">$</span> sudo mv ~/Descargas/Win11_*.iso    /var/lib/libvirt/images/
+<span class="p">$</span> sudo mv ~/Descargas/virtio-win.iso /var/lib/libvirt/images/
+
+<span class="c"># Nombra los archivos, no uses *.iso con sudo — ver trampa 3</span>
+<span class="p">$</span> sudo ls -lh /var/lib/libvirt/images/</pre>
+</div>
+
+
+<h2 id="gwl-crear">Paso 4 · Crear la máquina virtual</h2>
+
+<p>
+  Aquí hay dos caminos. Te muestro los dos porque sirven a personas distintas.
+</p>
+
+<h3>Camino A · La ventana, paso a paso</h3>
+
+<p>
+  Abres <strong>Gestor de máquinas virtuales</strong> y sigues el asistente. En la
+  última pantalla, antes de pulsar Finalizar, <strong>marca la casilla
+  «Personalizar configuración antes de instalar»</strong>. Sin eso no llegas a lo
+  importante y la máquina se crea mal.
+</p>
+
+<p>Estos son los valores que hay que dejar exactos:</p>
+
+<div class="tablewrap">
+  <table>
+    <thead><tr><th>Apartado</th><th>Valor</th><th>Por qué</th></tr></thead>
+    <tbody>
+      <tr><td>Chipset</td><td><code>Q35</code></td><td>El moderno. El otro es de los años noventa</td></tr>
+      <tr><td>Firmware</td><td><code>UEFI</code> · secboot</td><td>Windows 11 exige Arranque Seguro</td></tr>
+      <tr><td>Memoria</td><td class="num">6144 MB</td><td>Cómodo sin ahogar al anfitrión</td></tr>
+      <tr><td>Procesadores</td><td class="num">4</td><td>Con modelo <code>host-passthrough</code></td></tr>
+      <tr><td>Disco</td><td class="num">80 GB</td><td>Formato qcow2, bus <strong>VirtIO</strong></td></tr>
+      <tr><td>Caché del disco</td><td><code>writeback</code></td><td>Rendimiento</td></tr>
+      <tr><td>Descarte</td><td><code>unmap</code></td><td>El archivo encoge al borrar dentro</td></tr>
+      <tr><td>Red</td><td>Modelo <strong>VirtIO</strong></td><td>La rápida</td></tr>
+      <tr><td>TPM</td><td>Emulado 2.0 · <code>CRB</code></td><td>CRB es el que Windows 11 espera</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note note--warn">
+  <span class="eyebrow">No se puede corregir después</span>
+  <p>
+    <strong>Chipset y firmware se eligen al crear la máquina.</strong> Cambiarlos
+    luego no es posible: hay que borrarla y empezar de nuevo. Revísalos dos veces
+    antes de continuar.
+  </p>
+</div>
+
+<h3>Camino B · Un solo comando</h3>
+
+<p>
+  Once pantallas de clics son once oportunidades de equivocarse. Este comando deja
+  la máquina configurada exacta, de una vez:
+</p>
+
+<div class="cmd">
+  <div class="cmd__label">Terminal · anfitrión</div>
+  <pre><span class="p">$</span> sudo virt-install --connect qemu:///system \
+  --name Windows11 \
+  --osinfo win11 \
+  --memory 6144 \
+  --vcpus 4 \
+  --cpu host-passthrough \
+  --machine q35 \
+  --boot firmware=efi,firmware.feature0.name=enrolled-keys,\
+firmware.feature0.enabled=yes,firmware.feature1.name=secure-boot,\
+firmware.feature1.enabled=yes \
+  --features smm.state=on,hyperv.relaxed.state=on,\
+hyperv.vapic.state=on,hyperv.spinlocks.state=on,\
+hyperv.spinlocks.retries=8191 \
+  --tpm backend.type=emulator,backend.version=2.0,model=tpm-crb \
+  --disk path=/var/lib/libvirt/images/windows11.qcow2,size=80,\
+format=qcow2,bus=virtio,cache=writeback,discard=unmap \
+  --disk device=cdrom,path=/var/lib/libvirt/images/Win11.iso,boot.order=1 \
+  --disk device=cdrom,path=/var/lib/libvirt/images/virtio-win.iso \
+  --network network=default,model=virtio \
+  --channel unix,target.type=virtio,\
+target.name=org.qemu.guest_agent.0 \
+  --graphics spice --video qxl --noautoconsole</pre>
+</div>
+
+<div class="note note--ok">
+  <span class="eyebrow">Ventaja escondida · procesadores AMD</span>
+  <p>
+    Las guías que activan las mejoras Hyper-V suelen incluir una función llamada
+    <code>evmcs</code> que <strong>los procesadores AMD no soportan</strong>. La
+    máquina no arranca y el error no explica por qué.
+  </p>
+  <p>
+    Escribiendo la configuración a mano, esa línea nunca llega a existir. Puedes
+    comprobarlo antes de arrancar: <code>sudo virsh dumpxml Windows11 | grep evmcs</code>
+    debe devolver <strong>nada</strong>.
+  </p>
+</div>
+
+
+<h2 id="gwl-instalar">Paso 5 · Instalar Windows</h2>
+
+<p>
+  Aquí están los dos momentos donde abandona la gente. Los dos parecen fallos graves
+  y ninguno lo es.
+</p>
+
+<h3>Primer momento · cinco segundos</h3>
+
+<p>
+  Al encender, aparece esta línea. Dura poco y hay que atraparla.
+</p>
+
+<figure class="screen wide">
+  <div class="screen__bar">
+    <span class="screen__who screen__who--guest">Huésped · máquina virtual</span>
+    <span class="screen__cap">Primer arranque, unos 5 segundos</span>
+  </div>
+  <div class="screen__body">
+    <div class="boot">
+      Press any key to boot from CD or DVD<span class="boot__key">_</span>
+    </div>
+  </div>
+</figure>
+
+<p>
+  Si no pulsas nada, el firmware decide que no quieres arrancar desde el CD, busca un
+  sistema en el disco duro, no encuentra ninguno y te deja en su menú de rescate:
+</p>
+
+<figure class="screen wide">
+  <div class="screen__bar">
+    <span class="screen__who screen__who--guest">Huésped · firmware UEFI</span>
+    <span class="screen__cap">Donde caes si se te pasa el aviso</span>
+  </div>
+  <div class="screen__body">
+    <div class="uefi">
+      <div class="uefi__panel">
+        <div class="uefi__head">
+          <div>
+            Standard PC (Q35 + ICH9, 2009)<br>
+            pc-q35-10.0<br>
+            2025-02-8+deb13u1
+          </div>
+          <div>2.00 GHz<br>6144 MB RAM</div>
+        </div>
+        <div class="uefi__row">
+          <div class="uefi__menu">
+            Select Language &nbsp;&nbsp;&nbsp; &lt;English&gt;<br><br>
+            &#9656; Device Manager<br>
+            &#9656; Boot Manager<br>
+            <span class="uefi__sel">&#9656; Boot Maintenance Manager</span><br><br>
+            &nbsp;&nbsp;Continue<br>
+            &nbsp;&nbsp;Reset
+          </div>
+          <div class="uefi__hint">This selection will take you to the Boot Maintenance Manager</div>
+        </div>
+      </div>
+      <div class="uefi__foot">
+        <span>&#8593;&#8595;=Move Highlight</span>
+        <span>&lt;Enter&gt;=Select Entry</span>
+      </div>
+    </div>
+  </div>
+</figure>
+
+<p>
+  <strong>No está roto.</strong> Solo con teclado —el ratón no funciona aquí— baja
+  con las flechas hasta <code>Boot Manager</code>, pulsa Enter, elige el
+  <code>UEFI QEMU DVD-ROM</code> y esta vez ten el dedo listo sobre la barra
+  espaciadora.
+</p>
+
+<div class="note">
+  <span class="eyebrow">Truco</span>
+  <p>
+    Crea la máquina <strong>sin encenderla</strong>, abre primero su ventana con doble
+    clic y solo entonces pulsa el botón de encendido. Así los cinco segundos te pillan
+    mirando la pantalla y no buscándola.
+  </p>
+</div>
+
+<h3>Segundo momento · el disco que no aparece</h3>
+
+<p>
+  Windows pregunta dónde instalarse y la lista sale <strong>completamente vacía</strong>.
+  Es el punto exacto donde la mayoría concluye que algo falló y abandona.
+</p>
+
+<figure class="screen wide">
+  <div class="screen__bar">
+    <span class="screen__who screen__who--guest">Huésped · instalador de Windows</span>
+    <span class="screen__cap">Normal y esperado — no falló nada</span>
+  </div>
+  <div class="screen__body">
+    <div class="win">
+      <div class="win__title">Seleccionar ubicación para instalar Windows 11</div>
+      <div class="win__list">No se encontraron unidades.</div>
+      <div class="win__btns">
+        <span class="win__btn win__btn--hot">Cargar controlador</span>
+        <span class="win__btn">Actualizar</span>
+        <span class="win__btn">Siguiente</span>
+      </div>
+    </div>
+  </div>
+</figure>
+
+<p>
+  El disco está ahí. Windows sencillamente no conoce el hardware VirtIO y no sabe
+  verlo. Para eso conectamos el segundo CD.
+</p>
+
+<ol>
+  <li>Pulsa <strong>«Cargar controlador»</strong> → <strong>«Examinar»</strong></li>
+  <li>Entra en la unidad de CD que <em>no</em> es la de Windows (la de <code>virtio-win</code>)</li>
+  <li>Navega a <code>viostor</code> → <code>w11</code> → <code>amd64</code> → Aceptar</li>
+  <li>Aparece <em>Red Hat VirtIO SCSI controller</em> → Siguiente</li>
+  <li><strong>Y ahí aparece tu disco de 80 GB</strong></li>
+</ol>
+
+<div class="note note--warn">
+  <span class="eyebrow">Aprovecha y carga también la red</span>
+  <p>
+    Repite lo mismo con <code>NetKVM</code> → <code>w11</code> → <code>amd64</code>.
+    Si no lo haces ahora, Windows instalará sin internet y tendrás que pelearte
+    después para conseguir el driver… sin conexión para descargarlo.
+  </p>
+</div>
+
+<p>
+  A partir de ahí, todo normal: seleccionas el disco, Siguiente, y entre 10 y 20
+  minutos de copia con varios reinicios automáticos. En esos reinicios volverá a
+  aparecer el «Press any key» — <strong>esta vez no pulses nada</strong>, deja que
+  pase de largo.
+</p>
+
+
+<h2 id="gwl-despues">Paso 6 · Los toques finales</h2>
+
+<p>
+  Windows ya arranca, pero se siente torpe: pantalla lenta, resolución fija, sin
+  copiar y pegar entre sistemas. Falta una cosa.
+</p>
+
+<p>
+  Dentro de Windows, abre el CD de VirtIO y ejecuta
+  <strong><code>virtio-win-guest-tools.exe</code></strong>. Siguiente, siguiente,
+  reiniciar.
+</p>
+
+<div class="tablewrap">
+  <table>
+    <thead><tr><th>Sin las herramientas</th><th>Con las herramientas</th></tr></thead>
+    <tbody>
+      <tr><td>Pantalla lenta y a tirones</td><td>Fluida</td></tr>
+      <tr><td>Resolución fija</td><td>Se ajusta al tamaño de la ventana</td></tr>
+      <tr><td>Apagar desde Linux corta en seco</td><td>Apagado limpio y ordenado</td></tr>
+      <tr><td>Sin portapapeles compartido</td><td>Copias en Linux, pegas en Windows</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Ajustes que se agradecen</h3>
+
+<ul>
+  <li>Desactivar el servicio <strong>SysMain</strong> (el antiguo SuperFetch)</li>
+  <li>Quitar las sugerencias de búsqueda web del menú Inicio</li>
+  <li>Reducir los efectos visuales: <em>Rendimiento → Ajustar para mejor rendimiento</em></li>
+  <li>Revisar los programas que arrancan solos</li>
+</ul>
+
+<h3>Cómo soltar el ratón</h3>
+
+<p>
+  Cuando haces clic dentro de la ventana, la máquina virtual captura el ratón y el
+  teclado. Para recuperarlos:
+</p>
+
+<p class="keycombo">Ctrl&nbsp;+&nbsp;Alt&nbsp;<span>(los dos izquierdos)</span></p>
+
+
+<h2 id="gwl-dentro">Qué instalar dentro</h2>
+
+<p>
+  Esta es la parte que casi nadie explica, y es la que decide si el esfuerzo valió
+  la pena. Una vez tienes Windows corriendo, es Windows: instala lo que quieras.
+</p>
+
+<h3>Ofimática</h3>
+
+<p>
+  <strong>Microsoft Office</strong> es la razón número uno para montar esto. Muchos
+  programas de gestión no solo piden Excel: lo <em>invocan por su nombre</em> para
+  generar reportes, y LibreOffice no los sustituye por más compatible que sea. Si tu
+  trabajo depende de eso, aquí está resuelto.
+</p>
+
+<h3>PDF de verdad</h3>
+
+<p>
+  Rellenar formularios oficiales, firmar digitalmente, editar documentos con campos
+  protegidos. <strong>Adobe Acrobat</strong> y <strong>Foxit</strong> funcionan sin
+  drama. En Linux hay lectores excelentes, pero cuando el trámite exige una firma
+  digital con un certificado concreto, la máquina virtual te salva el día.
+</p>
+
+<h3>Desarrollo web</h3>
+
+<p>
+  Si programas, <strong>Laragon</strong> es un buen motivo por sí solo: te levanta
+  Apache, MySQL, PHP y Node en un clic, con dominios locales automáticos. Muy cómodo
+  para trabajar con WordPress o Laravel sin configurar nada.
+</p>
+
+<p>
+  Aquí conviene ser honesto: para desarrollo web, Linux nativo suele ser mejor
+  terreno. Pero si tu cliente exige reproducir un entorno Windows concreto, o
+  necesitas probar cómo se ve tu sitio en Edge, tener Windows a un clic vale oro.
+</p>
+
+<h3>Programas institucionales y antiguos</h3>
+
+<p>
+  El caso clásico: sistemas de ministerios, colegios profesionales, bancos o
+  aduanas. Programas escritos hace quince años que piden .NET Framework, Access o
+  SQL Server, que nadie va a portar nunca a Linux y de los que depende tu trabajo.
+</p>
+
+<p>
+  Son justamente el peor escenario para Wine y el mejor para una máquina virtual. Y
+  hay un beneficio extra: al estar aislados, si uno se rompe o hace algo raro, tu
+  sistema real ni se entera.
+</p>
+
+<div class="note note--ok">
+  <span class="eyebrow">Consejo de oro · instantáneas</span>
+  <p>
+    Antes de instalar un programa dudoso, haz una <strong>instantánea</strong>
+    (<em>snapshot</em>) desde virt-manager. Es una foto del estado completo de la
+    máquina. Si algo sale mal, vuelves atrás en treinta segundos y es como si nunca
+    hubiera pasado.
+  </p>
+  <p>
+    Esto solo lo puedes hacer virtualizando. En una instalación normal de Windows,
+    no existe.
+  </p>
+</div>
+
+
+<h2 id="gwl-versiones">¿Y Windows 7, 8.1 o 10?</h2>
+
+<p>
+  Parece ilógico en 2026, pero hay muchísima gente que sigue con Windows 7 y no lo
+  quiere soltar. Casi siempre por la misma razón: <strong>un programa viejo que
+  solo funciona ahí</strong>. Un sistema de facturación, un lector de un lector de
+  tarjetas, una máquina de laboratorio con su software propio.
+</p>
+
+<p>
+  Se puede, y de hecho es uno de los mejores usos de la virtualización. Pero cada
+  versión de Windows necesita un hardware virtual distinto — y ahí está el detalle
+  que casi nadie explica.
+</p>
+
+<div class="tablewrap">
+  <table>
+    <thead>
+      <tr><th>Ajuste</th><th>Win 7</th><th>Win 8.1</th><th>Win 10</th><th>Win 11</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Chipset</td>
+        <td><code>i440FX</code></td><td><code>Q35</code></td><td><code>Q35</code></td><td><code>Q35</code></td>
+      </tr>
+      <tr>
+        <td>Firmware</td>
+        <td>BIOS</td><td>UEFI</td><td>UEFI</td><td>UEFI + Secure Boot</td>
+      </tr>
+      <tr>
+        <td>TPM</td>
+        <td>—</td><td>—</td><td>opcional</td><td><strong>obligatorio</strong></td>
+      </tr>
+      <tr>
+        <td>Controlador USB</td>
+        <td><code>ehci</code> (2.0)</td><td><code>xhci</code></td><td><code>xhci</code></td><td><code>xhci</code></td>
+      </tr>
+      <tr>
+        <td>Carpeta de drivers</td>
+        <td><code>w7</code></td><td><code>w8.1</code></td><td><code>w10</code></td><td><code>w11</code></td>
+      </tr>
+      <tr>
+        <td>Memoria sugerida</td>
+        <td class="num">4 GB</td><td class="num">4 GB</td><td class="num">4 GB</td><td class="num">6 GB</td>
+      </tr>
+      <tr>
+        <td>Disco sugerido</td>
+        <td class="num">40 GB</td><td class="num">40 GB</td><td class="num">64 GB</td><td class="num">80 GB</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Las dos trampas propias de Windows 7</h3>
+
+<p>
+  <strong>El chipset.</strong> Windows 7 es de 2009 y no conoce bien el Q35
+  moderno. Con el i440FX antiguo arranca sin quejarse. Es de las pocas veces que
+  lo viejo es la respuesta correcta.
+</p>
+
+<p>
+  <strong>El USB.</strong> Windows 7 <em>no trae driver de USB 3.0</em>. Si le das
+  el controlador moderno (<code>xhci</code>), el teclado y el ratón no funcionan
+  durante la instalación — y te quedas mirando una pantalla en la que no puedes
+  hacer nada. Con <code>ehci</code> (USB 2.0) va perfecto.
+</p>
+
+<div class="note note--ok">
+  <span class="eyebrow">Buena noticia</span>
+  <p>
+    El CD de drivers VirtIO <strong>trae controladores para todas las versiones</strong>,
+    incluidas Windows 7, 8, 8.1, 10, 11 y hasta XP, en 64 y 32 bits. No hay que
+    buscar nada por separado: es el mismo archivo <code>virtio-win.iso</code>.
+  </p>
+</div>
+
+<h3>⚠️ El asunto de la seguridad</h3>
+
+<p>
+  Esto es más importante que la parte técnica. Fechas del último parche de
+  seguridad publicado por Microsoft:
+</p>
+
+<div class="tablewrap">
+  <table>
+    <thead><tr><th>Sistema</th><th>Último parche de seguridad</th></tr></thead>
+    <tbody>
+      <tr><td>Windows 7</td><td>enero de 2020</td></tr>
+      <tr><td>Windows 8.1</td><td>enero de 2023</td></tr>
+      <tr><td>Windows 10</td><td>octubre de 2025</td></tr>
+      <tr><td>Windows 11</td><td>con soporte actual</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  Un Windows sin parches conectado a internet es un riesgo real: los agujeros que
+  se descubran de ahora en adelante <strong>no se arreglan nunca</strong>.
+</p>
+
+<p>
+  Y aquí es donde virtualizar te da algo que el arranque dual no puede:
+  <strong>puedes dejarlo sin internet</strong>. El programa viejo sigue
+  funcionando, pero el sistema queda encerrado en su caja.
+</p>
+
+<p>
+  Eso merece su propia sección, porque la pregunta que viene después es la
+  importante: <em>«¿y entonces cómo meto archivos ahí dentro?»</em>
+</p>
+
+
+<h2 id="gwl-sinred">Trabajar sin internet, sin sufrir</h2>
+
+<div class="note note--ok">
+  <span class="eyebrow">Esto NO es para todos</span>
+  <p>
+    Si vas a usar <strong>Windows 11</strong>, déjalo conectado con normalidad:
+    recibe parches, se actualiza solo y no hay motivo para aislarlo.
+  </p>
+  <p>
+    Esta sección es para quien necesita <strong>Windows 7, 8.1 o 10</strong> por un
+    programa concreto. Ahí sí conviene, y mucho.
+  </p>
+</div>
+
+<h3>Por qué aislarlo cambia las cosas</h3>
+
+<p>
+  Un sistema sin soporte no es «un poco más inseguro»: es que los agujeros que se
+  descubran de aquí en adelante <strong>no se van a arreglar jamás</strong>. Y los
+  atacantes lo saben — es el blanco favorito precisamente por eso.
+</p>
+
+<p>
+  Sin red, la mayoría de esos ataques sencillamente no puede llegar. El programa de
+  facturación de 2011 sigue funcionando igual, porque nunca necesitó internet para
+  hacer su trabajo.
+</p>
+
+<h3>Paso 1 · Cortarle la red</h3>
+
+<p><strong>Desde la ventana</strong>, que es lo más fácil:</p>
+
+<ol>
+  <li>Abre el Gestor de máquinas virtuales</li>
+  <li>Doble clic en tu máquina → botón de <strong>información</strong> (el «i» o la bombilla)</li>
+  <li>Selecciona <strong>NIC</strong> en la lista de la izquierda</li>
+  <li>Desmarca <strong>«Enlace activo»</strong> (<em>Link state: active</em>) → Aplicar</li>
+</ol>
+
+<p>
+  Windows verá el cable desconectado. Se puede activar y desactivar en caliente,
+  sin apagar la máquina.
+</p>
+
+<p><strong>Desde la terminal</strong>, si prefieres:</p>
+
+<div class="cmd">
+  <div class="cmd__label">Terminal · anfitrión</div>
+  <pre><span class="c"># Primero averigua la MAC de la máquina</span>
+<span class="p">$</span> sudo virsh domiflist NOMBRE
+ Interfaz   Tipo      Fuente    Modelo   MAC
+ -          network   default   virtio   <span class="s">52:54:00:f6:8e:93</span>
+
+<span class="c"># Y la usas para cortar o devolver la red</span>
+<span class="p">$</span> sudo virsh domif-setlink NOMBRE 52:54:00:f6:8e:93 down
+<span class="p">$</span> sudo virsh domif-setlink NOMBRE 52:54:00:f6:8e:93 up</pre>
+</div>
+
+<div class="note note--warn">
+  <span class="eyebrow">Ojo con esto</span>
+  <p>
+    Muchas guías dicen <code>vnet0</code> en lugar de la MAC. <strong>No lo
+    hagas.</strong> Ese nombre se asigna al arrancar y cambia según cuántas
+    máquinas tengas encendidas: con la máquina apagada ni siquiera existe.
+  </p>
+  <p>
+    <strong>La MAC es fija.</strong> Es el único identificador en el que puedes
+    confiar siempre.
+  </p>
+</div>
+
+<h3>Paso 2 · Meter y sacar archivos sin red</h3>
+
+<p>
+  Aquí está el truco que hace la diferencia entre un sistema aislado usable y uno
+  insoportable. Tres métodos, de más simple a más cómodo.
+</p>
+
+<h4>Método A · Un CD virtual (funciona en todas las versiones)</h4>
+
+<p>
+  Metes tus archivos en una carpeta de Linux, la conviertes en un CD y se lo pasas
+  a Windows. <strong>No necesita drivers ni configuración</strong>, y funciona desde
+  Windows XP hasta el 11.
+</p>
+
+<div class="cmd">
+  <div class="cmd__label">Terminal · anfitrión</div>
+  <pre><span class="c"># 1. Junta lo que quieras pasar en una carpeta</span>
+<span class="p">$</span> mkdir -p ~/para-windows
+<span class="p">$</span> cp instalador.exe informe.xlsx ~/para-windows/
+
+<span class="c"># 2. Conviértela en un CD</span>
+<span class="p">$</span> genisoimage -J -r -V "PARA-WINDOWS" \
+      -o /var/lib/libvirt/images/para-windows.iso ~/para-windows/
+
+<span class="c"># 3. En el Gestor: Añadir hardware → Almacenamiento →</span>
+<span class="c">#    Dispositivo CDROM → elige ese archivo</span></pre>
+</div>
+
+<p>
+  Aparece como una unidad de CD dentro de Windows. Para renovarlo, vuelves a
+  generar el ISO y expulsas y vuelves a insertar el CD desde el Gestor.
+</p>
+
+<p>
+  Las opciones <code>-J -r</code> son importantes: permiten nombres largos y con
+  acentos. Sin ellas, tus archivos aparecen con nombres recortados y en mayúsculas,
+  como en 1995.
+</p>
+
+<h4>Método B · Una memoria USB</h4>
+
+<p>
+  Conectas tu USB al equipo y se la cedes a la máquina virtual: <em>Añadir hardware
+  → Dispositivo USB de anfitrión</em>. Windows la ve como si estuviera enchufada
+  directamente.
+</p>
+
+<p>
+  Cómodo y bidireccional, pero mientras la máquina la tiene, <strong>Linux no puede
+  usarla</strong>. Es una u otra.
+</p>
+
+<h4>Método C · Copiar y pegar</h4>
+
+<p>
+  Con las herramientas VirtIO instaladas, el portapapeles se comparte entre los dos
+  sistemas. Copias en Linux, pegas en Windows.
+</p>
+
+<p>
+  Perfecto para textos, códigos y direcciones. No sirve para archivos.
+</p>
+
+<h3>Paso 3 · Internet a demanda</h3>
+
+<p>
+  Aislado no significa incomunicado para siempre. A veces hace falta conectarlo un
+  momento: actualizar el propio programa de trabajo, registrar una licencia,
+  descargar un complemento.
+</p>
+
+<p>La rutina segura son cuatro pasos:</p>
+
+<ol>
+  <li><strong>Instantánea</strong> antes de nada (por si algo sale mal)</li>
+  <li><strong>Enciende la red</strong> — la casilla del NIC, o el comando <code>up</code></li>
+  <li>Haz lo que tengas que hacer, <strong>solo eso</strong></li>
+  <li><strong>Vuelve a cortarla</strong></li>
+</ol>
+
+<p>
+  Minutos de exposición en vez de meses. Y si algo se instaló que no debía, vuelves
+  a la instantánea y es como si nunca hubiera pasado.
+</p>
+
+<h3>Las instantáneas: la red de seguridad</h3>
+
+<p>
+  Una instantánea es una foto del estado completo de la máquina — disco, memoria,
+  todo. Volver atrás toma segundos.
+</p>
+
+<div class="cmd">
+  <div class="cmd__label">Terminal · anfitrión</div>
+  <pre><span class="c"># Tomar una foto antes de tocar nada</span>
+<span class="p">$</span> sudo virsh snapshot-create-as NOMBRE antes-de-actualizar \
+      "Estado bueno conocido"
+
+<span class="c"># Ver las que tienes</span>
+<span class="p">$</span> sudo virsh snapshot-list NOMBRE
+
+<span class="c"># Volver atrás si algo salió mal</span>
+<span class="p">$</span> sudo virsh snapshot-revert NOMBRE antes-de-actualizar</pre>
+</div>
+
+<p>
+  También están en el Gestor, en el botón de instantáneas. Con interfaz gráfica y
+  todo.
+</p>
+
+<h3>Un panel para no memorizar comandos</h3>
+
+<p>
+  Todo lo anterior son cuatro o cinco comandos que hay que recordar, y en el
+  Gestor están repartidos por menús distintos. Si vas a usarlo a diario, merece la
+  pena un panel propio.
+</p>
+
+<figure class="screen wide">
+  <div class="screen__bar">
+    <span class="screen__who">Anfitrión · panel de control</span>
+    <span class="screen__cap">Lo del día a día, en una sola ventana</span>
+  </div>
+  <div class="screen__body">
+    <div class="panel">
+      <div class="panel__head">
+        <span class="panel__title">🪟  Windows7-Contabilidad</span>
+        <span class="panel__state">Máquina <b>encendida</b> · Red: <b>cortada</b></span>
+      </div>
+      <div class="panel__btn panel__btn--on">🌐&nbsp;&nbsp; Dar internet <span>— ahora está cortada</span></div>
+      <div class="panel__btn">💿&nbsp;&nbsp; Pasarle archivos con un CD virtual</div>
+      <div class="panel__btn">📸&nbsp;&nbsp; Tomar una instantánea</div>
+      <div class="panel__btn">↩️&nbsp;&nbsp; Volver a una instantánea</div>
+      <div class="panel__btn">🔧&nbsp;&nbsp; Abrir el Gestor (USB y ajustes)</div>
+    </div>
+  </div>
+</figure>
+
+<p>
+  El botón de internet <strong>cambia según el estado</strong>: si está conectada te
+  ofrece cortar, y al revés. Arriba se lee siempre cómo está la máquina, para no
+  tener que adivinar.
+</p>
+
+<p>
+  Se construye con <a href="https://github.com/v1cont/yad">yad</a>, que dibuja
+  ventanas desde un guion de shell, y por debajo son los mismos comandos de arriba.
+  En <strong>cursalialinux</strong> viene listo como
+  <code>cursalia-windows-control.sh</code>; en cualquier otra distro es cuestión de
+  <code>sudo apt install yad</code> y escribirlo, o poner esos comandos en
+  lanzadores sueltos.
+</p>
+
+<div class="note note--ok">
+  <span class="eyebrow">Lo que ganas con todo esto</span>
+  <p>
+    Un Windows 7 <strong>aislado</strong> (sin red, sin exposición),
+    <strong>reversible</strong> (instantáneas) y <strong>usable</strong> (archivos
+    entran y salen sin problema), corriendo dentro de un Linux moderno que sí recibe
+    parches.
+  </p>
+  <p>
+    Eso no lo consigues ni con arranque dual ni con un equipo viejo arrinconado. Es
+    la mejor respuesta que existe hoy para «necesito ese programa antiguo y no puedo
+    dejarlo».
+  </p>
+</div>
+
+
+<h2 id="gwl-seguridad">Proteger un Windows sin soporte</h2>
+
+<p>
+  La pregunta llega sola: <em>«si le doy internet a un Windows 8 que ya no recibe
+  parches, ¿qué antivirus gratuito le pongo?»</em>
+</p>
+
+<p>
+  La respuesta honesta incomoda un poco, pero prefiero darla antes que vender
+  tranquilidad falsa.
+</p>
+
+<h3>El antivirus no arregla ese problema</h3>
+
+<p>
+  Un antivirus revisa <strong>archivos</strong> buscando programas maliciosos
+  conocidos. Lo hace bien. Pero un sistema sin parches no tiene un problema de
+  archivos: tiene <strong>agujeros en el sistema mismo</strong> —en cómo maneja la
+  red, el protocolo de compartir carpetas, el navegador— que ya nadie va a tapar.
+</p>
+
+<p>
+  Quien aprovecha uno de esos agujeros <strong>no necesita que abras ningún
+  archivo</strong>. El antivirus no ve nada raro porque no hay nada raro que ver:
+  solo hay una puerta que quedó abierta para siempre.
+</p>
+
+<div class="note note--warn">
+  <span class="eyebrow">La comparación que lo deja claro</span>
+  <p>
+    El antivirus es la <strong>cerradura de la puerta</strong>. El parche que falta
+    es la <strong>ventana rota del baño</strong>. Poner mejor cerradura no cierra la
+    ventana.
+  </p>
+  <p>
+    Instalarlo y quedarse tranquilo es peor que saberse expuesto: te quita la
+    precaución sin quitarte el riesgo.
+  </p>
+</div>
+
+<h3>La buena noticia: ya tienes una barrera fuerte</h3>
+
+<p>
+  Esto casi nadie lo sabe. La red virtual por defecto funciona en modo
+  <strong>NAT</strong>:
+</p>
+
+<div class="cmd">
+  <div class="cmd__label">Terminal · anfitrión</div>
+  <pre><span class="p">$</span> sudo virsh net-dumpxml default | grep forward
+      <span class="g">&lt;forward mode='nat'&gt;</span></pre>
+</div>
+
+<p>
+  Tu máquina virtual está <strong>detrás de una barrera</strong>, igual que tu
+  computadora detrás del router de casa. Puede salir a internet, pero
+  <strong>nadie desde internet puede iniciar una conexión hacia ella</strong>.
+</p>
+
+<p>
+  Eso elimina de golpe toda una familia de ataques: los automáticos, que recorren
+  internet buscando máquinas vulnerables y se conectan solos. Esos no llegan.
+</p>
+
+<p>Lo que sí queda como riesgo:</p>
+
+<ul>
+  <li>Lo que descargues o abras tú dentro de Windows</li>
+  <li>Páginas maliciosas, si navegas con un navegador viejo</li>
+  <li>Otros equipos de tu red local, si alguno está infectado</li>
+</ul>
+
+<h3>Las protecciones que de verdad funcionan</h3>
+
+<div class="tablewrap">
+  <table>
+    <thead><tr><th>Protección</th><th>Por qué funciona</th><th>Cuesta</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Cortarle la red</strong></td>
+        <td>Sin red no hay ataque por red. La mayoría de programas antiguos nunca la necesitaron</td>
+        <td class="num">gratis</td>
+      </tr>
+      <tr>
+        <td><strong>Instantáneas</strong></td>
+        <td>Si se infecta, vuelves atrás en segundos. El estado malo deja de existir</td>
+        <td class="num">gratis</td>
+      </tr>
+      <tr>
+        <td><strong>No ser administrador</strong></td>
+        <td>Mucho software malicioso no puede hacer daño real sin esos permisos</td>
+        <td class="num">gratis</td>
+      </tr>
+      <tr>
+        <td><strong>No navegar ahí dentro</strong></td>
+        <td>El navegador viejo es el punto más débil del conjunto</td>
+        <td class="num">gratis</td>
+      </tr>
+      <tr>
+        <td>Antivirus</td>
+        <td>Ayuda contra lo que descargas tú. No tapa los agujeros del sistema</td>
+        <td class="num">complemento</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  Fíjate en el orden: <strong>lo más eficaz es también lo más barato</strong>. Y las
+  dos primeras solo existen porque estás virtualizando.
+</p>
+
+<h3>Entonces, ¿antivirus sí o no?</h3>
+
+<p>
+  Sí, como <strong>complemento</strong>, nunca como única defensa. Pero antes revisa
+  algo que casi nadie mira.
+</p>
+
+<p>
+  <strong>Microsoft Defender</strong> viene incluido desde Windows 8. Es razonable y
+  gratuito. Pero <strong>comprueba la fecha de sus definiciones</strong>: Microsoft
+  las fue retirando para los sistemas sin soporte, y un antivirus con definiciones
+  de hace meses es prácticamente decorativo.
+</p>
+
+<p>
+  En Windows: <em>Seguridad de Windows → Protección antivirus → última
+  actualización</em>. Si esa fecha es vieja, ya no te protege de nada nuevo.
+</p>
+
+<p>
+  Si buscas alternativas gratuitas de terceros, verifica <strong>en su sitio
+  oficial</strong> que aún soporten tu versión — cada año son menos. Y una regla que
+  se olvida: <strong>uno solo</strong>. Dos antivirus a la vez se estorban y dejan el
+  sistema más lento y menos protegido, no más.
+</p>
+
+<h3>La receta práctica</h3>
+
+<ol>
+  <li>Instala Windows y el programa que necesitas</li>
+  <li>Crea una <strong>cuenta normal</strong> para el día a día, no de administrador</li>
+  <li>Toma una instantánea y llámala <code>recien-instalado</code></li>
+  <li><strong>Corta la red</strong> desde el panel</li>
+  <li>Pásale archivos con el <strong>CD virtual</strong></li>
+  <li>Si necesitas internet un rato: instantánea → conectar → hacer solo eso → desconectar</li>
+</ol>
+
+<div class="note note--ok">
+  <span class="eyebrow">La idea de fondo</span>
+  <p>
+    El punto no es que la máquina virtual sea invulnerable. Es que <strong>cuando
+    falla, no te cuesta nada</strong>: vuelves a la instantánea y sigues trabajando.
+  </p>
+  <p>
+    En un equipo con Windows instalado directamente, lo mismo significa reinstalar
+    todo y perder la tarde. Esa diferencia lo cambia todo.
+  </p>
+</div>
+
+
+<h2 id="gwl-trampas">Las ocho trampas</h2>
+
+<p>
+  Esto es lo que no encontré escrito en ningún sitio y lo que me hizo perder la
+  tarde. Cada una con su síntoma exacto, por si llegaste aquí buscándolo en Google.
+</p>
+
+<div class="trap">
+  <span class="trap__stage">Al descargar</span>
+  <h3>Bajaste la carpeta equivocada de VirtIO</h3>
+  <dl>
+    <dt>Síntoma</dt>
+    <dd>Ves decenas de archivos con nombres raros: <code>qxl</code>, <code>spice-vdagent</code>, <code>prewhql</code>, <code>.rpm</code>, <code>.zip</code>. Ningún <code>virtio-win.iso</code> por ninguna parte.</dd>
+    <dt>Causa</dt>
+    <dd>Entraste en <code>upstream-virtio</code>, que es el material para desarrolladores.</dd>
+    <dt>Solución</dt>
+    <dd>Vuelve atrás y entra en <code>stable-virtio</code>. Un solo archivo: <code>virtio-win.iso</code>.</dd>
+  </dl>
+</div>
+
+<div class="trap">
+  <span class="trap__stage">Al preparar</span>
+  <h3>Los ISOs en tu carpeta personal</h3>
+  <dl>
+    <dt>Síntoma</dt>
+    <dd><em>Permission denied</em> señalando al archivo ISO al arrancar la máquina, aunque el archivo existe y tú puedes abrirlo.</dd>
+    <dt>Causa</dt>
+    <dd>La máquina corre como <code>libvirt-qemu</code>, no como tú. Tu carpeta personal es <code>drwx------</code>: solo tú entras.</dd>
+    <dt>Solución</dt>
+    <dd>Mueve los ISOs a <code>/var/lib/libvirt/images/</code>, que es la carpeta pensada para eso.</dd>
+  </dl>
+</div>
+
+<div class="trap">
+  <span class="trap__stage">Al preparar</span>
+  <h3>El comodín <code>*.iso</code> con <code>sudo</code></h3>
+  <dl>
+    <dt>Síntoma</dt>
+    <dd><code>chmod: no se puede acceder a '/var/lib/libvirt/images/*.iso': No existe el fichero</code> — pero los archivos sí están ahí.</dd>
+    <dt>Causa</dt>
+    <dd>El comodín lo expande <strong>tu shell</strong> antes de que <code>sudo</code> entre en juego. Y tu usuario no puede listar esa carpeta, así que el comodín no encuentra nada y se pasa literal.</dd>
+    <dt>Solución</dt>
+    <dd>Nombra los archivos completos, o deja que root expanda:<br><code>sudo sh -c 'chmod 644 /var/lib/libvirt/images/*.iso'</code></dd>
+  </dl>
+</div>
+
+<div class="trap">
+  <span class="trap__stage">Al crear</span>
+  <h3><code>evmcs</code> en procesadores AMD</h3>
+  <dl>
+    <dt>Síntoma</dt>
+    <dd>La máquina virtual no arranca. El mensaje de error no menciona AMD ni da pista alguna.</dd>
+    <dt>Causa</dt>
+    <dd>Las mejoras Hyper-V incluyen <code>&lt;evmcs state="on"/&gt;</code>, una función que solo existe en Intel.</dd>
+    <dt>Solución</dt>
+    <dd>Borra esa línea del XML. Comprueba con <code>sudo virsh dumpxml TuMaquina | grep evmcs</code>: debe devolver nada.</dd>
+  </dl>
+</div>
+
+<div class="trap">
+  <span class="trap__stage">Al arrancar</span>
+  <h3>Los cinco segundos del «Press any key»</h3>
+  <dl>
+    <dt>Síntoma</dt>
+    <dd>Acabas en una pantalla azul con menús en inglés: <em>Device Manager</em>, <em>Boot Manager</em>… y <code>Continue</code> no hace nada útil.</dd>
+    <dt>Causa</dt>
+    <dd>Se pasó el aviso, el firmware no encontró sistema en el disco vacío y te dejó en su menú de rescate.</dd>
+    <dt>Solución</dt>
+    <dd>Con las flechas: <code>Boot Manager</code> → Enter → elige el <code>UEFI QEMU DVD-ROM</code> → Enter. Y esta vez con el dedo listo.</dd>
+  </dl>
+</div>
+
+<div class="trap">
+  <span class="trap__stage">Al arrancar</span>
+  <h3>El botón de pausa pulsado sin querer</h3>
+  <dl>
+    <dt>Síntoma</dt>
+    <dd>La máquina no responde a nada. Ni teclado, ni ratón, ni menús. Parece colgada del todo.</dd>
+    <dt>Causa</dt>
+    <dd>El botón de pausa de la barra de virt-manager, que está justo al lado del de encender. Congela la máquina dejando la última imagen en pantalla.</dd>
+    <dt>Solución</dt>
+    <dd>Púlsalo otra vez, o desde la terminal: <code>sudo virsh resume TuMaquina</code>. Para saber si es eso: <code>sudo virsh domstate TuMaquina</code> dirá <em>en pausa</em>.</dd>
+  </dl>
+</div>
+
+<figure class="screen wide">
+  <div class="screen__bar">
+    <span class="screen__who">Anfitrión · virt-manager</span>
+    <span class="screen__cap">El botón que congela, y está pegado al de encender</span>
+  </div>
+  <div class="screen__body">
+    <div class="vmbar">
+      <span class="vmbtn" title="Ver consola">&#128421;</span>
+      <span class="vmbtn" title="Encender">&#9654;</span>
+      <span class="vmbtn vmbtn--danger" title="Pausar">
+        &#10073;&#10073;
+        <span class="vmbtn__tag">cuidado</span>
+      </span>
+      <span class="vmbtn" title="Apagar">&#9211;</span>
+    </div>
+  </div>
+</figure>
+
+<div class="trap">
+  <span class="trap__stage">Al instalar</span>
+  <h3>La lista de discos vacía</h3>
+  <dl>
+    <dt>Síntoma</dt>
+    <dd>Windows pregunta dónde instalarse y no muestra ninguna unidad. Cero. El botón «Actualizar» no cambia nada.</dd>
+    <dt>Causa</dt>
+    <dd>Windows no trae los drivers VirtIO y no puede ver ese tipo de disco.</dd>
+    <dt>Solución</dt>
+    <dd><em>Cargar controlador</em> → Examinar → CD de virtio-win → <code>viostor\w11\amd64</code>. Y ya que estás, <code>NetKVM\w11\amd64</code> para la red.</dd>
+  </dl>
+</div>
+
+<div class="trap">
+  <span class="trap__stage">Al limpiar</span>
+  <h3><code>--remove-all-storage</code> borra tus ISOs</h3>
+  <dl>
+    <dt>Síntoma</dt>
+    <dd>Querías eliminar una máquina para rehacerla y se llevó por delante los archivos de instalación. 8,5 GB de descarga perdidos.</dd>
+    <dt>Causa</dt>
+    <dd>Para libvirt, los CDs conectados <strong>son discos</strong>. <code>--remove-all-storage</code> los elimina todos, sin preguntar y sin papelera.</dd>
+    <dt>Solución</dt>
+    <dd>Siempre en dos pasos:<br><code>sudo virsh undefine TuMaquina --nvram</code><br><code>sudo rm -f /var/lib/libvirt/images/tumaquina.qcow2</code></dd>
+  </dl>
+</div>
+
+<div class="note note--warn">
+  <span class="eyebrow">Y una lección aparte</span>
+  <p>
+    En cuanto tengas los dos ISOs, <strong>cópialos a un disco externo</strong>. Son
+    8,5 GB que no querrás volver a descargar. Yo lo aprendí de la peor manera.
+  </p>
+</div>
+
+
+<h2 id="gwl-chuleta">Chuleta de comandos</h2>
+
+<p>Los que vas a usar de verdad, para tener a mano.</p>
+
+<div class="tablewrap">
+  <table>
+    <thead><tr><th>Para</th><th>Comando</th></tr></thead>
+    <tbody>
+      <tr><td>Ver todas tus máquinas</td><td><code>sudo virsh list --all</code></td></tr>
+      <tr><td>Saber si está en pausa</td><td><code>sudo virsh domstate NOMBRE</code></td></tr>
+      <tr><td>Despertarla de la pausa</td><td><code>sudo virsh resume NOMBRE</code></td></tr>
+      <tr><td>Encender</td><td><code>sudo virsh start NOMBRE</code></td></tr>
+      <tr><td>Apagar con orden</td><td><code>sudo virsh shutdown NOMBRE</code></td></tr>
+      <tr><td>Apagar de golpe</td><td><code>sudo virsh destroy NOMBRE</code></td></tr>
+      <tr><td>Cuánto ocupa de verdad</td><td><code>sudo virsh domblkinfo NOMBRE vda</code></td></tr>
+      <tr><td>Ver toda su configuración</td><td><code>sudo virsh dumpxml NOMBRE</code></td></tr>
+      <tr><td>Borrarla (paso 1)</td><td><code>sudo virsh undefine NOMBRE --nvram</code></td></tr>
+      <tr><td>Borrarla (paso 2)</td><td><code>sudo rm -f /var/lib/libvirt/images/nombre.qcow2</code></td></tr>
+      <tr><td>Estado de la red virtual</td><td><code>sudo virsh net-list --all</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note">
+  <span class="eyebrow">Detalle que confunde</span>
+  <p>
+    Si ejecutas <code>virsh</code> sin <code>sudo</code>, se conecta a tu sesión
+    personal y la lista sale <strong>vacía</strong> aunque tengas máquinas creadas.
+    No es un error: viven en la sesión del sistema. Usa <code>sudo</code>, o añade
+    <code>-c qemu:///system</code>.
+  </p>
+</div>
+
+
+<h2 id="gwl-licencias">Licencias y responsabilidad</h2>
+
+<p>
+  Dejo esto claro porque es la pregunta que más aparece y la que menos se responde
+  con honestidad.
+</p>
+
+<h3>Qué hace y qué no hace esta guía</h3>
+
+<p>
+  <strong>Lo que hace:</strong> documentar cómo configurar KVM, QEMU y virt-manager
+  —todos programas libres y gratuitos— para construir una computadora virtual.
+</p>
+
+<p>
+  <strong>Lo que no hace:</strong> distribuir Windows, distribuir Office,
+  proporcionar claves de activación ni explicar cómo saltarse la activación.
+</p>
+
+<p>
+  La analogía es sencilla: aquí se enseña a construir el estante, no se regalan los
+  libros.
+</p>
+
+<h3>Sobre tu licencia de Windows</h3>
+
+<p>
+  Microsoft permite descargar las imágenes de Windows libremente desde su sitio
+  oficial. Eso confunde a mucha gente, así que conviene decirlo directo:
+  <strong>descargar es gratis, usar requiere licencia.</strong>
+</p>
+
+<div class="tablewrap">
+  <table>
+    <thead><tr><th>Tipo de licencia</th><th>Cómo la reconoces</th><th>¿Sirve en una máquina virtual?</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>OEM</strong></td>
+        <td>Vino con el equipo de fábrica</td>
+        <td>Normalmente <strong>no</strong>: está atada al equipo físico</td>
+      </tr>
+      <tr>
+        <td><strong>Retail</strong></td>
+        <td>La compraste aparte, en caja o descarga</td>
+        <td>Generalmente <strong>sí</strong>, y suele poder trasladarse</td>
+      </tr>
+      <tr>
+        <td><strong>Corporativa</strong></td>
+        <td>Te la da tu institución</td>
+        <td>Depende del contrato — <strong>pregunta a sistemas</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  Si tu computadora trajo Windows de fábrica, esa licencia está grabada en el
+  firmware y atada a esa máquina física. <strong>Una máquina virtual no la
+  hereda.</strong>
+</p>
+
+<div class="note note--warn">
+  <span class="eyebrow">Un hecho técnico, no un permiso</span>
+  <p>
+    Windows 10 y 11 se instalan y funcionan <strong>sin activar</strong>: marca de
+    agua en la esquina y personalización bloqueada, pero los programas corren.
+  </p>
+  <p>
+    Que técnicamente arranque <strong>no significa que estés en regla</strong>. Los
+    términos de Microsoft siguen requiriendo una licencia. Lo menciono porque lo vas
+    a ver, y prefiero que sepas exactamente qué estás viendo.
+  </p>
+</div>
+
+<h3>Las opciones legales y gratuitas que sí existen</h3>
+
+<p>
+  Si lo tuyo es aprender o evaluar, Microsoft ofrece caminos legítimos que casi
+  nadie menciona:
+</p>
+
+<ul>
+  <li><strong>Microsoft Evaluation Center</strong> — Windows Enterprise por 90 días, sin costo</li>
+  <li><strong>Windows dev environment</strong> — máquinas virtuales de desarrollo ya preparadas, publicadas por Microsoft</li>
+  <li><strong>Windows Insider</strong> — versiones de prueba para quien se registra</li>
+</ul>
+
+<p>
+  Para practicar virtualización, cualquiera de las tres sirve perfectamente y te
+  evita el problema por completo.
+</p>
+
+<h3>Si trabajas en una institución pública</h3>
+
+<p>
+  Hay una vía que mucha gente no considera: <strong>preguntar formalmente a tu área
+  de sistemas</strong> si el contrato de licenciamiento de la institución cubre
+  máquinas virtuales.
+</p>
+
+<p>
+  En bastantes casos sí lo hace y basta con solicitarlo. Es lo más limpio, y además
+  deja constancia de que hiciste las cosas bien.
+</p>
+
+<h3>Antes de virtualizar, comprueba si hace falta</h3>
+
+<p>
+  La máquina virtual tiene sentido cuando <strong>no hay alternativa</strong>. Para
+  todo lo demás, ya existe software libre y gratuito:
+</p>
+
+<div class="tablewrap">
+  <table>
+    <thead><tr><th>En vez de</th><th>Prueba</th></tr></thead>
+    <tbody>
+      <tr><td>Microsoft Office</td><td>LibreOffice · OnlyOffice</td></tr>
+      <tr><td>Adobe Acrobat</td><td>Okular · Xournal++ · LibreOffice Draw</td></tr>
+      <tr><td>Photoshop</td><td>GIMP · Krita</td></tr>
+      <tr><td>AutoCAD</td><td>LibreCAD · FreeCAD</td></tr>
+      <tr><td>Outlook</td><td>Thunderbird</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  Guarda la máquina virtual para lo que de verdad la necesita: el programa
+  institucional obligatorio, el formato propietario que nadie más abre, el trámite
+  que exige un certificado concreto.
+</p>
+
+<div class="note">
+  <span class="eyebrow">Aviso de responsabilidad</span>
+  <p>
+    Este artículo se publica <strong>con fines educativos y de documentación
+    técnica</strong>. Describe el uso de software libre (KVM, QEMU, libvirt,
+    virt-manager) para virtualizar sistemas operativos.
+  </p>
+  <p>
+    Quien siga esta guía es <strong>responsable de contar con las licencias</strong>
+    que correspondan a lo que instale. El autor no se hace responsable del uso que
+    se dé a esta información, ni de pérdidas de datos o incumplimientos de términos
+    de terceros.
+  </p>
+  <p>
+    Esto <strong>no es asesoramiento legal</strong>. Las normas de licenciamiento
+    varían según el país y el contrato. Ante la duda, consulta con el titular de la
+    licencia o con el área de sistemas de tu institución.
+  </p>
+</div>
+
+
+<h2>Lo que ganas al final</h2>
+
+<p>
+  Una ventana más en tu escritorio. La abres, haces lo que tengas que hacer en
+  Windows, la cierras, y tu Linux sigue exactamente igual de limpio que estaba.
+</p>
+
+<p>
+  Sin reiniciar. Sin repartir el disco. Sin renunciar al sistema que elegiste. Y con
+  la posibilidad de tomar una instantánea antes de cualquier instalación dudosa, algo
+  que en un Windows normal simplemente no existe.
+</p>
+
+<p>
+  Si trabajas en una institución que te ata a programas de Windows, esto es la
+  diferencia entre volver atrás y quedarte donde quieres estar.
+</p>
+
+<div class="outro">
+  <p>
+    <strong>Probado en:</strong> cursalialinux Moderna (Debian 13 «Trixie», KDE Plasma
+    sobre Wayland), AMD Ryzen 5 5500U, 16 GB de RAM. Windows 11 25H2, virtio-win 0.1.285,
+    libvirt 11.3, QEMU 10.0.
+  </p>
+  <p>
+    <strong>Fuentes de referencia:</strong> la documentación de SysGuides sobre
+    Windows 11 en KVM, y el proyecto virtio-win de Fedora. Las trampas, en cambio,
+    son cosecha propia: cada una costó su rato.
+  </p>
+  <p class="credito">
+    ¿Te sirvió? ¿Te topaste con una trampa que no está aquí? Cuéntamela y la añado
+    — la idea es que esta guía sea la que a todos nos hubiera gustado encontrar.
+  </p>
+</div>
+
+</article>
+</div>

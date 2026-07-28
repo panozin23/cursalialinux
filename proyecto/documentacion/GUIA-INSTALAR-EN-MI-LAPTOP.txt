@@ -1,0 +1,64 @@
+═══════════════════════════════════════════════════════════════
+ GUÍA: instalar cursalialinux Moderna en MI LAPTOP (WD Black 1TB)
+ CONSERVANDO Windows 11 y mis datos — disco UEFI/GPT
+ (actualizada 2026-07-25: instalar en p7 para MÁS espacio)
+═══════════════════════════════════════════════════════════════
+
+MAPA DE MI DISCO (nvme0n1):
+  p1  100 MB  ESP arranque UEFI (compartido)  → MONTAR /boot/efi, NO FORMATEAR
+  p2  16 MB   Windows reservada               → NO TOCAR
+  p3  344 GB  Windows C:                       → NO TOCAR
+  p4  820 MB  Windows recuperación             → NO TOCAR
+  p5  293 GB  Windows datos                    → NO TOCAR
+  p6  46.6 GB HECHO 2026-07-25: ya NO es Ubuntu. Formateada ext4 "CURSALIA-ISOS",
+              se monta en ~/PROYECTOS-CURSALIA/cursalialinux/isos (ver abajo)
+  p7  154 GB  "Nuevo vol" (casi vacía)         → FORMATEAR ext4, montaje /  ← cursalialinux AQUÍ (154 GB!)
+  p8  83.8 GB MIS DATOS (euflo, prueba)        → NO FORMATEAR (conservar)
+  p9  9.4 GB  swap                             → usar como swap
+
+ANTES DE INSTALAR (en Windows):
+ - En "Nuevo vol" (~154 GB) hay un archivo ubuntu-26.04-desktop.iso (6 GB).
+   Ya no lo necesito (dejo Ubuntu) → BORRARLO. Si lo quiero, copiarlo a SANSUNG2.
+
+PASOS DE INSTALACIÓN:
+ 1. Arrancar con el pendrive cursalialinux (modo UEFI).
+ 2. Doble clic "Instalar cursalialinux".
+ 3. Particiones: "PARTICIONADO MANUAL" (NUNCA "Borrar disco").
+ 4. nvme0n1p7 (154 GB, "Nuevo vol") → Editar: Formatear ext4, montaje /
+ 5. nvme0n1p1 (100 MB, esp) → Editar: montaje /boot/efi, NO formatear.
+ 6. nvme0n1p9 (swap) → usar como swap.
+ 7. NO tocar: p2,p3,p4,p5 (Windows), p8 (mis datos). p6 se puede dejar
+    (Ubuntu viejo) y reclamar sus 46 GB después desde cursalialinux.
+ 8. Gestor de arranque: /dev/nvme0n1
+ 9. Instalar. Menú final: cursalialinux + Windows.
+
+Secure Boot: Moderna lo soporta (shim firmado). Si no arranca,
+desactivar Secure Boot en la BIOS.
+
+REGLA DE ORO: formatear SOLO p7 (154 GB). Ante la duda, NO seguir.
+
+───────────────────────────────────────────────────────────────
+ HECHO DESPUÉS DE INSTALAR — reclamación de p6 (2026-07-25)
+───────────────────────────────────────────────────────────────
+El Ubuntu 26.04 viejo de p6 (35 GB usados) se borró por completo:
+
+ · p6 formateada ext4, etiqueta CURSALIA-ISOS,
+   UUID 9c8f26b2-3665-4cf7-9f9e-9df0bdda1c16
+ · montaje permanente (fstab, opción "nofail") en:
+     /home/euflo/PROYECTOS-CURSALIA/cursalialinux/isos
+ · borrado su arranque: carpeta /efi/EFI/ubuntu (la ESP bajó de 86% a 81%),
+   entrada UEFI "Boot0004 Ubuntu" y sus entradas de GRUB.
+   El menú de arranque quedó en: cursalialinux + Windows.
+
+RESPALDOS por si algo hiciera falta:
+ · /etc/fstab.antes-de-p6
+ · /root/respaldo-efi-ubuntu-20260725.tar.gz
+
+Se perdió con el formateo (estaba dentro del Ubuntu viejo, en
+/home/euflo de p6): cursalialinux-moderna-1.0.iso y la carpeta de
+trabajo cursalialinux-debian. Ambos están respaldados en el disco
+externo SANSUNG2 → CURSALIALINUX-DEBIAN/.
+
+Scripts que hicieron el trabajo (en scripts/):
+   p6-inspeccionar.sh   solo lectura, deja informe en /tmp/informe-p6.txt
+   p6-reclamar.sh       el que formatea y monta (pide confirmación escrita)

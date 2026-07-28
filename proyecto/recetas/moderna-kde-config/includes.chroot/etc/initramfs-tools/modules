@@ -1,0 +1,17 @@
+# /etc/initramfs-tools/modules — cursalialinux
+#
+# Controladores de gráficos cargados en el arranque temprano.
+#
+# Sin ellos, Plymouth arranca con un modo gráfico básico y cuando el sistema
+# carga el controlador real hay un traspaso del control de la pantalla. Si ese
+# cambio cae en mal momento, nadie dibuja nada y queda PANTALLA NEGRA tras el
+# logo — un fallo intermitente que al reiniciar suele desaparecer.
+#
+# Cargándolos aquí, Plymouth arranca ya con el controlador definitivo y no hay
+# traspaso. Se incluyen los tres para que sirva en cualquier equipo: el que no
+# corresponda simplemente no se carga.
+
+amdgpu
+radeon
+i915
+nouveau

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Ajustar el icono del menú
+Comment=Pone el logo de cursalialinux en el lanzador de aplicaciones
+Exec=cursalia-icono-menu.sh
+Icon=cursalialinux
+Terminal=false
+NoDisplay=true
+X-KDE-autostart-phase=2
+OnlyShowIn=KDE;

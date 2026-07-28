@@ -1,0 +1,14 @@
+#!/bin/sh
+# Optimización cursalialinux Moderna — ligera (conserva la experiencia moderna)
+echo "P: cursalialinux — optimizaciones (Moderna)..."
+for svc in ModemManager avahi-daemon NetworkManager-wait-online switcheroo-control; do
+    systemctl disable "${svc}.service" 2>/dev/null || true
+done
+printf "vm.swappiness=10\nvm.vfs_cache_pressure=50\n" > /etc/sysctl.d/99-cursalialinux.conf
+[ -f /etc/default/zramswap ] && sed -i 's/^#*PERCENT=.*/PERCENT=25/' /etc/default/zramswap
+find /usr/share/locale -mindepth 1 -maxdepth 1 -type d ! -name 'es*' ! -name 'en*' ! -name 'C' ! -name 'C.*' ! -name 'locale.alias' -exec rm -rf {} + 2>/dev/null || true
+find /usr/share/doc -mindepth 1 -type f ! -name copyright ! -name 'changelog.Debian*' -delete 2>/dev/null || true
+find /usr/share/doc -mindepth 1 -type d -empty -delete 2>/dev/null || true
+printf 'cursalialinux Moderna \\n \\l\n\n' > /etc/issue
+printf 'cursalialinux Moderna\n' > /etc/issue.net
+apt-get clean 2>/dev/null || true

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Oficina
+Comment=Word, Excel, PowerPoint
+Exec=/usr/local/bin/centro-cursalialinux oficina
+Icon=applications-office
+Terminal=false
+Type=Application
+Categories=X-CursalialinuxStudios;

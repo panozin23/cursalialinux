@@ -1,0 +1,45 @@
+#!/bin/sh
+# Actualizaciones de seguridad automáticas — cursalialinux
+#
+# ATENCIÓN — por qué existe el fichero 52-cursalialinux:
+# El /etc/apt/apt.conf.d/50unattended-upgrades de Debian filtra por
+# "codename=${distro_codename}-security". Esa variable sale de os-release, y
+# en cursalialinux vale "moderna" -> buscaría "moderna-security", que NO
+# EXISTE en ningún repositorio. unattended-upgrades se ejecutaría a diario
+# sin instalar nada y sin dar ningún error.
+# Por eso aquí se filtra por "archive=stable-security", que no depende del
+# nombre en clave y además seguirá funcionando en Debian 14.
+echo "P: cursalialinux — actualizaciones de seguridad automáticas..."
+
+# --- Activar las tareas diarias de apt ---
+cat > /etc/apt/apt.conf.d/20auto-upgrades <<'EOF'
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+APT::Periodic::AutocleanInterval "7";
+EOF
+
+# --- Qué se actualiza solo (52 > 50: manda este fichero) ---
+cat > /etc/apt/apt.conf.d/52cursalialinux-unattended <<'EOF'
+// cursalialinux — solo parches de SEGURIDAD de Debian.
+// Se filtra por archive= y no por codename=, porque el nombre en clave de
+// cursalialinux ("moderna") no coincide con el de los repositorios ("trixie").
+#clear Unattended-Upgrade::Origins-Pattern;
+Unattended-Upgrade::Origins-Pattern {
+        "origin=Debian,archive=stable-security,label=Debian-Security";
+        // Correcciones importantes que no son de seguridad (zona horaria,
+        // certificados...). Descomentar si se quiere también:
+        // "origin=Debian,archive=stable-updates,label=Debian";
+};
+
+// Backports, VSCodium y VS Code quedan FUERA a propósito: son paquetes que
+// cambian rápido y no deben instalarse solos.
+
+Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";
+Unattended-Upgrade::Remove-Unused-Dependencies "true";
+
+// Nunca reiniciar por su cuenta: es un escritorio, el usuario puede estar
+// trabajando. Los parches se aplican; el reinicio lo decide él.
+Unattended-Upgrade::Automatic-Reboot "false";
+EOF
+
+systemctl enable apt-daily.timer apt-daily-upgrade.timer 2>/dev/null || true

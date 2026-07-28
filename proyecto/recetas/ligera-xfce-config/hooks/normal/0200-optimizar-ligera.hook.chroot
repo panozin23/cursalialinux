@@ -1,0 +1,55 @@
+#!/bin/sh
+# Optimización cursalialinux Ligera — velocidad y ligereza para PCs viejas
+set -e
+echo "P: cursalialinux — aplicando optimizaciones (Ligera)..."
+
+# ---- Desactivar servicios inútiles en PCs de escritorio viejas ----
+for svc in ModemManager avahi-daemon NetworkManager-wait-online switcheroo-control; do
+    systemctl disable "${svc}.service" 2>/dev/null || true
+done
+
+# ---- Quitar paquetes que no sirven en hardware viejo (ahorra espacio) ----
+apt-get purge -y mesa-vulkan-drivers firmware-mediatek firmware-nvidia-graphics 2>/dev/null || true
+apt-get autoremove -y --purge 2>/dev/null || true
+
+# ---- Rendimiento con poca RAM ----
+cat > /etc/sysctl.d/99-cursalialinux.conf <<EOF
+vm.swappiness=10
+vm.vfs_cache_pressure=50
+EOF
+
+# ---- zram: RAM comprimida (clave en máquinas con poca memoria) ----
+if [ -f /etc/default/zramswap ]; then
+    sed -i 's/^#*PERCENT=.*/PERCENT=50/' /etc/default/zramswap
+    sed -i 's/^#*ALGO=.*/ALGO=zstd/' /etc/default/zramswap 2>/dev/null || true
+fi
+
+# ---- XFCE sin compositor (transparencias/sombras) = más rápido ----
+mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml
+cat > /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<channel name="xfwm4" version="1.0">
+  <property name="general" type="empty">
+    <property name="use_compositing" type="bool" value="false"/>
+  </property>
+</channel>
+EOF
+
+# ---- Adelgazar: traducciones (conservar español, inglés y C) ----
+find /usr/share/locale -mindepth 1 -maxdepth 1 -type d \
+     ! -name 'es*' ! -name 'en*' ! -name 'C' ! -name 'C.*' ! -name 'locale.alias' \
+     -exec rm -rf {} + 2>/dev/null || true
+
+# ---- Adelgazar: documentación (CONSERVAR copyright/licencias por cumplimiento) ----
+find /usr/share/doc -mindepth 1 -type f \
+     ! -name 'copyright' ! -name 'changelog.Debian*' -delete 2>/dev/null || true
+find /usr/share/doc -mindepth 1 -type d -empty -delete 2>/dev/null || true
+
+# ---- Marca en el nombre del sistema (consola/serie) ----
+printf 'cursalialinux Ligera \\n \\l\n\n' > /etc/issue
+printf 'cursalialinux Ligera\n' > /etc/issue.net
+
+# ---- Limpiar caché de apt ----
+apt-get clean 2>/dev/null || true
+
+echo "P: cursalialinux — optimizaciones aplicadas."

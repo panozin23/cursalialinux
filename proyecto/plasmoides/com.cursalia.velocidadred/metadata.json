@@ -1,0 +1,18 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Id": "com.cursalia.velocidadred",
+        "Name": "Velocidad de red",
+        "Description": "Muestra la velocidad de internet en la barra y avisa en rojo cuando baja del limite",
+        "Icon": "network-transmit-receive",
+        "Version": "1.0",
+        "License": "GPL-3.0-or-later",
+        "Category": "System Information",
+        "Authors": [
+            {
+                "Name": "euflo"
+            }
+        ]
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}

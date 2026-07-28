@@ -1,0 +1,6 @@
+# Binarios grandes: no van a GitHub
+*.qcow2
+proyecto/**/*.iso
+proyecto/**/*.tar.*
+# Respaldos de trabajo
+*.antes-de-*

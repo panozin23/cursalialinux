@@ -1,0 +1,712 @@
+/* ════════════════════════════════════════════════════════════════
+   WINDOWS 11 DENTRO DE LINUX — hoja de estilo del artículo
+   ════════════════════════════════════════════════════════════════
+   Pega TODO esto en el apartado "CSS adicional" de tu blog.
+
+   Todo está encapsulado dentro de .gwl — ni una sola regla toca
+   el resto del sitio (menús, barra lateral, otros artículos).
+
+   Paleta Azul Hielo · tres voces tipográficas:
+     mono  = habla la máquina (comandos, etiquetas, pantallas)
+     serif = habla la guía    (títulos)
+     sans  = texto llano      (lectura)
+   ════════════════════════════════════════════════════════════════ */
+
+
+/* ── Variables y base ───────────────────────────────────────── */
+
+.gwl {
+  /* Fondos y tinta */
+  --ground:      #F2F6FA;
+  --surface:     #FFFFFF;
+  --surface-2:   #E7EFF8;
+  --ink:         #0A1730;
+  --ink-2:       #3D5170;
+  --ink-3:       #6E82A1;
+  --rule:        #D2DFEE;
+  --rule-strong: #B4C8DE;
+
+  /* Acentos */
+  --accent:      #1D4FD8;
+  --accent-soft: #DEE9FF;
+  --cyan:        #0B7C93;
+
+  /* Semánticos */
+  --warn:        #B4460F;
+  --warn-soft:   #FCECE2;
+  --warn-rule:   #E8BFA6;
+  --ok:          #0E6E45;
+  --ok-soft:     #DFF3E9;
+
+  /* Pantallas simuladas (iguales en ambos temas) */
+  --term-bg:     #0B1524;
+  --term-ink:    #D6E4F0;
+  --term-dim:    #7C93AC;
+  --term-green:  #55D98D;
+  --term-amber:  #F0B95C;
+  --term-blue:   #6FB4FF;
+  --term-red:    #FF8A73;
+
+  /* Tipografía */
+  --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --sans:  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono:  ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --measure: 68ch;
+  --wide:    94ch;
+
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+}
+
+/* Tema oscuro automático, según la preferencia del lector */
+@media (prefers-color-scheme: dark) {
+  .gwl {
+    --ground:      #060E1D;
+    --surface:     #0C1830;
+    --surface-2:   #12233F;
+    --ink:         #E9F5FD;
+    --ink-2:       #A7BCD6;
+    --ink-3:       #7A91B1;
+    --rule:        #1C3155;
+    --rule-strong: #2A4670;
+    --accent:      #6BA1FF;
+    --accent-soft: #13294E;
+    --cyan:        #22D3EE;
+    --warn:        #FF9E68;
+    --warn-soft:   #2E1B0F;
+    --warn-rule:   #5C3520;
+    --ok:          #56D998;
+    --ok-soft:     #0E2A1E;
+  }
+}
+
+
+/* ── Reinicio local ─────────────────────────────────────────── */
+
+.gwl, .gwl *, .gwl *::before, .gwl *::after { box-sizing: border-box; }
+
+.gwl h1, .gwl h2, .gwl h3, .gwl h4,
+.gwl p, .gwl ul, .gwl ol, .gwl dl, .gwl dd,
+.gwl figure, .gwl table, .gwl pre, .gwl nav {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ── Rejilla del artículo ───────────────────────────────────── */
+
+.gwl .doc {
+  display: grid;
+  grid-template-columns:
+    minmax(1.1rem, 1fr)
+    min(var(--measure), 100%)
+    minmax(1.1rem, 1fr);
+  padding-block: 0 5rem;
+}
+.gwl .doc > * { grid-column: 2; }
+
+/* Los bloques anchos (pantallas, diagramas) se salen del texto */
+.gwl .doc > .wide {
+  grid-column: 1 / -1;
+  width: min(var(--wide), calc(100% - 2.2rem));
+  margin-inline: auto;
+}
+
+
+/* ── Tipografía ─────────────────────────────────────────────── */
+
+.gwl h1, .gwl h2, .gwl h3, .gwl h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  text-wrap: balance;
+  line-height: 1.18;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+}
+
+.gwl h2 {
+  font-size: clamp(1.55rem, 3.4vw, 2.1rem);
+  margin-block: 3.4rem 0.9rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--rule);
+}
+
+.gwl h3 {
+  font-size: 1.24rem;
+  margin-block: 2.2rem 0.6rem;
+}
+
+.gwl h4 {
+  font-family: var(--sans);
+  font-size: 0.98rem;
+  font-weight: 700;
+  margin-block: 1.5rem 0.4rem;
+}
+
+.gwl p, .gwl ul, .gwl ol { margin-block: 0 1.05rem; }
+.gwl ul, .gwl ol { padding-left: 1.35rem; }
+.gwl ul { list-style: disc; }
+.gwl ol { list-style: decimal; }
+.gwl li { margin-block: 0.3rem; }
+.gwl li::marker { color: var(--ink-3); }
+
+.gwl strong { font-weight: 650; color: var(--ink); }
+.gwl em { font-style: italic; }
+
+.gwl a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent) 38%, transparent);
+  text-underline-offset: 0.18em;
+}
+.gwl a:hover { text-decoration-color: currentColor; }
+.gwl a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Etiqueta pequeña en monoespaciada — la voz de la máquina */
+.gwl .eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  display: block;
+  margin-bottom: 0.55rem;
+}
+
+.gwl code {
+  font-family: var(--mono);
+  font-size: 0.87em;
+  background: var(--surface-2);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0.08em 0.34em;
+  word-break: break-word;
+  color: var(--ink);
+}
+
+
+/* ── Portada ────────────────────────────────────────────────── */
+
+.gwl .hero { padding-block: 3.4rem 1rem; }
+
+.gwl .hero__kicker {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+.gwl .hero h1 {
+  font-size: clamp(2.15rem, 6vw, 3.3rem);
+  margin-block: 0.7rem 1rem;
+}
+
+.gwl .hero__sub {
+  font-size: 1.14rem;
+  color: var(--ink-2);
+  max-width: 58ch;
+}
+
+.gwl .hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+  margin-top: 1.8rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--ink-3);
+}
+
+
+/* ── Bloques destacados ─────────────────────────────────────── */
+
+.gwl .lede {
+  font-size: 1.06rem;
+  color: var(--ink-2);
+  border-left: 3px solid var(--accent);
+  padding-left: 1.1rem;
+  margin-block: 1.6rem 1.8rem;
+}
+
+.gwl .note {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+  padding: 1.1rem 1.25rem;
+  margin-block: 1.5rem;
+}
+.gwl .note > :last-child { margin-bottom: 0; }
+
+.gwl .note--warn {
+  background: var(--warn-soft);
+  border-color: var(--warn-rule);
+}
+.gwl .note--warn .eyebrow { color: var(--warn); }
+
+.gwl .note--ok {
+  background: var(--ok-soft);
+  border-color: color-mix(in srgb, var(--ok) 32%, transparent);
+}
+.gwl .note--ok .eyebrow { color: var(--ok); }
+
+
+/* ── Bloques de comandos ────────────────────────────────────── */
+
+.gwl .cmd {
+  background: var(--term-bg);
+  border-radius: 7px;
+  margin-block: 1.2rem;
+  overflow: hidden;
+  border: 1px solid #1B2C46;
+}
+
+.gwl .cmd__label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--term-dim);
+  padding: 0.55rem 1rem 0.4rem;
+  border-bottom: 1px solid #1B2C46;
+}
+
+.gwl .cmd pre {
+  font-family: var(--mono);
+  font-size: 0.83rem;
+  line-height: 1.62;
+  color: var(--term-ink);
+  padding: 0.9rem 1rem 1rem;
+  overflow-x: auto;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+/* Colores dentro de la terminal:
+   .p = prompt   .c = comentario   .s = dato destacado
+   .g = verde    .b = azul         .r = rojo            */
+.gwl .cmd pre .p { color: var(--term-green); font-weight: 600; }
+.gwl .cmd pre .c { color: var(--term-dim); font-style: italic; }
+.gwl .cmd pre .s { color: var(--term-amber); }
+.gwl .cmd pre .b { color: var(--term-blue); }
+.gwl .cmd pre .r { color: var(--term-red); }
+.gwl .cmd pre .g { color: var(--term-green); }
+
+
+/* ── Pantallas simuladas ────────────────────────────────────── */
+
+.gwl .screen {
+  margin-block: 1.8rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--rule-strong);
+  box-shadow: 0 1px 3px rgb(10 23 48 / 0.09);
+}
+
+/* Barra que identifica DE QUÉ MÁQUINA es la pantalla */
+.gwl .screen__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.5rem 0.85rem;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.gwl .screen__who {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 700;
+}
+.gwl .screen__who::before {
+  content: "";
+  width: 8px; height: 8px;
+  border-radius: 2px;
+  background: var(--accent);          /* azul  = anfitrión (Linux) */
+}
+.gwl .screen__who--guest::before {
+  background: var(--warn);            /* naranja = huésped (la VM) */
+}
+
+.gwl .screen__cap {
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--ink-3);
+}
+
+.gwl .screen__body { overflow-x: auto; }
+
+/* Pantalla: firmware UEFI (TianoCore) */
+.gwl .uefi {
+  background: #000;
+  padding: 1.6rem 1rem;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+.gwl .uefi__panel {
+  background: #B8B8B8;
+  color: #00006E;
+  max-width: 46rem;
+  margin-inline: auto;
+  padding: 1rem 1.4rem 2.4rem;
+  min-width: 32rem;
+}
+.gwl .uefi__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.6rem;
+}
+.gwl .uefi__row { display: flex; gap: 0.6rem; }
+.gwl .uefi__menu { min-width: 22rem; }
+.gwl .uefi__sel { background: #00006E; color: #B8B8B8; padding: 0 0.3rem; }
+.gwl .uefi__hint { color: #8B0000; max-width: 16rem; }
+.gwl .uefi__foot {
+  color: #B8B8B8;
+  display: flex;
+  gap: 3rem;
+  margin-top: 1.3rem;
+  font-size: 0.72rem;
+}
+
+/* Pantalla: instalador de Windows con la lista vacía */
+.gwl .win {
+  background: #1B1B1B;
+  padding: 1.4rem;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: #F0F0F0;
+  min-width: 30rem;
+}
+.gwl .win__title { font-size: 1.05rem; margin-bottom: 1rem; }
+.gwl .win__list {
+  background: #262626;
+  border: 1px solid #3C3C3C;
+  min-height: 6.5rem;
+  display: grid;
+  place-items: center;
+  color: #8A8A8A;
+  font-style: italic;
+  margin-bottom: 0.9rem;
+  padding: 1rem;
+  text-align: center;
+}
+.gwl .win__btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.gwl .win__btn {
+  border: 1px solid #5A5A5A;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.78rem;
+  background: #333;
+}
+.gwl .win__btn--hot {
+  border-color: #F0B95C;
+  color: #F7D9A3;
+  box-shadow: 0 0 0 2px rgb(240 185 92 / 0.22);
+}
+
+/* Pantalla: arranque negro con el aviso de los 5 segundos */
+.gwl .boot {
+  background: #000;
+  color: #C8C8C8;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  padding: 2.2rem 1.2rem;
+  min-width: 26rem;
+}
+.gwl .boot__key { color: #FFF; background: #333; padding: 0 0.25rem; }
+
+/* Panel de control propio (yad) */
+.gwl .panel {
+  background: var(--surface);
+  padding: 1.1rem;
+  min-width: 24rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.gwl .panel__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-bottom: 0.8rem;
+  margin-bottom: 0.3rem;
+  border-bottom: 1px solid var(--rule);
+}
+.gwl .panel__title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.gwl .panel__state {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-3);
+}
+.gwl .panel__btn {
+  border: 1px solid var(--rule-strong);
+  border-radius: 5px;
+  background: var(--surface-2);
+  padding: 0.6rem 0.85rem;
+  font-size: 0.88rem;
+  color: var(--ink-2);
+}
+.gwl .panel__btn span {
+  color: var(--ink-3);
+  font-size: 0.82rem;
+}
+.gwl .panel__btn--on {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Barra de herramientas de virt-manager */
+.gwl .vmbar {
+  background: var(--surface);
+  padding: 1.1rem 1.1rem 2.2rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  min-width: 22rem;
+}
+.gwl .vmbtn {
+  width: 2.6rem; height: 2.3rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 5px;
+  background: var(--surface-2);
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
+  color: var(--ink-2);
+  position: relative;
+}
+.gwl .vmbtn--danger {
+  border-color: var(--warn);
+  background: var(--warn-soft);
+  color: var(--warn);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--warn) 18%, transparent);
+}
+.gwl .vmbtn__tag {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--warn);
+  font-weight: 700;
+}
+
+
+/* ── Diagrama de capas anidadas ─────────────────────────────── */
+
+.gwl .layers {
+  margin-block: 1.8rem;
+  padding: 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+.gwl .layer {
+  border: 1px solid var(--rule-strong);
+  border-radius: 6px;
+  padding: 0.7rem 0.9rem;
+  background: var(--surface-2);
+}
+.gwl .layer > .layer { margin-top: 0.7rem; }
+.gwl .layer__name {
+  font-family: var(--mono);
+  font-size: 0.73rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.gwl .layer__what {
+  font-size: 0.85rem;
+  color: var(--ink-3);
+  margin-top: 0.15rem;
+}
+.gwl .layer--guest {
+  border-color: var(--warn-rule);
+  background: var(--warn-soft);
+}
+.gwl .layer--guest .layer__name { color: var(--warn); }
+
+
+/* ── Tablas ─────────────────────────────────────────────────── */
+
+.gwl .tablewrap {
+  overflow-x: auto;
+  margin-block: 1.4rem;
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+  background: var(--surface);
+}
+.gwl table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9rem;
+  min-width: 30rem;
+}
+.gwl th, .gwl td {
+  text-align: left;
+  padding: 0.62rem 0.9rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+.gwl th {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 700;
+  background: var(--surface-2);
+}
+.gwl tbody tr:last-child td { border-bottom: 0; }
+.gwl td code { font-size: 0.82em; }
+.gwl .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+
+/* ── Índice ─────────────────────────────────────────────────── */
+
+.gwl .toc {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 1.2rem 1.35rem;
+  margin-block: 2.2rem;
+}
+.gwl .toc ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  columns: 2;
+  column-gap: 2rem;
+}
+.gwl .toc li {
+  margin-block: 0.3rem;
+  break-inside: avoid;
+  font-size: 0.92rem;
+}
+.gwl .toc a { text-decoration: none; }
+.gwl .toc a:hover { text-decoration: underline; }
+
+@media (max-width: 34rem) {
+  .gwl .toc ol { columns: 1; }
+}
+
+
+/* ── Fichas de trampas ──────────────────────────────────────── */
+
+.gwl .trap {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--warn);
+  border-radius: 0 7px 7px 0;
+  padding: 1.1rem 1.25rem;
+  margin-block: 1.1rem;
+}
+.gwl .trap__stage {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--warn);
+  font-weight: 700;
+}
+.gwl .trap h3 {
+  margin-block: 0.35rem 0.7rem;
+  font-size: 1.08rem;
+}
+.gwl .trap dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.45rem 0.9rem;
+  font-size: 0.92rem;
+}
+.gwl .trap dt {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding-top: 0.28em;
+  font-weight: 700;
+}
+.gwl .trap dd { margin: 0; }
+
+@media (max-width: 32rem) {
+  .gwl .trap dl { grid-template-columns: 1fr; gap: 0.2rem; }
+  .gwl .trap dd { margin-bottom: 0.6rem; }
+}
+
+
+/* ── Cierre y sueltos ───────────────────────────────────────── */
+
+.gwl .outro {
+  margin-top: 3.5rem;
+  padding-top: 1.6rem;
+  border-top: 2px solid var(--rule-strong);
+  font-size: 0.92rem;
+  color: var(--ink-2);
+}
+
+.gwl .keycombo {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-block: 1.4rem;
+}
+.gwl .keycombo span {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--ink-3);
+}
+
+.gwl .credito {
+  margin-top: 1.4rem;
+  color: var(--ink-3);
+  font-size: 0.86rem;
+}
+
+
+/* ── Accesibilidad ──────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .gwl * { animation: none !important; transition: none !important; }
+}

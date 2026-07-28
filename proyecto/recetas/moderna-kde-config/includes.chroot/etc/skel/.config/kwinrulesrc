@@ -1,0 +1,15 @@
+# Reglas de ventana de KWin — cursalialinux
+# Aplica la barra de título azul oscuro SOLO a las ventanas del Centro.
+# El resto del escritorio conserva el tema que elija el usuario.
+
+[1]
+Description=Centro cursalialinux — barra de título de la marca
+decocolor=cursalialinux
+decocolorrule=2
+wmclass=cursaliacentro
+wmclasscomplete=false
+wmclassmatch=1
+
+[General]
+count=1
+rules=1

@@ -1,0 +1,38 @@
+# /etc/default/grub — cursalialinux
+#
+# Este archivo viaja dentro de la ISO, así que el sistema que Calamares
+# instale en el disco lo hereda tal cual. De ahí salen los parámetros de
+# arranque del sistema ya instalado.
+#
+# LA LÍNEA IMPORTANTE es GRUB_CMDLINE_LINUX_DEFAULT:
+#   quiet  → calla los mensajes del núcleo (las "letras y letras")
+#   splash → enciende Plymouth, que muestra el logo de cursalialinux
+# Sin ellas el arranque sale en texto plano aunque Plymouth esté instalado.
+#
+# Después de editar este archivo:  sudo update-grub
+
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=5
+GRUB_TIMEOUT_STYLE=menu
+GRUB_DISTRIBUTOR="cursalialinux"
+
+# Arranque silencioso y con logo
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+GRUB_CMDLINE_LINUX=""
+
+# Mantener la resolución del firmware al pasar el control al núcleo.
+# Sin esto se ve un parpadeo feo entre GRUB y el logo de Plymouth.
+GRUB_GFXMODE=auto
+GRUB_GFXPAYLOAD_LINUX=keep
+
+# Detectar Windows y otros sistemas en el menú de arranque
+GRUB_DISABLE_OS_PROBER=false
+
+# Fondo del MENÚ de arranque (la primera pantalla, antes del logo animado).
+# Sin esta línea, Debian pone el suyo por defecto.
+# La imagen es de 1920x1080 y viaja dentro de la ISO.
+GRUB_BACKGROUND="/usr/share/backgrounds/cursalialinux/cursalialinux-wallpaper.png"
+
+# Colores del texto del menú, para que se lea bien sobre el fondo azul hielo
+GRUB_COLOR_NORMAL="white/black"
+GRUB_COLOR_HIGHLIGHT="black/light-cyan"

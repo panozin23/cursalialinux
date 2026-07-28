@@ -1,0 +1,54 @@
+==================================================================
+  cursalialinux — VERSIÓN DEBIAN (Fase B, comercial)
+  Respaldo de la "receta" — Fecha: 2026-07-19
+==================================================================
+
+QUÉ ES ESTO
+-----------
+La versión de cursalialinux construida sobre DEBIAN con la herramienta
+"live-build". Es la versión LIMPIA y apta para COMERCIALIZAR
+(a diferencia de la de Ubuntu, que tiene trabas de licencia de Canonical).
+
+DOS EDICIONES (dos ISOs separados):
+  - cursalialinux Ligera  → escritorio XFCE  → PCs VIEJAS (rápido, ligero)
+  - cursalialinux Moderna → escritorio KDE   → PCs NUEVAS (moderno, bello)
+Comparten la MISMA base Debian y la MISMA marca Azul Hielo; solo cambia
+el escritorio.
+
+
+CONTENIDO DE ESTA CARPETA
+-------------------------
+- recetas-live-build/ .... Las configuraciones de live-build (la "receta"
+                           para reconstruir cada ISO). Livianas.
+- marca-fuentes/ ......... Logo y fondo Azul Hielo (SVG + PNG originales).
+- documentacion/ ......... Este LEEME y notas.
+- isos/ .................. Los ISOs terminados (se agregan cuando estén listos).
+
+
+COLORES CORPORATIVOS — "AZUL HIELO"
+-----------------------------------
+  Primario #2563EB · Secundario #22D3EE · Acento #A5F3FC
+  Oscuro #0A1730 · Claro #ECFAFE
+
+
+CÓMO RECONSTRUIR (en una laptop con Linux)
+------------------------------------------
+  1. Instalar herramientas:
+       sudo apt install -y live-build debootstrap debian-archive-keyring \
+            squashfs-tools xorriso
+  2. Extraer la receta:
+       tar -xf recetas-live-build/config-ligera-xfce.tar
+  3. Entrar a la carpeta y construir:
+       cd ligera-xfce
+       chmod +x config/hooks/normal/*.hook.chroot
+       sudo lb build
+  4. Sale un archivo .iso → verificar en máquina virtual → grabar a USB.
+  (La edición Moderna/KDE es la misma receta cambiando el escritorio a KDE.)
+
+
+LICENCIA / COMERCIAL
+--------------------
+Debian permite derivados comerciales. Reglas: no usar el nombre "Debian"
+en el producto (usamos "cursalialinux") y entregar el código fuente (GPL).
+Para el lanzamiento comercial real: confirmar con un abogado.
+==================================================================

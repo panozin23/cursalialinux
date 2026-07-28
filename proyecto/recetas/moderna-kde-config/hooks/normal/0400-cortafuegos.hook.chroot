@@ -1,0 +1,37 @@
+#!/bin/sh
+# Cortafuegos cursalialinux — ufw activo desde el primer arranque
+# Política: se bloquea todo lo que ENTRA, se permite todo lo que SALE.
+# Nota: se editan los ficheros de configuración directamente y NO se llama a
+# iptables/ufw enable, para no tocar el cortafuegos de la máquina que construye.
+echo "P: cursalialinux — cortafuegos (ufw)..."
+
+# --- Política base ---
+sed -i 's/^DEFAULT_INPUT_POLICY=.*/DEFAULT_INPUT_POLICY="DROP"/'    /etc/default/ufw
+sed -i 's/^DEFAULT_OUTPUT_POLICY=.*/DEFAULT_OUTPUT_POLICY="ACCEPT"/' /etc/default/ufw
+sed -i 's/^DEFAULT_FORWARD_POLICY=.*/DEFAULT_FORWARD_POLICY="DROP"/' /etc/default/ufw
+sed -i 's/^IPV6=.*/IPV6=yes/'                                        /etc/default/ufw
+
+# --- Docker: impedir que publique puertos saltándose ufw ---
+# Docker escribe sus propias reglas y sus contenedores quedan expuestos aunque
+# ufw diga "denegar entrante". La cadena DOCKER-USER se evalúa antes que las de
+# Docker: se deja salir el tráfico que nace en los contenedores (entra por
+# docker0 / br-*) y se corta el que llega desde fuera. Los contenedores siguen
+# funcionando igual; "docker run -p" deja de publicarse hacia la red.
+if ! grep -q 'DOCKER-USER' /etc/ufw/after.rules 2>/dev/null; then
+    cat >> /etc/ufw/after.rules <<'EOF'
+
+# --- cursalialinux: Docker no se salta el cortafuegos ---
+*filter
+:DOCKER-USER - [0:0]
+-A DOCKER-USER -m conntrack --ctstate RELATED,ESTABLISHED -j RETURN
+-A DOCKER-USER -i docker0 -j RETURN
+-A DOCKER-USER -i br-+ -j RETURN
+-A DOCKER-USER -j DROP
+COMMIT
+# --- fin cursalialinux ---
+EOF
+fi
+
+# --- Activarlo desde el primer arranque ---
+sed -i 's/^ENABLED=.*/ENABLED=yes/' /etc/ufw/ufw.conf
+systemctl enable ufw.service 2>/dev/null || true

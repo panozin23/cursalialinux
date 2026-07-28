@@ -1,0 +1,10 @@
+#!/bin/sh
+# Instala VSCodium desde su repositorio oficial
+set -e
+export DEBIAN_FRONTEND=noninteractive
+echo "P: cursalialinux — instalando VSCodium..."
+wget -qO- https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | gpg --dearmor -o /usr/share/keyrings/vscodium-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/vscodium-archive-keyring.gpg] https://download.vscodium.com/debs vscodium main" > /etc/apt/sources.list.d/vscodium.list
+apt-get update || true
+apt-get install -y codium || echo "P: VSCodium no disponible ahora, se puede instalar despues"
+apt-get clean

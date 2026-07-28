@@ -1,0 +1,21 @@
+COPIA ANTIGUA — NO ES LA VERSIÓN BUENA
+══════════════════════════════════════
+
+Nota puesta el 2026-07-25.
+
+Los scripts de verdad, los que se mantienen, están en:
+    ../../scripts/            (cursalialinux/scripts/)
+
+Lo que hay aquí es una instantánea más vieja que viajó dentro de las recetas.
+Comprobado hoy, se diferencian en:
+
+  build-real.sh        usa locales=es_ES.UTF-8   (el bueno usa es_MX.UTF-8)
+                       y le falta el arreglo del grub-iso.cfg
+  centro-cursalialinux 196 líneas  (el bueno tiene 248)
+  panel-default.xml     93 líneas  (el bueno tiene 102)
+
+  prueba-visual.sh, verify-final.sh, diag4-fix.sh, centro-nuevo.sh,
+  qmp_ctl.py, qmp_shot.py, show2.qml → idénticos al bueno.
+
+Se conserva como referencia histórica. Si vas a construir o editar algo,
+usa cursalialinux/scripts/ y no esta carpeta.

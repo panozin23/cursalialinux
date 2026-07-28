@@ -1,0 +1,345 @@
+#!/bin/bash
+
+# yad en Wayland avisa "gdk_x11_window_get_xid: assertion failed" porque pide
+# un identificador de ventana de X11 que ahí no existe. No rompe nada, pero
+# ensucia la terminal. Pasando por XWayland la llamada es válida y calla.
+export GDK_BACKEND=x11
+# ================================================================
+#  Centro de Bienvenida — cursalialinux  (catálogo completo)
+#  Instalado = abre directo · Del catálogo = "📥 instalar" (bajo demanda)
+#  Enfocado en desarrollo web + creación de contenido.
+# ================================================================
+SELF="/usr/local/bin/centro-cursalialinux"
+LOGO="/usr/share/pixmaps/cursalialinux.png"
+
+# Logo reducido para la cabecera de las ventanas. El de 256 px ocupaba casi
+# la mitad del alto y dejaba las barras de Estudios apretadas abajo.
+# Si no está el pequeño, se usa el grande y todo sigue funcionando.
+CSS_CENTRO="/usr/share/cursalialinux/centro.css"
+[ -f "$CSS_CENTRO" ] || CSS_CENTRO="$HOME/PROYECTOS-CURSALIA/cursalialinux/marca/centro.css"
+GTKRC=""; [ -f "$CSS_CENTRO" ] && GTKRC="--gtkrc=$CSS_CENTRO"
+
+LOGO_CAB="/usr/share/pixmaps/cursalialinux-96.png"
+[ -f "$LOGO_CAB" ] || LOGO_CAB="$LOGO"
+# incluir carpetas de administrador para encontrar herramientas como gparted (/usr/sbin)
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+declare -A CMD NOM ICO KIND
+# kind: apt | root | term | own | url
+reg(){ CMD["$1"]="$2"; NOM["$1"]="$3"; ICO["$1"]="${4:-application-x-executable}"; KIND["$1"]="${5:-apt}"; }
+
+# --- Web ---
+reg codium "codium" "VSCodium — editor de código" "text-editor"
+reg xfce4-terminal "xfce4-terminal" "Terminal de desarrollo" "utilities-terminal"
+reg firefox-esr "firefox-esr" "Firefox — navegador" "web-browser"
+reg filezilla "filezilla" "FileZilla — FTP/SFTP" "network-server"
+reg bluefish "bluefish" "Bluefish — editor web (HTML/PHP)" "text-html"
+reg git-cola "git-cola" "Git-cola — control de versiones" "applications-development"
+reg sqlitebrowser "sqlitebrowser" "SQLite Browser — bases de datos" "accessories-database"
+reg meld "meld" "Meld — comparar código" "text-x-generic"
+reg chromium "chromium" "Chromium — navegador de pruebas" "web-browser"
+# --- Video ---
+reg shotcut "shotcut" "Shotcut — editor de video" "multimedia-video-player"
+reg vlc "vlc" "VLC — reproductor" "multimedia-video-player"
+reg cheese "cheese" "Cheese — cámara web" "camera-web"
+reg aegisub "aegisub" "🎤 Aegisub — subtítulos y karaoke" "text-x-generic"
+reg subtitleeditor "subtitleeditor" "🎤 Subtitle Editor — subtítulos" "text-x-generic"
+reg simplescreenrecorder "simplescreenrecorder" "Grabar la pantalla" "camera-video"
+reg handbrake "ghb" "HandBrake — convertir video" "media-optical"
+reg kdenlive "kdenlive" "Kdenlive — editor profesional" "applications-multimedia"
+reg openshot-qt "openshot-qt" "OpenShot — editor fácil" "applications-multimedia"
+reg obs-studio "obs" "OBS Studio — grabar y transmitir" "camera-video"
+reg performous "performous" "🎤 Performous — cantar karaoke" "applications-games"
+# --- Imágenes ---
+reg imgbuscar "cursalia-imagenes-libres" "🔎 Buscar imágenes libres (uso comercial)" "image-x-generic" own
+reg imgguia "cursalia-imagenes-libres guia" "📜 Guía de licencias de imágenes" "text-x-generic" own
+reg imgconvertir "cursalia-convertir-imagenes" "🖼️ Convertir/comprimir a WebP y AVIF" "image-x-generic" own
+reg servidorlocal "cursalia-servidor-local" "🌐 Servidor web local (ver mi página)" "applications-internet" own
+reg recursos "cursalia-imagenes-libres menu" "🎁 Recursos libres (imágenes, música, video)" "image-x-generic" own
+reg musicalibre "cursalia-imagenes-libres audio" "🎵 Música y sonidos libres" "audio-x-generic" own
+reg captura "flameshot gui" "📸 Captura de pantalla (recortar y anotar)" "applets-screenshooter" own
+reg laravel "cursalia-laravel" "🚀 Laravel + Filament (crear proyecto)" "applications-development" own
+reg wordpresslocal "cursalia-wordpress" "🌐 WordPress local (crear sitio)" "applications-internet" own
+reg seo "cursalia-seo" "🔍 Análisis SEO de una página (Lighthouse)" "text-html" own
+reg phpmyadmin "cursalia-phpmyadmin" "🗄️ phpMyAdmin (manejar bases de datos)" "applications-databases" own
+reg url-openverse "https://openverse.org" "Openverse — imágenes libres (web)" "web-browser" url
+reg url-pixabay "https://pixabay.com/es/" "Pixabay — imágenes gratis (web)" "web-browser" url
+reg url-pexels "https://www.pexels.com/es-es/" "Pexels — fotos gratis (web)" "web-browser" url
+reg url-unsplash "https://unsplash.com" "Unsplash — fotos gratis (web)" "web-browser" url
+reg gimp "gimp" "GIMP — edición de imágenes" "image-x-generic"
+reg inkscape "inkscape" "Inkscape — vectores y logos" "image-svg+xml"
+reg krita "krita" "Krita — dibujo digital" "applications-graphics"
+reg darktable "darktable" "Darktable — fotografía RAW" "camera-photo"
+reg rawtherapee "rawtherapee" "RawTherapee — revelado RAW" "camera-photo"
+reg scribus "scribus" "Scribus — maquetación (revistas/PDF)" "x-office-document"
+reg digikam "digikam" "digiKam — organizar fotos" "image-x-generic"
+reg blender "blender" "Blender — 3D y animación" "applications-graphics"
+reg optipng "optipng" "OptiPNG — optimizar PNG sin perder calidad" "image-x-generic" term
+reg converseen "converseen" "Converseen — lote: convertir/redimensionar" "image-x-generic"
+reg gthumb "gthumb" "gThumb — ver y procesar por lotes" "image-x-generic"
+reg pngquant "pngquant" "pngquant — comprimir PNG (comando)" "image-x-generic" term
+reg jpegoptim "jpegoptim" "jpegoptim — optimizar JPG (comando)" "image-x-generic" term
+reg webp "cwebp" "WebP — convertir a WebP (comando)" "image-x-generic" term
+# --- Audio ---
+reg audacity "audacity" "Audacity — editor de audio" "audio-x-generic"
+reg lmms "lmms" "LMMS — producción musical" "audio-x-generic"
+reg hydrogen "hydrogen" "Hydrogen — caja de ritmos" "audio-x-generic"
+reg musescore3 "mscore3" "MuseScore — partituras" "audio-x-generic"
+reg mixxx "mixxx" "Mixxx — mezcla DJ" "audio-x-generic"
+reg rosegarden "rosegarden" "Rosegarden — secuenciador MIDI" "audio-x-generic"
+reg kid3 "kid3" "Kid3 — etiquetas de MP3" "audio-x-generic"
+reg ardour "ardour" "Ardour — estudio de grabación pro" "audio-x-generic"
+# --- Oficina ---
+reg libreoffice-writer "libreoffice --writer" "Writer — documentos (Word)" "x-office-document"
+reg libreoffice-calc "libreoffice --calc" "Calc — hojas de cálculo (Excel)" "x-office-spreadsheet"
+reg libreoffice-impress "libreoffice --impress" "Impress — presentaciones (PowerPoint)" "x-office-presentation"
+reg libreoffice-draw "libreoffice --draw" "Draw — dibujo y diagramas" "x-office-drawing"
+reg libreoffice-base "libreoffice --base" "Base — bases de datos" "accessories-database"
+reg evince "evince" "Evince — leer PDF" "application-pdf"
+reg xournalpp "xournalpp" "Xournal++ — anotar PDF / apuntes" "application-pdf"
+reg calibre "calibre" "Calibre — libros electrónicos" "accessories-dictionary"
+# --- Internet ---
+reg qbittorrent "qbittorrent" "qBittorrent — descargas" "applications-internet"
+reg thunderbird "thunderbird" "Thunderbird — correo electrónico" "mail-message-new"
+# --- Seguridad ---
+reg keepassxc "keepassxc" "🔑 KeePassXC — gestor de contraseñas" "dialog-password"
+reg gufw "gufw" "🔥 Cortafuegos (Firewall)" "security-high" root
+reg clamtk "clamtk" "🦠 ClamTk — antivirus" "security-medium"
+reg wireshark "wireshark" "Wireshark — analizar red" "network-wired"
+reg nmap "nmap" "nmap — escanear puertos/red" "network-workgroup" term
+reg nikto "nikto" "Nikto — escáner de webs" "security-high" term
+reg sqlmap "sqlmap" "sqlmap — probar inyección SQL" "security-high" term
+reg wfuzz "wfuzz" "Wfuzz — fuzzing y escaneo web" "security-high" term
+reg whatweb "whatweb" "WhatWeb — tecnologías de una web" "network-workgroup" term
+reg dirb "dirb" "dirb — rutas ocultas de una web" "security-high" term
+reg lynis "lynis" "Lynis — auditoría de seguridad" "security-medium" term
+reg url-zap "https://www.zaproxy.org/download/" "OWASP ZAP — auditar webs (descargar)" "security-high" url
+reg url-burp "https://portswigger.net/burp/communitydownload" "Burp Suite Community (descargar)" "security-high" url
+# --- Sistema ---
+reg gparted "gparted" "GParted — particiones de disco" "drive-harddisk" root
+reg timeshift "timeshift-gtk" "Timeshift — respaldos del sistema" "document-save" root
+reg thunar "thunar" "Gestor de archivos" "system-file-manager"
+reg xfce4-taskmanager "xfce4-taskmanager" "Monitor del sistema" "utilities-system-monitor"
+
+# Web y Desarrollo Pro unidos: eran el mismo objetivo partido en dos menús.
+# Primero lo de crear proyectos, después las herramientas del día a día.
+WEB="laravel wordpresslocal phpmyadmin seo codium xfce4-terminal servidorlocal firefox-esr filezilla bluefish git-cola sqlitebrowser meld chromium"
+VIDEO="captura shotcut vlc cheese aegisub subtitleeditor simplescreenrecorder handbrake kdenlive openshot-qt obs-studio performous"
+IMAGEN="imgbuscar imgguia imgconvertir recursos url-openverse url-pixabay url-pexels url-unsplash gimp inkscape krita darktable rawtherapee scribus digikam blender optipng converseen gthumb pngquant jpegoptim webp"
+AUDIO="musicalibre audacity lmms hydrogen musescore3 mixxx rosegarden kid3 ardour"
+OFICINA="libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base evince xournalpp calibre"
+INTERNET="firefox-esr qbittorrent chromium thunderbird filezilla"
+SEGURIDAD="keepassxc gufw clamtk wireshark nmap nikto sqlmap wfuzz whatweb dirb lynis url-zap url-burp"
+
+instalar_pkg(){
+  local pkg="$1" nom="$2"
+  xfce4-terminal --title="Instalar ${nom}" --hold -e "bash -c '
+    echo \"=== Instalar: ${nom}  (${pkg}) ===\"
+    echo \"Necesita conexion a internet. Se te pedira tu contrasena.\"; echo
+    if pkexec sh -c \"apt-get update && apt-get install -y ${pkg}\"; then
+      echo; echo \"Instalado. Abriendo ${nom}...\"; sleep 1
+      setsid $SELF abrir ${pkg} >/dev/null 2>&1 &
+    else
+      echo; echo \"No se pudo instalar. Revisa tu internet e intenta de nuevo.\"
+    fi
+    echo; echo \"Puedes cerrar esta ventana.\"
+  '" &
+}
+
+lanzar_pkg(){
+  # abre una app instalada por su PROPIO acceso directo (.desktop): maneja la ruta,
+  # el nombre real del binario y la auto-elevacion a root (gparted, etc.)
+  local pkg="$1" cmd="$2" d id
+  d=$(dpkg -L "$pkg" 2>/dev/null | grep -m1 "/usr/share/applications/.*\\.desktop$")
+  if [ -n "$d" ]; then id=$(basename "$d" .desktop); setsid gtk-launch "$id" >/dev/null 2>&1 &
+  else setsid $cmd >/dev/null 2>&1 & fi
+}
+abrir(){
+  local pkg="$1" k="${KIND[$1]}" cmd="${CMD[$1]}"
+  case "$k" in
+    own) setsid $cmd >/dev/null 2>&1 & ;;
+    url) setsid firefox-esr "$cmd" >/dev/null 2>&1 & ;;
+    *)
+      if dpkg -s "$pkg" >/dev/null 2>&1; then
+        case "$k" in
+          term) setsid xfce4-terminal --title="${NOM[$pkg]}" -e "bash -c \"echo '${NOM[$pkg]} — listo. Comando: $cmd'; echo; exec bash\"" >/dev/null 2>&1 & ;;
+          *) lanzar_pkg "$pkg" "$cmd" ;;
+        esac
+      else
+        instalar_pkg "$pkg" "${NOM[$pkg]}"
+      fi ;;
+  esac
+}
+
+# Ventana única: cierra cualquier ventana del Centro antes de abrir otra
+solo_una(){ pkill -f "class=cursaliacentro" 2>/dev/null; sleep 0.15; }
+
+studio(){
+  solo_una
+  local titulo="$1" ico_t="$2" desc="$3"; shift 3
+  local n=$# cols=1 w=640
+  local SH=$(xrandr 2>/dev/null | awk '/\*/{print $1; exit}' | cut -dx -f2)
+  [ -z "$SH" ] && SH=768
+  local maxH=$(( SH - 110 )); [ "$maxH" -lt 460 ] && maxH=460
+  if [ $(( n * 44 + 210 )) -gt "$maxH" ]; then cols=2; w=960; fi
+  local rows=$(( (n + cols - 1) / cols ))
+  local h=$(( rows * 44 + 210 )); [ "$h" -gt "$maxH" ] && h=$maxH
+  local args=(--class=cursaliacentro $GTKRC --borders=14 --title="$titulo — cursalialinux" --center --width=$w --height=$h
+    --window-icon="$LOGO" --image="$LOGO_CAB" --image-on-top
+    --text="<big><b>${ico_t}  ${titulo}</b></big>\n${desc}" --form --columns=$cols)
+  local pkg lbl k
+  for pkg in "$@"; do
+    k="${KIND[$pkg]}"
+    if [ "$k" = "own" ] || [ "$k" = "url" ]; then lbl="${NOM[$pkg]}"
+    elif dpkg -s "$pkg" >/dev/null 2>&1; then lbl="${NOM[$pkg]}"
+    else lbl="📥 ${NOM[$pkg]}  —  instalar"; fi
+    args+=(--field="${lbl}!${ICO[$pkg]}:fbtn" "bash -c '$SELF abrir $pkg &'")
+  done
+  args+=(--button="⬅ Volver:bash -c '$SELF &'" --button="Cerrar:1")
+  yad "${args[@]}"
+}
+
+estudio_sistema(){
+  solo_una
+  local SH=$(xrandr 2>/dev/null | awk '/\*/{print $1; exit}' | cut -dx -f2); [ -z "$SH" ] && SH=768
+  local maxH=$(( SH - 110 )); [ "$maxH" -lt 460 ] && maxH=460
+  local scols=1 sw=640; [ 738 -gt "$maxH" ] && { scols=2; sw=960; }
+  local sh=$(( ((12 + scols - 1)/scols) * 44 + 240 )); [ "$sh" -gt "$maxH" ] && sh=$maxH
+  local args=(--class=cursaliacentro $GTKRC --borders=14 --title="Sistema — cursalialinux" --center --width=$sw --height=$sh
+    --window-icon="$LOGO" --image="$LOGO_CAB" --image-on-top
+    --text="<big><b>🛠️  Sistema y Configuración</b></big>\nAjustes, mantenimiento y utilidades" --form --columns=$scols
+    --field="⚙️   Configuración del sistema (todos los ajustes)!preferences-desktop:fbtn" "bash -c 'systemsettings &'"
+    --field="🔄  Actualizar cursalialinux!system-software-update:fbtn" "bash -c '/usr/local/bin/cursalia-actualizar &'"
+    --field="🕐  Fecha y hora!preferences-system-time:fbtn" "bash -c '/usr/local/bin/cursalia-fechahora &'"
+    --field="🌐  Red / WiFi!network-wireless:fbtn" "bash -c 'nm-connection-editor &'"
+    --field="🖨️   Impresoras!printer:fbtn" "bash -c 'system-config-printer &'"
+    --field="📶  Bluetooth!bluetooth:fbtn" "bash -c 'blueman-manager &'"
+    --field="👤  Usuarios (nombre y foto)!system-users:fbtn" "bash -c 'mugshot &'"
+    --field="🧹  Limpieza cursalialinux — menú completo!edit-clear:fbtn" "bash -c '/usr/local/bin/cursalia-limpieza &'")
+  local pkg lbl
+  for pkg in gparted timeshift thunar xfce4-taskmanager; do
+    if dpkg -s "$pkg" >/dev/null 2>&1; then lbl="${NOM[$pkg]}"; else lbl="📥 ${NOM[$pkg]}  —  instalar"; fi
+    args+=(--field="${lbl}!${ICO[$pkg]}:fbtn" "bash -c '$SELF abrir $pkg &'")
+  done
+  args+=(--button="⬅ Volver:bash -c '$SELF &'" --button="Cerrar:1")
+  yad "${args[@]}"
+}
+
+estudio_utilitarios(){
+  solo_una
+  local MH=$(xrandr 2>/dev/null | awk '/\*/{print $1; exit}' | cut -dx -f2); [ -z "$MH" ] && MH=768
+  local mh=$(( MH - 110 )); [ "$mh" -gt 600 ] && mh=600; [ "$mh" -lt 440 ] && mh=440
+
+  yad --class=cursaliacentro $GTKRC --borders=14 --title="Utilitarios — cursalialinux" \
+    --center --width=640 --height=$mh --window-icon="$LOGO" \
+    --image="$LOGO_CAB" --image-on-top \
+    --text="<big><b>🧰  Utilitarios</b></big>
+Todo lo demás que trae el sistema, ordenado y a mano." \
+    --form --columns=1 \
+    --field="🎙️   Audio — música, podcast y grabación!audio-x-generic:fbtn"   "bash -c '$SELF audio &'" \
+    --field="📄   Oficina — Word, Excel, PowerPoint!applications-office:fbtn"  "bash -c '$SELF oficina &'" \
+    --field="🌐   Internet — navegar, correo, descargas!applications-internet:fbtn" "bash -c '$SELF internet &'" \
+    --field="🛡️   Seguridad — proteger y auditar webs!security-high:fbtn"      "bash -c '$SELF seguridad &'" \
+    --field="🛠️   Sistema — limpieza y mantenimiento!applications-system:fbtn" "bash -c '$SELF sistema &'" \
+    --button="⬅ Volver:bash -c '$SELF &'" \
+    --button="Cerrar:1"
+}
+
+estudio_windows(){
+  solo_una
+  local MH=$(xrandr 2>/dev/null | awk '/\*/{print $1; exit}' | cut -dx -f2); [ -z "$MH" ] && MH=768
+  local mh=$(( MH - 110 )); [ "$mh" -gt 700 ] && mh=700; [ "$mh" -lt 480 ] && mh=480
+
+  # Estado real, para que cada paso diga lo que corresponde
+  local paso2 paso3 ico2 ico3 resumen
+  if command -v virt-manager >/dev/null 2>&1 && command -v virt-viewer >/dev/null 2>&1; then
+    paso2="2️⃣   Herramientas instaladas  —  volver a comprobar"
+    ico2="emblem-default"
+    local n=0
+    command -v virsh >/dev/null 2>&1 && n=$(virsh -c qemu:///system list --all --name 2>/dev/null | grep -c .)
+    if [ "${n:-0}" -gt 0 ]; then
+      paso3="3️⃣   Tienes $n máquina(s)  —  crear otra"
+      ico3="emblem-default"
+      resumen="Todo listo. Abre Windows desde el menú de aplicaciones."
+    else
+      paso3="3️⃣   Crear tu máquina de Windows  ←  <b>te toca esto</b>"
+      ico3="list-add"
+      resumen="Herramientas listas. Falta crear la máquina."
+    fi
+  else
+    paso2="2️⃣   Instalar las herramientas  ←  <b>te toca esto</b>"
+    ico2="system-software-install"
+    paso3="3️⃣   Crear tu máquina de Windows"
+    ico3="list-add"
+    resumen="Empieza por comprobar si tu equipo puede."
+  fi
+
+  yad --class=cursaliacentro $GTKRC --borders=14 --title="Windows Studio — cursalialinux" \
+    --center --width=680 --height=$mh --window-icon="$LOGO" \
+    --image="$LOGO_CAB" --image-on-top \
+    --text="<big><b>🪟  Windows Studio</b></big>
+Ejecuta programas de Windows <b>dentro</b> de cursalialinux, en una ventana.
+Sin reiniciar, sin repartir el disco, sin dejar Linux.
+
+<i>$resumen</i>" \
+    --form --columns=1 \
+    --field="1️⃣   ¿Puede mi equipo?  —  comprobar sin instalar nada!dialog-question:fbtn" \
+        "bash -c 'x-terminal-emulator -e bash -c \"virt-inspeccionar.sh; echo; read -p \\\"Pulsa Enter para cerrar\\\"\" &'" \
+    --field="$paso2!$ico2:fbtn" \
+        "bash -c 'x-terminal-emulator -e bash -c \"sudo virt-instalar.sh; echo; read -p \\\"Pulsa Enter para cerrar\\\"\" &'" \
+    --field="$paso3!$ico3:fbtn" \
+        "bash -c 'x-terminal-emulator -e bash -c \"sudo virt-crear-windows.sh; echo; read -p \\\"Pulsa Enter para cerrar\\\"\" &'" \
+    --field="🖥️   Abrir Windows!distributor-logo-windows:fbtn"                    "bash -c 'cursalia-windows.sh &'" \
+    --field="🎛️   Panel: internet, archivos, instantáneas!preferences-system-network:fbtn" \
+        "bash -c 'cursalia-windows-control.sh &'" \
+    --field="📘   Guía completa paso a paso!text-x-generic:fbtn" \
+        "bash -c 'xdg-open /usr/share/doc/cursalialinux/GUIA-WINDOWS.md &'" \
+    --field="⚖️   Licencias y responsabilidad  —  <b>léelo antes</b>!text-x-generic:fbtn" \
+        "bash -c 'xdg-open /usr/share/doc/cursalialinux/LICENCIAS-WINDOWS.md &'" \
+    --field="🛡️   Proteger un Windows sin soporte (7, 8.1, 10)!security-high:fbtn" \
+        "bash -c 'xdg-open /usr/share/doc/cursalialinux/SEGURIDAD-WINDOWS.md &'" \
+    --button="⬅ Volver:bash -c '$SELF &'" \
+    --button="Cerrar:1"
+}
+
+menu_principal(){
+  solo_una
+  # El alto se calcula a partir de CUÁNTOS Estudios hay, no de la pantalla.
+  # Antes estaba fijado para nueve y al quedar cinco sobraba media ventana
+  # vacía, con el botón Cerrar flotando en un desierto gris.
+  local n=5
+  local mh=$(( 205 + n * 46 ))
+  local MH=$(xrandr 2>/dev/null | awk '/\*/{print $1; exit}' | cut -dx -f2); [ -z "$MH" ] && MH=768
+  local tope=$(( MH - 110 )); [ "$mh" -gt "$tope" ] && mh=$tope
+
+  # Un solo icono por fila: el del tema. Los emojis se quitaron del texto
+  # porque se dibujaban ADEMÁS del icono y parecían un error.
+  yad --class=cursaliacentro $GTKRC --borders=14 --title="Centro cursalialinux" --center --width=660 --height=$mh \
+    --window-icon="$LOGO" --image="$LOGO_CAB" --image-on-top --align=left \
+    --text="<span size=\"xx-large\"><b>Bienvenido a cursalialinux</b></span>
+Tu sistema para <b>desarrollo web</b> y <b>creación de contenido</b>.
+" \
+    --form --columns=1 \
+    --field="Windows Studio — trabaja con tus programas de Windows!distributor-logo-windows:fbtn"        "bash -c '$SELF windows &'" \
+    --field="Desarrollo Web — Laravel, WordPress, editores, SEO!text-html:fbtn" "bash -c '$SELF web &'" \
+    --field="Video Studio — edición, grabación, karaoke!applications-multimedia:fbtn" "bash -c '$SELF video &'" \
+    --field="Imágenes y Diseño — gráficos, fotos, imágenes libres!applications-graphics:fbtn" "bash -c '$SELF imagenes &'" \
+    --field="Utilitarios — audio, oficina, internet, sistema!applications-utilities:fbtn" "bash -c '$SELF utilitarios &'" \
+    --button="Cerrar:1"
+}
+
+case "$1" in
+  windows)     estudio_windows ;;
+  utilitarios) estudio_utilitarios ;;
+  web)      studio "Desarrollo Web" "💻" "Crear proyectos (Laravel, WordPress), editores, bases de datos y SEO" $WEB ;;
+  video)    studio "Video Studio" "🎬" "Edición, grabación y karaoke" $VIDEO ;;
+  imagenes) studio "Imágenes y Diseño" "🖼️" "Gráficos, fotos, imágenes libres y optimización web" $IMAGEN ;;
+  audio)    studio "Audio Studio" "🎙️" "Música, podcast y grabación" $AUDIO ;;
+  seguridad) studio "Seguridad" "🛡️" "Protege tu equipo y audita la seguridad de TUS webs" $SEGURIDAD ;;
+  oficina)  studio "Oficina" "📄" "Compatible con Word, Excel y PowerPoint" $OFICINA ;;
+  internet) studio "Internet" "🌐" "Navegar, correo y descargas" $INTERNET ;;
+  sistema)  estudio_sistema ;;
+  abrir)    abrir "$2" ;;
+  instalar) instalar_pkg "$2" "$3" ;;
+  *)        menu_principal ;;
+esac

@@ -1,0 +1,10 @@
+[Unit]
+Description=Limpieza automática de cursalialinux
+Documentation=file:/usr/share/doc/cursalialinux/CATALOGO.md
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/cursalia-mantenimiento.sh
+Nice=19
+IOSchedulingClass=idle

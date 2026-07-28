@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+                          http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+  <kcfgfile name=""/>
+  <group name="General">
+
+    <!-- Por debajo de esta velocidad de bajada se considera "lento" -->
+    <entry name="umbralKB" type="Int">
+      <default>250</default>
+    </entry>
+
+    <!-- 0 = rojo solo si hay descarga y va lenta
+         1 = rojo siempre que este por debajo del limite (literal)
+         2 = ademas vigila la conexion con ping -->
+    <entry name="modo" type="Int">
+      <default>0</default>
+    </entry>
+
+    <!-- A partir de cuantos KB/s se considera que "si hay descarga" -->
+    <entry name="activoKB" type="Int">
+      <default>20</default>
+    </entry>
+
+    <!-- Modo 2: destino y latencia maxima aceptable -->
+    <entry name="pingHost" type="String">
+      <default>1.1.1.1</default>
+    </entry>
+    <entry name="pingMaxMs" type="Int">
+      <default>300</default>
+    </entry>
+
+    <!-- Mostrar tambien la subida en la barra -->
+    <entry name="mostrarSubida" type="Bool">
+      <default>true</default>
+    </entry>
+
+    <!-- Segundos sobre los que se promedia. Mas alto = numero mas quieto -->
+    <entry name="suavizadoSeg" type="Int">
+      <default>12</default>
+    </entry>
+
+    <!-- Cada cuantos milisegundos se refresca la lectura -->
+    <entry name="intervaloMs" type="Int">
+      <default>1500</default>
+    </entry>
+
+  </group>
+</kcfg>

@@ -1,0 +1,33 @@
+/* centro.css — apariencia del Centro cursalialinux
+ *
+ * Se carga con  yad --gtkrc=...  y GTK3 lo interpreta como hoja de estilo.
+ * Solo afecta a las ventanas del Centro, no al resto del escritorio.
+ *
+ * Motivo: la letra por defecto de yad resulta pequeña para leer con
+ * comodidad, sobre todo para quien recién llega a Linux.
+ */
+
+/* Texto general de la ventana: dos puntos más grande */
+window {
+  font-size: 12pt;
+}
+
+/* Las barras de Estudios: letra más grande y algo más de peso,
+   para que se lean de un vistazo */
+button label {
+  font-size: 12pt;
+  font-weight: 500;
+}
+
+/* Aire dentro de cada barra, para que no queden apretadas */
+button {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* El botón Cerrar no necesita tanto protagonismo */
+dialog button label,
+.dialog-action-box button label {
+  font-size: 11pt;
+  font-weight: 400;
+}

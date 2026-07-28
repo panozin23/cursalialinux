@@ -1,0 +1,123 @@
+# ===== cursalialinux Moderna (KDE Plasma) =====
+
+# --- Núcleo del sistema en vivo ---
+linux-image-amd64
+live-boot
+live-config
+live-config-systemd
+
+# --- Escritorio KDE Plasma ---
+kde-plasma-desktop
+sddm
+plasma-nm
+plasma-workspace-wallpapers
+dolphin
+konsole
+kate
+ark
+gwenview
+okular
+kcalc
+kde-spectacle
+
+# --- Instalador gráfico ---
+calamares
+calamares-settings-debian
+
+# --- Firmware / drivers ---
+firmware-linux
+firmware-linux-nonfree
+firmware-misc-nonfree
+firmware-realtek
+firmware-iwlwifi
+firmware-atheros
+
+# --- Arranque ---
+plymouth
+plymouth-themes
+
+# ===== DESARROLLO WEB =====
+git
+nodejs
+npm
+php-cli
+php-common
+php-mysql
+php-curl
+php-xml
+php-mbstring
+php-zip
+php-gd
+php-intl
+php-bcmath
+composer
+python3
+python3-pip
+python3-venv
+default-mysql-client
+mariadb-client
+sqlite3
+sqlitebrowser
+docker.io
+docker-compose
+build-essential
+meld
+jq
+zip
+unzip
+
+# ===== CREACION DE CONTENIDO (completo, para PC potente) =====
+gimp
+inkscape
+krita
+audacity
+shotcut
+simplescreenrecorder
+handbrake
+ffmpeg
+kdenlive
+obs-studio
+ardour
+darktable
+
+# ===== OFICINA (Word/Excel/PowerPoint) =====
+libreoffice-writer
+libreoffice-calc
+libreoffice-impress
+libreoffice-gtk3
+libreoffice-l10n-es
+hunspell-es
+
+# ===== Centro de Bienvenida =====
+yad
+papirus-icon-theme
+
+# --- para instalar VSCodium via hook ---
+wget
+gnupg
+ca-certificates
+
+# --- rendimiento ---
+zram-tools
+preload
+
+# ===== SEGURIDAD =====
+# Cortafuegos: se activa solo en el primer arranque (hook 0400).
+# plasma-firewall lo integra en Preferencias del Sistema de KDE.
+ufw
+plasma-firewall
+# Sin rsyslog, ufw solo escribe al journal y la pestaña
+# "Registro" de la interfaz gráfica sale siempre vacía.
+rsyslog
+
+# Parches de seguridad automáticos (configurado en el hook 0410).
+unattended-upgrades
+
+# ===== ARRANQUE SEGURO (Secure Boot) =====
+# Sin estos, los equipos con Arranque Seguro activado —la mayoría de
+# fábrica— avisan "no es de confianza" al arrancar la ISO, y muchos
+# se niegan del todo. Con ellos, cursalialinux arranca sin que nadie
+# tenga que entrar a la BIOS a desactivar nada.
+shim-signed
+grub-efi-amd64-signed
+mokutil

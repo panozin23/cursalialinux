@@ -1,0 +1,129 @@
+# ===== cursalialinux Ligera (XFCE) — lista de paquetes =====
+
+# --- Núcleo del sistema en vivo ---
+linux-image-amd64
+live-boot
+live-config
+live-config-systemd
+
+# --- Escritorio XFCE (ligero y rápido) ---
+xfce4
+xfce4-goodies
+xfce4-terminal
+lightdm
+lightdm-gtk-greeter
+
+# --- Red ---
+network-manager-gnome
+
+# --- Arranque bonito (splash) ---
+plymouth
+plymouth-themes
+
+# --- Instalador gráfico (fácil, tipo asistente) ---
+calamares
+calamares-settings-debian
+
+# --- Firmware / drivers para hardware VIEJO (clave) ---
+firmware-linux
+firmware-linux-nonfree
+firmware-misc-nonfree
+firmware-realtek
+firmware-atheros
+firmware-iwlwifi
+
+# --- Aplicaciones básicas ---
+firefox-esr
+thunar
+thunar-archive-plugin
+xarchiver
+mousepad
+ristretto
+gvfs
+gvfs-backends
+file-roller
+
+# --- Utilidades del sistema ---
+sudo
+curl
+wget
+nano
+htop
+
+# --- Optimización para PCs viejas ---
+zram-tools
+preload
+
+# ===== KIT DESARROLLO WEB =====
+git
+nodejs
+npm
+php-cli
+php-common
+php-mysql
+php-curl
+php-xml
+php-mbstring
+php-zip
+php-gd
+php-intl
+php-bcmath
+composer
+python3
+python3-pip
+python3-venv
+default-mysql-client
+mariadb-client
+sqlite3
+sqlitebrowser
+docker.io
+docker-compose
+build-essential
+meld
+jq
+zip
+unzip
+codium
+
+# ===== KIT CREACION DE CONTENIDO =====
+gimp
+inkscape
+krita
+audacity
+shotcut
+simplescreenrecorder
+
+# ===== OFICINA (Word/Excel/PowerPoint) =====
+libreoffice-writer
+libreoffice-calc
+libreoffice-impress
+libreoffice-gtk3
+libreoffice-l10n-es
+hunspell-es
+
+# ===== VIDEO (extra) + Centro =====
+handbrake
+ffmpeg
+yad
+papirus-icon-theme
+
+# ===== SEGURIDAD =====
+# Cortafuegos: se activa solo en el primer arranque (hook 0400).
+# gufw es la interfaz gráfica (GTK, encaja con XFCE).
+ufw
+gufw
+# Sin rsyslog, ufw solo escribe al journal y la pestaña
+# "Registro" de gufw sale siempre vacía.
+rsyslog
+
+# Parches de seguridad automáticos (configurado en el hook 0410).
+unattended-upgrades
+
+# ===== ARRANQUE SEGURO (Secure Boot) =====
+# Sin estos, los equipos con Arranque Seguro activado —la mayoría de
+# fábrica— avisan "no es de confianza" al arrancar la ISO, y muchos
+# se niegan del todo. Con ellos, cursalialinux arranca sin que nadie
+# tenga que entrar a la BIOS a desactivar nada.
+shim-signed
+grub-efi-amd64-signed
+mokutil

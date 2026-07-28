@@ -1,0 +1,13 @@
+[Unit]
+Description=Limpieza nocturna de cursalialinux (2 de la madrugada)
+
+[Timer]
+OnCalendar=*-*-* 02:00:00
+# Si el equipo estaba apagado a esa hora, se recupera al encender.
+# Sin esto, quien apaga el equipo de noche no se limpiaría nunca.
+Persistent=true
+# Un margen para no arrancar todas las máquinas a la vez
+RandomizedDelaySec=15min
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,40 @@
+==================================================================
+  cursalialinux — VERSIÓN DEBIAN (comercial)  ·  2026-07-19
+  DOS EDICIONES, EN ESPAÑOL
+==================================================================
+
+Distribución propia sobre DEBIAN 13 (trixie), construida con live-build.
+Para desarrolladores web y creadores de contenido. TODO EN ESPAÑOL.
+Licencia: apta para comercializar (Debian limpio; firmware redistribuible).
+
+EDICIONES (dos ISOs):
+  - cursalialinux-ligera-1.0.iso   (~2.0 GB)  Escritorio XFCE   → PCs VIEJAS
+  - cursalialinux-moderna-1.0.iso  (~3.0 GB)  Escritorio KDE    → PCs NUEVAS
+
+CADA UNA INCLUYE:
+  Marca Azul Hielo · Español + teclado latinoamericano por defecto
+  CENTRO DE BIENVENIDA con "Estudios":
+    - Web Studio: VSCodium, Docker, Node, PHP/Composer, Python, MySQL/SQLite, git
+    - Video Studio: Shotcut, HandBrake, ffmpeg, grabador (Moderna: +Kdenlive, +OBS)
+    - Imágenes y Diseño: GIMP, Inkscape, Krita
+    - Audio Studio: Audacity (Moderna: +Ardour)
+    - Oficina: LibreOffice (Word/Excel/PowerPoint)
+  Optimizado: zram, preload, servicios recortados, traducciones es/en.
+
+COLORES "AZUL HIELO": #2563EB · #22D3EE · #A5F3FC · #0A1730 · #ECFAFE
+
+GRABAR A USB:
+  sudo dd if=cursalialinux-ligera-1.0.iso of=/dev/sdX bs=4M status=progress oflag=sync
+
+RECONSTRUIR (receta liviana):
+  sudo apt install -y live-build debootstrap debian-archive-keyring squashfs-tools xorriso grub-pc-bin grub-efi-amd64-bin mtools
+  tar -xf recetas-live-build/config-ligera-xfce.tar   (o config-moderna-kde.tar)
+  cd al proyecto; sudo lb build   (instala el sistema)
+  Luego armar el ISO con grub-mkrescue (el arranque de live-build viejo está roto).
+  NOTA: live-build de Ubuntu necesita parches para trixie (ver notas del proyecto).
+
+CONTENIDO DE ESTA CARPETA:
+  isos/            los dos ISOs listos para grabar
+  recetas-live-build/  las recetas (config) de cada edición
+  marca-fuentes/   logo y fondo Azul Hielo
+==================================================================

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Panel de Windows
+GenericName=Control de la máquina virtual
+Comment=Cortar o dar internet, pasar archivos e instantáneas
+Exec=cursalia-windows-control.sh
+Icon=preferences-system-network
+Terminal=false
+Categories=System;
+Keywords=windows;red;internet;instantanea;snapshot;virtual;cd;archivos;
+StartupNotify=true

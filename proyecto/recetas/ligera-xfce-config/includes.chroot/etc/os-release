@@ -1,0 +1,11 @@
+PRETTY_NAME="cursalialinux Ligera"
+NAME="cursalialinux"
+VERSION_ID="1.1"
+VERSION="1.1 (Ligera)"
+VERSION_CODENAME=ligera
+ID=cursalialinux
+ID_LIKE=debian
+HOME_URL="https://cursalialinux.local/"
+SUPPORT_URL="https://cursalialinux.local/"
+BUG_REPORT_URL="https://cursalialinux.local/"
+LOGO=cursalialinux

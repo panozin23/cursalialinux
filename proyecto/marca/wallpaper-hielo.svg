@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="82%">
+      <stop offset="0" stop-color="#13294a"/>
+      <stop offset="55%" stop-color="#0a1730"/>
+      <stop offset="100%" stop-color="#050b18"/>
+    </radialGradient>
+    <linearGradient id="hielo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+
+  <!-- puntitos sutiles tipo cuadricula -->
+  <g fill="#1e3a5f" opacity="0.55">
+    <circle cx="160" cy="140" r="2"/><circle cx="360" cy="220" r="2"/><circle cx="560" cy="120" r="2"/>
+    <circle cx="1360" cy="160" r="2"/><circle cx="1560" cy="260" r="2"/><circle cx="1760" cy="140" r="2"/>
+    <circle cx="240" cy="880" r="2"/><circle cx="480" cy="960" r="2"/><circle cx="1500" cy="900" r="2"/>
+    <circle cx="1700" cy="820" r="2"/><circle cx="1780" cy="960" r="2"/><circle cx="120" cy="640" r="2"/>
+    <circle cx="820" cy="120" r="2"/><circle cx="1120" cy="200" r="2"/><circle cx="300" cy="480" r="2"/>
+    <circle cx="1640" cy="560" r="2"/><circle cx="900" cy="980" r="2"/><circle cx="1200" cy="900" r="2"/>
+  </g>
+
+  <!-- resplandor detras del logo -->
+  <circle cx="960" cy="430" r="300" fill="url(#glow)"/>
+
+  <!-- marca (anillo C + cursor) centrada -->
+  <g transform="translate(832,302)">
+    <path d="M 178 82 A 62 62 0 1 0 178 174" fill="none" stroke="url(#hielo)" stroke-width="24" stroke-linecap="round"/>
+    <path d="M 150 104 L 172 128 L 150 152" fill="none" stroke="#a5f3fc" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="150" y1="168" x2="186" y2="168" stroke="#a5f3fc" stroke-width="16" stroke-linecap="round"/>
+  </g>
+
+  <!-- nombre -->
+  <text x="960" y="700" text-anchor="middle" font-family="DejaVu Sans, Cantarell, sans-serif"
+        font-size="76" font-weight="bold" fill="#ecfafe" letter-spacing="1">cursalialinux</text>
+  <text x="960" y="748" text-anchor="middle" font-family="DejaVu Sans, Cantarell, sans-serif"
+        font-size="26" fill="#7dd3fc" letter-spacing="6">RÁPIDO · LIGERO · TUYO</text>
+</svg>

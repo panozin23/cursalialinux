@@ -1,0 +1,22 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Windows
+GenericName=Programas de Windows
+Comment=Abre tu máquina de Windows en una ventana
+Exec=cursalia-windows.sh
+Icon=/usr/share/icons/Papirus/64x64/apps/distributor-logo-windows.svg
+Terminal=false
+Categories=System;
+Keywords=windows;virtual;programa;salmi;soaps;snis;office;
+StartupNotify=true
+StartupWMClass=virt-viewer
+Actions=Apagar;Dejar;
+
+[Desktop Action Apagar]
+Name=Abrir y apagar del todo al cerrar
+Exec=cursalia-windows.sh --apagar
+
+[Desktop Action Dejar]
+Name=Abrir y dejar encendida al cerrar
+Exec=cursalia-windows.sh --dejar

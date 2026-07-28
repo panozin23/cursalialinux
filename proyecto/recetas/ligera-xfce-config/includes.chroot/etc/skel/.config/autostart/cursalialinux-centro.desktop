@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Centro cursalialinux
+Comment=Estudios para desarrollo web y creación de contenido
+Exec=/usr/local/bin/centro-cursalialinux
+Icon=/usr/share/pixmaps/cursalialinux.png
+Terminal=false
+Type=Application
+Categories=X-CursalialinuxStudios;System;
