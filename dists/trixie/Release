@@ -5,20 +5,20 @@ Codename: trixie
 Architectures: all amd64
 Components: main
 Description: Paquetes propios de cursalialinux
-Date: Mon, 27 Jul 2026 20:34:09 +0000
+Date: Tue, 28 Jul 2026 02:06:14 +0000
 MD5Sum:
- 8ba084cb6f76b298742bfca7ba5f182c              201 Release
- 577562b3722a486dcd1f026365ee054c             9899 main/binary-all/Packages
- 7e681c83a93efe8b97bf8d47e1fdf7a8             1621 main/binary-all/Packages.gz
+ a0f776fd97a94e5f29f8c73e0b3c4e1e              201 Release
+ 40fa0ecf5eb801a28e3a9e8be86a8b97            11147 main/binary-all/Packages
+ 135638acbcd8a5b85673819dfc9ca59f             1735 main/binary-all/Packages.gz
 SHA1:
- 1c95e546e2be1c56f81cad56dbe0102dbee9a270              201 Release
- 7e09f09596d184845bf07b975e5f75f26dd50a9a             9899 main/binary-all/Packages
- 4170ab227059899af4d818f456479434f35eec0d             1621 main/binary-all/Packages.gz
+ 350a4fe579fd4cc75262cec8a42347dec3b50f54              201 Release
+ 1da6038bb99eefabb6e916a886aa8591b7b733b8            11147 main/binary-all/Packages
+ 2a7c7167962d28d2c2e006e941d2d13740a864cd             1735 main/binary-all/Packages.gz
 SHA256:
- 8e2493eb63c00437056937ca6bcba16744f3d3d8085819556f74cba1d19fc578              201 Release
- 3a18a37dc7c4892247a25ba63798bf56abda0e9e6cc2a33158178dcd28b171f7             9899 main/binary-all/Packages
- c579ecc604f7ec7ffa66267844098899cf145faed48e74d013991fe7b456808a             1621 main/binary-all/Packages.gz
+ de3b0f0be4cf8b2d00f664ff35c797d826f1e54e59af934ad7403a4263b9ccc7              201 Release
+ 248ab0a578dc84e3ad6dafd631b40203ddee04f76f009fbfcc757c9b8f1907a1            11147 main/binary-all/Packages
+ 2821f732fd27f6f8c90b6dad78f13b9b6bd7e943e9ad46b0cabba4dfe8f30555             1735 main/binary-all/Packages.gz
 SHA512:
- c13f1d742c0338b097de650cf4e7cf4dd2c56f88d57abba874b0126bdf7b6a18594deba0f3b7fbe8e8651910c6df96bb0fa0e032800c9f93bbc68042e2c58e6a              201 Release
- 53f412cec8791b5c29a843fd3e6bc5926054c5fcd5c2ef288a98054eb7ba937acbd158a13f43ce855866748e874603b94338c6048c565d5f670151a3aff33e31             9899 main/binary-all/Packages
- 940a656d1477633ac3ce025447245d5c4c237f5844759f1ba9e87decbb3ef44a182487bd379bf1297301936ce00e36a3e9d90202fadb42463a9c91635253f01b             1621 main/binary-all/Packages.gz
+ 6ff14d707e5684c1d0467ea9e5aac368d63deec3299e09264a74f15feee2fb8fa5ba16a2633e59f59e3a47a6f3566ebed9595dee093b0e0c2031d682f97c22ae              201 Release
+ e468028fe250c9a233ee863ea8fb864ee2614608ff15dd0bcf346f5a190bfe262c51cb06ea8aef3b95fd191ebc57877818cbf565d78424dadf735d1644dd0868            11147 main/binary-all/Packages
+ 1ef32d50bd0e770c88cabd0b671bfded7aea0e220e36c81b9b9f94ed1cdac294aee6a1af2436f2bb130ee4d2bd35ebaf8903fd0293c299315aa02a7004ca3d63             1735 main/binary-all/Packages.gz
