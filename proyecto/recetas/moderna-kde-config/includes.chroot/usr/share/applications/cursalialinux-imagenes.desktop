@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Imágenes y Diseño
 Comment=Gráficos, logos e ilustración
-Exec=/usr/local/bin/centro-cursalialinux imagenes
+Exec=centro-cursalialinux imagenes
 Icon=applications-graphics
 Terminal=false
 Type=Application

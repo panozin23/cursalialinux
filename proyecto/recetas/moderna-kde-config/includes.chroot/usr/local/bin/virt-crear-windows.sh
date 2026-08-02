@@ -50,6 +50,62 @@ if [ "$(id -u)" -ne 0 ]; then
   exit 1
 fi
 
+# ── Encender el motor de virtualización si está dormido ──────────────
+# En la ISO los paquetes vienen instalados, así que nadie ejecuta
+# virt-instalar.sh y libvirtd se queda apagado. Sin él, virt-install
+# falla con "Failed to connect socket to /var/run/libvirt/libvirt-sock".
+if ! virsh -c qemu:///system version >/dev/null 2>&1; then
+  echo
+  echo "── Encendiendo el motor de virtualización ──"
+  systemctl enable --now libvirtd >/dev/null 2>&1 \
+    || systemctl enable --now virtqemud.socket >/dev/null 2>&1
+  sleep 3
+  if virsh -c qemu:///system version >/dev/null 2>&1; then
+    echo "   ✅ libvirtd en marcha"
+  else
+    echo "   ❌ no se pudo iniciar libvirtd."
+    echo "      Prueba a mano:  sudo systemctl status libvirtd"
+    exit 1
+  fi
+fi
+
+# La red virtual, sin la cual Windows se queda sin internet
+if ! virsh -c qemu:///system net-info default >/dev/null 2>&1; then
+  virsh -c qemu:///system net-define /usr/share/libvirt/networks/default.xml >/dev/null 2>&1
+fi
+if ! virsh -c qemu:///system net-info default 2>/dev/null | grep -qi 'activo: *s\|active: *y'; then
+  virsh -c qemu:///system net-start    default >/dev/null 2>&1 \
+    && echo "   ✅ red virtual iniciada"
+  virsh -c qemu:///system net-autostart default >/dev/null 2>&1
+fi
+
+# El usuario debe poder manejar las máquinas sin sudo
+USUARIO_REAL="${SUDO_USER:-}"
+if [ -n "$USUARIO_REAL" ] && [ "$USUARIO_REAL" != "root" ]; then
+  for g in libvirt kvm; do
+    if getent group "$g" >/dev/null && ! id -nG "$USUARIO_REAL" | tr ' ' '\n' | grep -qx "$g"; then
+      usermod -aG "$g" "$USUARIO_REAL" && \
+        echo "   ✅ $USUARIO_REAL añadido al grupo '$g' (cierra sesión al terminar)"
+    fi
+  done
+fi
+
+# ── Qué sabe hacer QEMU en ESTE equipo ───────────────────────────────
+# SPICE y el vídeo qxl vienen en el paquete qemu-system-gui. Si falta,
+# libvirt rechaza la máquina entera con mensajes poco claros:
+#   "spice graphics are not supported with this QEMU"
+#   "does not support video model 'qxl'"
+# Se lo preguntamos directamente a libvirt, que es quien decide, y si no
+# están usamos VNC con vídeo VGA: menos cómodo pero funciona siempre.
+CAPS=$(virsh -c qemu:///system domcapabilities 2>/dev/null)
+if echo "$CAPS" | grep -q '<value>spice</value>'; then
+  PANTALLA="spice"
+  echo "$CAPS" | grep -q '<value>qxl</value>' && VIDEO=qxl || VIDEO=vga
+else
+  PANTALLA="vnc"
+  VIDEO=vga
+fi
+
 # ── Localizar el CD de drivers VirtIO ────────────────────────────────
 for f in "$IMG"/virtio-win*.iso; do
   [ -r "$f" ] && VIRTIO="$f"
@@ -273,8 +329,8 @@ ARGS=(
   --network network=default,model=virtio
   --controller "type=usb,model=$USB"
   --channel unix,target.type=virtio,target.name=org.qemu.guest_agent.0
-  --graphics spice
-  --video qxl
+  --graphics "$PANTALLA"
+  --video "$VIDEO"
   --sound none
   --noautoconsole
 )
@@ -309,12 +365,31 @@ echo "  ✅ configuración escrita en $XML"
 
 # ── 3. Verificar antes de definir ────────────────────────────────────
 echo
-echo "  Comprobando que NO se coló la línea que rompe los AMD:"
-if grep -q evmcs "$XML"; then
-  echo "  ❌ apareció <evmcs>. NO definas esta máquina."
-  rm -f "$DISCO"; exit 1
+echo "  Comprobando la compatibilidad del procesador:"
+# <evmcs> es una función de Intel. En procesadores Intel es correcta y
+# hasta conviene. En AMD, en cambio, impide que la máquina arranque.
+# Por eso solo se rechaza cuando el equipo es AMD.
+if grep -qm1 ' svm ' /proc/cpuinfo; then
+  MARCA_CPU=AMD
+elif grep -qm1 ' vmx ' /proc/cpuinfo; then
+  MARCA_CPU=Intel
+else
+  MARCA_CPU=desconocida
 fi
-echo "  ✅ sin <evmcs>"
+
+if grep -q evmcs "$XML"; then
+  if [ "$MARCA_CPU" = "AMD" ]; then
+    echo "  ⚠️  apareció <evmcs>, que en AMD impide arrancar. Lo quito."
+    sed -i '/<evmcs/d' "$XML"
+    grep -q evmcs "$XML" \
+      && { echo "  ❌ no se pudo quitar. No defino la máquina."; rm -f "$DISCO"; exit 1; } \
+      || echo "  ✅ quitado — la máquina arrancará bien"
+  else
+    echo "  ✅ procesador $MARCA_CPU: <evmcs> es correcto aquí, se conserva"
+  fi
+else
+  echo "  ✅ procesador $MARCA_CPU: sin <evmcs>"
+fi
 
 echo "  Comprobando las piezas clave:"
 grep -q "machine=\"$MAQUINA_TIPO\""      "$XML" && echo "    ✅ chipset $MAQUINA_TIPO"
@@ -335,7 +410,21 @@ fi
 # ── 4. Definir ───────────────────────────────────────────────────────
 echo
 echo "── 3. Definiendo la máquina en libvirt ──"
-virsh -c qemu:///system define "$XML" || { echo "ERROR al definir. El disco queda en $DISCO"; exit 1; }
+SALIDA_DEFINE=$(virsh -c qemu:///system define "$XML" 2>&1)
+if [ $? -ne 0 ]; then
+  echo
+  echo "  ❌ libvirt rechazó la máquina. Esto es lo que dijo:"
+  echo "$SALIDA_DEFINE" | sed 's/^/     /'
+  echo
+  echo "  Comprobaciones rápidas:"
+  printf '     motor libvirtd: %s\n' "$(systemctl is-active libvirtd 2>/dev/null || echo desconocido)"
+  printf '     máquinas existentes: %s\n' "$(virsh -c qemu:///system list --all --name 2>/dev/null | grep -c . )"
+  echo
+  echo "  El disco creado queda en $DISCO"
+  echo "  La configuración, para revisarla, en $XML"
+  exit 1
+fi
+echo "$SALIDA_DEFINE" | sed 's/^/  /'
 
 echo
 virsh -c qemu:///system list --all

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Video Studio
 Comment=Edición y grabación de video
-Exec=/usr/local/bin/centro-cursalialinux video
+Exec=centro-cursalialinux video
 Icon=applications-multimedia
 Terminal=false
 Type=Application

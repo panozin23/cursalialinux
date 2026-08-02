@@ -205,18 +205,20 @@ estudio_sistema(){
   local SH=$(xrandr 2>/dev/null | awk '/\*/{print $1; exit}' | cut -dx -f2); [ -z "$SH" ] && SH=768
   local maxH=$(( SH - 110 )); [ "$maxH" -lt 460 ] && maxH=460
   local scols=1 sw=640; [ 738 -gt "$maxH" ] && { scols=2; sw=960; }
-  local sh=$(( ((12 + scols - 1)/scols) * 44 + 240 )); [ "$sh" -gt "$maxH" ] && sh=$maxH
+  local sh=$(( ((13 + scols - 1)/scols) * 44 + 240 )); [ "$sh" -gt "$maxH" ] && sh=$maxH
   local args=(--class=cursaliacentro $GTKRC --borders=14 --title="Sistema — cursalialinux" --center --width=$sw --height=$sh
     --window-icon="$LOGO" --image="$LOGO_CAB" --image-on-top
     --text="<big><b>🛠️  Sistema y Configuración</b></big>\nAjustes, mantenimiento y utilidades" --form --columns=$scols
     --field="⚙️   Configuración del sistema (todos los ajustes)!preferences-desktop:fbtn" "bash -c 'systemsettings &'"
-    --field="🔄  Actualizar cursalialinux!system-software-update:fbtn" "bash -c '/usr/local/bin/cursalia-actualizar &'"
-    --field="🕐  Fecha y hora!preferences-system-time:fbtn" "bash -c '/usr/local/bin/cursalia-fechahora &'"
+    --field="🔄  Actualizar cursalialinux!system-software-update:fbtn" "bash -c 'cursalia-actualizar &'"
+    --field="🕐  Fecha y hora!preferences-system-time:fbtn" "bash -c 'cursalia-fechahora &'"
     --field="🌐  Red / WiFi!network-wireless:fbtn" "bash -c 'nm-connection-editor &'"
     --field="🖨️   Impresoras!printer:fbtn" "bash -c 'system-config-printer &'"
     --field="📶  Bluetooth!bluetooth:fbtn" "bash -c 'blueman-manager &'"
     --field="👤  Usuarios (nombre y foto)!system-users:fbtn" "bash -c 'mugshot &'"
-    --field="🧹  Limpieza cursalialinux — menú completo!edit-clear:fbtn" "bash -c '/usr/local/bin/cursalia-limpieza &'")
+    --field="🧹  Limpieza cursalialinux — menú completo!edit-clear:fbtn" "bash -c 'cursalia-limpieza &'"
+    --field="🔐  Cartera de contraseñas (si KDE la pide al abrir programas)!dialog-password:fbtn" \
+      "bash -c 'x-terminal-emulator -e bash -c \"cursalia-cartera.sh; echo; read -p \\\"Pulsa Enter para cerrar\\\"\" &'")
   local pkg lbl
   for pkg in gparted timeshift thunar xfce4-taskmanager; do
     if dpkg -s "$pkg" >/dev/null 2>&1; then lbl="${NOM[$pkg]}"; else lbl="📥 ${NOM[$pkg]}  —  instalar"; fi

@@ -42,7 +42,7 @@ echo
 echo "── Programas ──"
 for p in centro-cursalialinux cursalia-windows.sh cursalia-windows-control.sh \
          cursalia-windows-iso.sh cursalia-icono-menu.sh cursalia-mantenimiento.sh \
-         cursalia-informe.sh virt-inspeccionar.sh virt-instalar.sh virt-crear-windows.sh; do
+         cursalia-informe.sh cursalia-cartera.sh virt-inspeccionar.sh virt-instalar.sh virt-crear-windows.sh; do
   if [ -f "$BASE/scripts/$p" ]; then
     install -m 755 "$BASE/scripts/$p" "$T/usr/bin/$p"
     printf '   ✅ %s\n' "$p"
@@ -77,9 +77,19 @@ for d in cursalialinux-centro cursalialinux-windows cursalialinux-windows-panel;
   [ -f "$R/usr/share/applications/$d.desktop" ] && \
     install -m 644 "$R/usr/share/applications/$d.desktop" "$T/usr/share/applications/"
 done
-# Los lanzadores apuntaban a /usr/local/bin; en el paquete van a /usr/bin
+# Red de seguridad: si alguna receta vuelve a traer la ruta absoluta,
+# aquí se quita. Los programas se llaman por su nombre y los busca el PATH.
 sed -i 's|/usr/local/bin/||g' "$T/usr/share/applications/"*.desktop 2>/dev/null
 echo "   ✅ 3 lanzadores del menú"
+
+# ── Lanzador del Escritorio ──────────────────────────────────────────
+# Va en /etc/skel para que todo usuario nuevo lo tenga ya correcto.
+mkdir -p "$T/etc/skel/Desktop"
+if [ -f "$R/etc/skel/Desktop/cursalialinux-centro.desktop" ]; then
+  install -m 755 "$R/etc/skel/Desktop/cursalialinux-centro.desktop" "$T/etc/skel/Desktop/"
+  sed -i 's|/usr/local/bin/||g' "$T/etc/skel/Desktop/cursalialinux-centro.desktop"
+  echo "   ✅ lanzador del Escritorio"
+fi
 
 # ── Mantenimiento automático ─────────────────────────────────────────
 for u in cursalia-mantenimiento.service cursalia-mantenimiento.timer; do
@@ -128,11 +138,43 @@ if [ "$1" = "configure" ]; then
     # los programas viejos y las actualizaciones no surten efecto.
     for v in centro-cursalialinux cursalia-windows.sh cursalia-windows-control.sh \
              cursalia-windows-iso.sh cursalia-icono-menu.sh cursalia-mantenimiento.sh \
-             cursalia-informe.sh virt-inspeccionar.sh virt-instalar.sh virt-crear-windows.sh; do
+             cursalia-informe.sh cursalia-cartera.sh virt-inspeccionar.sh virt-instalar.sh virt-crear-windows.sh; do
         if [ -f "/usr/local/bin/$v" ] && [ -f "/usr/bin/$v" ]; then
             rm -f "/usr/local/bin/$v"
             echo "cursalialinux: quitada copia antigua /usr/local/bin/$v"
         fi
+    done
+
+    # Al borrar esas copias, todo lanzador que llevara escrita la ruta
+    # /usr/local/bin/... se queda roto ("No se ha podido encontrar el
+    # programa"). Se les quita la ruta: basta el nombre, lo encuentra el
+    # PATH, que incluye /usr/local/bin y /usr/bin. Vale igual para los
+    # lanzadores viejos de la ISO 1.0 (cursalia-studio-*, cursalia-fechahora…)
+    # que no pertenecen a ningún paquete y nadie más va a arreglar.
+    #
+    # Solo se tocan los lanzadores de cursalialinux, nunca los de terceros.
+    reparar_lanzadores() {
+        [ -d "$1" ] || return 0
+        for l in "$1"/cursalia*.desktop; do
+            [ -f "$l" ] || continue
+            if grep -q '^Exec=/usr/local/bin/' "$l"; then
+                sed -i 's|^Exec=/usr/local/bin/|Exec=|' "$l"
+                echo "cursalialinux: reparado el lanzador $l"
+            fi
+        done
+    }
+
+    reparar_lanzadores /usr/share/applications
+    for base in /etc/skel /root /home/*; do
+        reparar_lanzadores "$base/Desktop"
+        reparar_lanzadores "$base/Escritorio"
+        reparar_lanzadores "$base/.config/autostart"
+        # Los iconos del Escritorio deben poder ejecutarse, o KDE
+        # los muestra como un archivo de texto cualquiera.
+        for esc in "$base/Desktop" "$base/Escritorio"; do
+            [ -d "$esc" ] || continue
+            chmod +x "$esc"/cursalia*.desktop 2>/dev/null || true
+        done
     done
 
     # Activar la limpieza nocturna

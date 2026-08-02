@@ -32,7 +32,7 @@ for EDICION in moderna-kde ligera-xfce; do
 
   # ── Programas ──
   for p in centro-cursalialinux cursalia-windows.sh cursalia-windows-control.sh \
-           cursalia-icono-menu.sh virt-inspeccionar.sh virt-instalar.sh \
+           cursalia-icono-menu.sh cursalia-cartera.sh virt-inspeccionar.sh virt-instalar.sh \
            virt-crear-windows.sh; do
     if [ -f "$BASE/scripts/$p" ]; then
       install -m 755 "$BASE/scripts/$p" "$D/usr/local/bin/$p"; TOTAL=$((TOTAL+1))
@@ -63,7 +63,7 @@ for EDICION in moderna-kde ligera-xfce; do
 [Desktop Entry]
 Name=Centro cursalialinux
 Comment=Estudios para desarrollo web y creación de contenido
-Exec=/usr/local/bin/centro-cursalialinux
+Exec=centro-cursalialinux
 Icon=/usr/share/pixmaps/cursalialinux.png
 Terminal=false
 Type=Application

@@ -20,6 +20,14 @@ okular
 kcalc
 kde-spectacle
 
+# --- Cartera de contraseñas ---
+# Sin libpam-kwallet5 la cartera no se abre sola al iniciar sesión y
+# cualquier programa que guarde una clave (VS Code, el correo, el
+# navegador) hace saltar una ventana pidiendo contraseña.
+# kwalletmanager permite verla y cambiarle la contraseña.
+libpam-kwallet5
+kwalletmanager
+
 # --- Instalador gráfico ---
 calamares
 calamares-settings-debian

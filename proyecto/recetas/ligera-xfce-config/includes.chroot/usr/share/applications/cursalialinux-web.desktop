@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Web Studio
 Comment=Desarrollo web
-Exec=/usr/local/bin/centro-cursalialinux web
+Exec=centro-cursalialinux web
 Icon=applications-development
 Terminal=false
 Type=Application

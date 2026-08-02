@@ -9,7 +9,8 @@ export GDK_BACKEND=x11
 #  Instalado = abre directo · Del catálogo = "📥 instalar" (bajo demanda)
 #  Enfocado en desarrollo web + creación de contenido.
 # ================================================================
-SELF="/usr/local/bin/centro-cursalialinux"
+# Ruta propia: así funciona igual en /usr/bin (paquete) o /usr/local/bin (manual)
+SELF="$(readlink -f "$0")"
 LOGO="/usr/share/pixmaps/cursalialinux.png"
 
 # Logo reducido para la cabecera de las ventanas. El de 256 px ocupaba casi
@@ -204,18 +205,20 @@ estudio_sistema(){
   local SH=$(xrandr 2>/dev/null | awk '/\*/{print $1; exit}' | cut -dx -f2); [ -z "$SH" ] && SH=768
   local maxH=$(( SH - 110 )); [ "$maxH" -lt 460 ] && maxH=460
   local scols=1 sw=640; [ 738 -gt "$maxH" ] && { scols=2; sw=960; }
-  local sh=$(( ((12 + scols - 1)/scols) * 44 + 240 )); [ "$sh" -gt "$maxH" ] && sh=$maxH
+  local sh=$(( ((13 + scols - 1)/scols) * 44 + 240 )); [ "$sh" -gt "$maxH" ] && sh=$maxH
   local args=(--class=cursaliacentro $GTKRC --borders=14 --title="Sistema — cursalialinux" --center --width=$sw --height=$sh
     --window-icon="$LOGO" --image="$LOGO_CAB" --image-on-top
     --text="<big><b>🛠️  Sistema y Configuración</b></big>\nAjustes, mantenimiento y utilidades" --form --columns=$scols
     --field="⚙️   Configuración del sistema (todos los ajustes)!preferences-desktop:fbtn" "bash -c 'systemsettings &'"
-    --field="🔄  Actualizar cursalialinux!system-software-update:fbtn" "bash -c '/usr/local/bin/cursalia-actualizar &'"
-    --field="🕐  Fecha y hora!preferences-system-time:fbtn" "bash -c '/usr/local/bin/cursalia-fechahora &'"
+    --field="🔄  Actualizar cursalialinux!system-software-update:fbtn" "bash -c 'cursalia-actualizar &'"
+    --field="🕐  Fecha y hora!preferences-system-time:fbtn" "bash -c 'cursalia-fechahora &'"
     --field="🌐  Red / WiFi!network-wireless:fbtn" "bash -c 'nm-connection-editor &'"
     --field="🖨️   Impresoras!printer:fbtn" "bash -c 'system-config-printer &'"
     --field="📶  Bluetooth!bluetooth:fbtn" "bash -c 'blueman-manager &'"
     --field="👤  Usuarios (nombre y foto)!system-users:fbtn" "bash -c 'mugshot &'"
-    --field="🧹  Limpieza cursalialinux — menú completo!edit-clear:fbtn" "bash -c '/usr/local/bin/cursalia-limpieza &'")
+    --field="🧹  Limpieza cursalialinux — menú completo!edit-clear:fbtn" "bash -c 'cursalia-limpieza &'"
+    --field="🔐  Cartera de contraseñas (si KDE la pide al abrir programas)!dialog-password:fbtn" \
+      "bash -c 'x-terminal-emulator -e bash -c \"cursalia-cartera.sh; echo; read -p \\\"Pulsa Enter para cerrar\\\"\" &'")
   local pkg lbl
   for pkg in gparted timeshift thunar xfce4-taskmanager; do
     if dpkg -s "$pkg" >/dev/null 2>&1; then lbl="${NOM[$pkg]}"; else lbl="📥 ${NOM[$pkg]}  —  instalar"; fi
@@ -223,6 +226,40 @@ estudio_sistema(){
   done
   args+=(--button="⬅ Volver:bash -c '$SELF &'" --button="Cerrar:1")
   yad "${args[@]}"
+}
+
+acerca_de(){
+  solo_una
+  local VER=$(grep -oE '^VERSION="[^"]+' /etc/os-release 2>/dev/null | cut -d'"' -f2)
+  yad --class=cursaliacentro $GTKRC --borders=14 --title="Acerca de cursalialinux" \
+    --center --width=640 --height=520 --window-icon="$LOGO" \
+    --image="$LOGO_CAB" --image-on-top \
+    --text="<span size=\"xx-large\"><b>cursalialinux ${VER:-1.1}</b></span>
+Hecho en Bolivia, en español y con software libre.
+
+<b>Construido sobre el trabajo de:</b>
+
+  <b>Debian</b> — el sistema base y sus miles de programas
+  <b>Linux</b> — el núcleo que lo hace funcionar
+  <b>GNU</b> — las herramientas fundamentales y la licencia GPL
+  <b>KDE Plasma</b> — el escritorio de esta edición
+  <b>Qt</b> — la base gráfica sobre la que corre KDE
+
+Y decenas de proyectos más: QEMU, libvirt, LibreOffice,
+GIMP, Inkscape, Firefox, Calamares, Papirus y muchos otros.
+
+<i>Sin ese trabajo colectivo, cursalialinux no existiría.</i>
+
+<b>Licencia:</b> software libre (GPL y LGPL).
+Puedes usarlo, copiarlo y compartirlo con libertad,
+<b>incluido el uso comercial</b>. Sin pagar licencias." \
+    --form --columns=1 \
+    --field="📜   Leer los créditos completos!text-x-generic:fbtn" \
+        "bash -c 'xdg-open /usr/share/doc/cursalialinux/CREDITOS.md &'" \
+    --field="⚖️   Licencias y responsabilidad!text-x-generic:fbtn" \
+        "bash -c 'xdg-open /usr/share/doc/cursalialinux/LICENCIAS-WINDOWS.md &'" \
+    --button="⬅ Volver:bash -c '$SELF &'" \
+    --button="Cerrar:1"
 }
 
 estudio_utilitarios(){
@@ -251,25 +288,46 @@ estudio_windows(){
   local mh=$(( MH - 110 )); [ "$mh" -gt 700 ] && mh=700; [ "$mh" -lt 480 ] && mh=480
 
   # Estado real, para que cada paso diga lo que corresponde
-  local paso2 paso3 ico2 ico3 resumen
+  local paso2 paso3 ico2 ico3 resumen paso_iso ico_iso hay_iso
   if command -v virt-manager >/dev/null 2>&1 && command -v virt-viewer >/dev/null 2>&1; then
     paso2="2️⃣   Herramientas instaladas  —  volver a comprobar"
     ico2="emblem-default"
     local n=0
     command -v virsh >/dev/null 2>&1 && n=$(virsh -c qemu:///system list --all --name 2>/dev/null | grep -c .)
+    # ¿Hay ya una imagen de Windows colocada?
+    local hay_iso=0
+    for f in /var/lib/libvirt/images/*.iso; do
+      case "$(basename "$f" 2>/dev/null)" in virtio*) continue ;; esac
+      [ -r "$f" ] && { hay_iso=1; break; }
+    done
+
+    if [ "$hay_iso" -eq 1 ]; then
+      paso_iso="3️⃣   Imagen de Windows lista  —  conseguir otra"
+      ico_iso="emblem-default"
+    else
+      paso_iso="3️⃣   Conseguir la imagen de Windows  ←  <b>te toca esto</b>"
+      ico_iso="folder-download"
+    fi
+
     if [ "${n:-0}" -gt 0 ]; then
-      paso3="3️⃣   Tienes $n máquina(s)  —  crear otra"
+      paso3="4️⃣   Tienes $n máquina(s)  —  crear otra"
       ico3="emblem-default"
       resumen="Todo listo. Abre Windows desde el menú de aplicaciones."
-    else
-      paso3="3️⃣   Crear tu máquina de Windows  ←  <b>te toca esto</b>"
+    elif [ "$hay_iso" -eq 1 ]; then
+      paso3="4️⃣   Crear tu máquina de Windows  ←  <b>te toca esto</b>"
       ico3="list-add"
-      resumen="Herramientas listas. Falta crear la máquina."
+      resumen="Imagen lista. Solo falta crear la máquina."
+    else
+      paso3="4️⃣   Crear tu máquina de Windows"
+      ico3="list-add"
+      resumen="Herramientas listas. Falta la imagen de Windows."
     fi
   else
     paso2="2️⃣   Instalar las herramientas  ←  <b>te toca esto</b>"
     ico2="system-software-install"
-    paso3="3️⃣   Crear tu máquina de Windows"
+    paso_iso="3️⃣   Conseguir la imagen de Windows"
+    ico_iso="folder-download"
+    paso3="4️⃣   Crear tu máquina de Windows"
     ico3="list-add"
     resumen="Empieza por comprobar si tu equipo puede."
   fi
@@ -287,6 +345,8 @@ Sin reiniciar, sin repartir el disco, sin dejar Linux.
         "bash -c 'x-terminal-emulator -e bash -c \"virt-inspeccionar.sh; echo; read -p \\\"Pulsa Enter para cerrar\\\"\" &'" \
     --field="$paso2!$ico2:fbtn" \
         "bash -c 'x-terminal-emulator -e bash -c \"sudo virt-instalar.sh; echo; read -p \\\"Pulsa Enter para cerrar\\\"\" &'" \
+    --field="$paso_iso!$ico_iso:fbtn" \
+        "bash -c 'cursalia-windows-iso.sh &'" \
     --field="$paso3!$ico3:fbtn" \
         "bash -c 'x-terminal-emulator -e bash -c \"sudo virt-crear-windows.sh; echo; read -p \\\"Pulsa Enter para cerrar\\\"\" &'" \
     --field="🖥️   Abrir Windows!distributor-logo-windows:fbtn"                    "bash -c 'cursalia-windows.sh &'" \
@@ -307,7 +367,7 @@ menu_principal(){
   # El alto se calcula a partir de CUÁNTOS Estudios hay, no de la pantalla.
   # Antes estaba fijado para nueve y al quedar cinco sobraba media ventana
   # vacía, con el botón Cerrar flotando en un desierto gris.
-  local n=5
+  local n=6
   local mh=$(( 205 + n * 46 ))
   local MH=$(xrandr 2>/dev/null | awk '/\*/{print $1; exit}' | cut -dx -f2); [ -z "$MH" ] && MH=768
   local tope=$(( MH - 110 )); [ "$mh" -gt "$tope" ] && mh=$tope
@@ -325,12 +385,14 @@ Tu sistema para <b>desarrollo web</b> y <b>creación de contenido</b>.
     --field="Video Studio — edición, grabación, karaoke!applications-multimedia:fbtn" "bash -c '$SELF video &'" \
     --field="Imágenes y Diseño — gráficos, fotos, imágenes libres!applications-graphics:fbtn" "bash -c '$SELF imagenes &'" \
     --field="Utilitarios — audio, oficina, internet, sistema!applications-utilities:fbtn" "bash -c '$SELF utilitarios &'" \
+    --field="Acerca de — créditos y licencia libre!help-about:fbtn" "bash -c '$SELF acerca &'" \
     --button="Cerrar:1"
 }
 
 case "$1" in
   windows)     estudio_windows ;;
   utilitarios) estudio_utilitarios ;;
+  acerca)      acerca_de ;;
   web)      studio "Desarrollo Web" "💻" "Crear proyectos (Laravel, WordPress), editores, bases de datos y SEO" $WEB ;;
   video)    studio "Video Studio" "🎬" "Edición, grabación y karaoke" $VIDEO ;;
   imagenes) studio "Imágenes y Diseño" "🖼️" "Gráficos, fotos, imágenes libres y optimización web" $IMAGEN ;;

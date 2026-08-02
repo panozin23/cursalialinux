@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Audio Studio
 Comment=Audio y podcast
-Exec=/usr/local/bin/centro-cursalialinux audio
+Exec=centro-cursalialinux audio
 Icon=audio-x-generic
 Terminal=false
 Type=Application
